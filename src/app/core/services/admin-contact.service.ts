@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/auth.model';
 })
 export class AdminContactService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/v1/admin/messages';
+private readonly apiUrl = 'https://portfolio-jyi2.onrender.com/api/v1/admin/messages';
 
   getAllMessages(search?: string, page = 0, size = 10): Observable<ApiResponse<Page<ContactMessageResponse>> | Page<ContactMessageResponse>> {
     let params = new HttpParams().set('page', page).set('size', size);

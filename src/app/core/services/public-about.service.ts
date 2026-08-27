@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/auth.model'; // Assuming generic ApiRespo
 })
 export class PublicAboutService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/v1/public/about';
+ private readonly apiUrl = 'https://portfolio-jyi2.onrender.com/api/v1/public/about';
 
   getAbout(): Observable<ApiResponse<AboutResponse>> {
     return this.http.get<ApiResponse<AboutResponse>>(this.apiUrl);

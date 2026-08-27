@@ -12,8 +12,8 @@ export class AdminAboutService {
   private readonly http = inject(HttpClient);
   
   // Endpoints matching backend controllers
-  private readonly publicApiUrl = 'http://localhost:8080/api/v1/public/about';
-  private readonly adminApiUrl = 'http://localhost:8080/api/v1/admin/about';
+  private readonly publicApiUrl = 'https://portfolio-jyi2.onrender.com/api/v1/public/about';
+  private readonly adminApiUrl = 'https://portfolio-jyi2.onrender.com/api/v1/admin/about';
 
   getAbout(): Observable<ApiResponse<AboutResponse>> {
     return this.http.get<ApiResponse<AboutResponse>>(this.publicApiUrl);

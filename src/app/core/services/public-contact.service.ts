@@ -9,8 +9,7 @@ import{ApiResponse} from '../models/auth.model'; // Assuming generic ApiResponse
 })
 export class PublicContactService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/v1/public/contact';
-
+private readonly apiUrl = 'https://portfolio-jyi2.onrender.com/api/v1/public/contact';
   sendMessage(request: ContactMessageRequest): Observable<ApiResponse<string>> {
     return this.http.post<ApiResponse<string>>(this.apiUrl, request);
   }
