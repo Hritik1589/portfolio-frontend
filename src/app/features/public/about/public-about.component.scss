@@ -1,0 +1,680 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #030712;
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.about-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 24px;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1250px;
+  margin: auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.bg-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: float 18s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 550px;
+  height: 550px;
+  background: rgba(139, 92, 246, .16);
+  top: -120px;
+  left: -120px;
+}
+
+.orb-2 {
+  width: 450px;
+  height: 450px;
+  background: rgba(59, 130, 246, .14);
+  right: -80px;
+  top: 35%;
+  animation-delay: 5s;
+}
+
+.orb-3 {
+  width: 350px;
+  height: 350px;
+  background: rgba(6, 182, 212, .13);
+  bottom: -80px;
+  left: 35%;
+  animation-delay: 9s;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+  background-size: 50px 50px;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: .03;
+
+  background-image:
+    radial-gradient(circle,#fff 1px,transparent 1px);
+
+  background-size: 7px 7px;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  opacity: .25;
+
+  background-image:
+    radial-gradient(#fff 1px,transparent 1px);
+
+  background-size: 180px 180px;
+
+  animation: starsMove 45s linear infinite;
+}
+
+/* =====================================================
+ HERO
+===================================================== */
+
+.hero {
+
+  text-align: center;
+
+  margin-bottom: 90px;
+
+  animation: fadeUp .8s ease;
+}
+
+.hero-badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:10px 22px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(139,92,246,.35);
+
+  color:#c084fc;
+
+  margin-bottom:30px;
+
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.pulse{
+
+width:10px;
+
+height:10px;
+
+border-radius:50%;
+
+background:#8b5cf6;
+
+animation:pulse 2s infinite;
+}
+
+.hero h1{
+
+font-size:72px;
+
+font-weight:900;
+
+line-height:1.05;
+
+margin-bottom:25px;
+}
+
+.hero h1 span{
+
+background:linear-gradient(90deg,#8b5cf6,#3b82f6,#06b6d4);
+
+background-size:300%;
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+animation:gradient 6s linear infinite;
+}
+
+.hero p{
+
+max-width:760px;
+
+margin:auto;
+
+font-size:20px;
+
+line-height:1.9;
+
+color:#cbd5e1;
+}
+
+/* =====================================================
+SOCIAL
+===================================================== */
+
+.socials{
+
+display:flex;
+
+justify-content:center;
+
+gap:18px;
+
+margin-top:40px;
+
+flex-wrap:wrap;
+}
+
+.social-btn{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:14px 28px;
+
+border-radius:18px;
+
+text-decoration:none;
+
+color:white;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.1);
+
+transition:.35s;
+
+backdrop-filter:blur(20px);
+
+svg{
+
+width:20px;
+
+height:20px;
+}
+
+&:hover{
+
+transform:translateY(-8px);
+
+border-color:#8b5cf6;
+
+box-shadow:
+
+0 15px 35px rgba(139,92,246,.25),
+
+0 0 25px rgba(139,92,246,.2);
+}
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:25px;
+
+margin-bottom:70px;
+}
+
+.stat-card{
+
+padding:35px;
+
+border-radius:26px;
+
+background:rgba(255,255,255,.05);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+transition:.4s;
+
+animation:fadeUp .8s ease both;
+
+&:hover{
+
+transform:
+
+translateY(-12px)
+
+rotateX(6deg)
+
+rotateY(-6deg);
+
+border-color:#8b5cf6;
+
+box-shadow:
+
+0 30px 50px rgba(139,92,246,.18);
+}
+
+h2{
+
+font-size:42px;
+
+margin-bottom:10px;
+
+background:linear-gradient(90deg,#8b5cf6,#3b82f6);
+
+-webkit-background-clip:text;
+
+color:transparent;
+}
+
+span{
+
+color:#94a3b8;
+
+font-size:15px;
+}
+}
+
+/* =====================================================
+CARDS
+===================================================== */
+
+.glass-card{
+
+position:relative;
+
+overflow:hidden;
+
+padding:40px;
+
+margin-bottom:35px;
+
+border-radius:30px;
+
+background:
+
+linear-gradient(135deg,
+
+rgba(255,255,255,.08),
+
+rgba(255,255,255,.03));
+
+backdrop-filter:blur(25px);
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.45s;
+
+&::before{
+
+content:"";
+
+position:absolute;
+
+left:-150%;
+
+top:0;
+
+width:60%;
+
+height:100%;
+
+background:linear-gradient(90deg,
+
+transparent,
+
+rgba(255,255,255,.12),
+
+transparent);
+
+transition:1s;
+}
+
+&:hover{
+
+transform:
+
+translateY(-10px)
+
+rotateX(2deg);
+
+border-color:#8b5cf6;
+
+box-shadow:
+
+0 30px 60px rgba(0,0,0,.45),
+
+0 0 30px rgba(139,92,246,.18);
+
+&::before{
+
+left:180%;
+}
+}
+
+h2{
+
+font-size:32px;
+
+margin-bottom:20px;
+}
+
+p{
+
+line-height:1.9;
+
+color:#cbd5e1;
+}
+}
+
+.section-icon{
+
+width:70px;
+
+height:70px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:28px;
+
+border-radius:20px;
+
+margin-bottom:25px;
+
+background:rgba(139,92,246,.15);
+
+border:1px solid rgba(139,92,246,.35);
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.two-column{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+
+gap:30px;
+}
+
+/* =====================================================
+QUOTE
+===================================================== */
+
+.quote-card{
+
+margin-top:60px;
+
+padding:70px 50px;
+
+text-align:center;
+
+border-radius:30px;
+
+background:
+
+linear-gradient(135deg,#312e81,#111827);
+
+border:1px solid rgba(99,102,241,.3);
+
+.quote-mark{
+
+font-size:90px;
+
+opacity:.3;
+}
+
+h2{
+
+font-size:34px;
+
+font-weight:700;
+
+line-height:1.5;
+
+margin:10px auto 25px;
+
+max-width:900px;
+}
+
+p{
+
+color:#94a3b8;
+
+letter-spacing:2px;
+}
+}
+
+/* =====================================================
+LOADER
+===================================================== */
+
+.loading-wrapper{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+}
+
+.loader{
+
+width:65px;
+
+height:65px;
+
+border-radius:50%;
+
+border:5px solid rgba(255,255,255,.08);
+
+border-top-color:#8b5cf6;
+
+animation:spin 1s linear infinite;
+}
+
+/* =====================================================
+ERROR
+===================================================== */
+
+.error-card{
+
+max-width:500px;
+
+margin:150px auto;
+
+padding:50px;
+
+text-align:center;
+
+border-radius:24px;
+
+background:#111827;
+
+border:1px solid rgba(239,68,68,.35);
+}
+
+/* =====================================================
+ANIMATION
+===================================================== */
+
+@keyframes gradient{
+
+0%{background-position:0%;}
+
+100%{background-position:300%;}
+}
+
+@keyframes pulse{
+
+50%{
+
+transform:scale(1.5);
+
+opacity:.3;
+}
+}
+
+@keyframes float{
+
+50%{
+
+transform:translateY(-40px)
+translateX(25px);
+}
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+}
+}
+
+@keyframes spin{
+
+to{
+
+transform:rotate(360deg);
+}
+}
+
+@keyframes starsMove{
+
+to{
+
+transform:translateY(-300px);
+}
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:992px){
+
+.hero h1{
+
+font-size:52px;
+}
+
+.glass-card{
+
+padding:30px;
+}
+
+.quote-card{
+
+padding:50px 30px;
+}
+}
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:40px;
+}
+
+.hero p{
+
+font-size:17px;
+}
+
+.stats{
+
+grid-template-columns:1fr;
+}
+
+.two-column{
+
+grid-template-columns:1fr;
+}
+
+.glass-card h2{
+
+font-size:26px;
+}
+
+.quote-card h2{
+
+font-size:26px;
+}
+
+.social-btn{
+
+width:100%;
+
+justify-content:center;
+}
+}

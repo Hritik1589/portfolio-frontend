@@ -1,0 +1,212 @@
+<div class="blog-admin-page">
+
+  <!-- ========================= -->
+  <!-- Animated Background -->
+  <!-- ========================= -->
+  <div class="bg-wrapper">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+  </div>
+
+  <div class="page-container">
+
+    <!-- ========================= -->
+    <!-- Header -->
+    <!-- ========================= -->
+    <section class="page-header">
+      <div class="header-content">
+        <div class="header-icon">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5L18.5 7H20z">
+            </path>
+          </svg>
+        </div>
+        <div>
+          <div class="admin-badge">Content Management</div>
+          <h1>Blog Management</h1>
+          <p>Create, edit, publish and organize your technical articles.</p>
+        </div>
+      </div>
+      <button class="create-btn" (click)="openModal()">
+        <span>+</span> Write New Blog
+      </button>
+    </section>
+
+    <!-- ========================= -->
+    <!-- Statistics -->
+    <!-- ========================= -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">
+          {{ blogs().length }}
+        </div>
+        <div class="stat-label">Total Blogs</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value text-green-400">
+          <!-- 🚨 FIXED: Replaced the forbidden arrow function with our computed signal -->
+          {{ publishedCount() }}
+        </div>
+        <div class="stat-label">Published</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value text-gray-400">
+          <!-- 🚨 FIXED: Replaced the forbidden arrow function with our computed signal -->
+          {{ draftCount() }}
+        </div>
+        <div class="stat-label">Drafts</div>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- Table Container -->
+    <!-- ========================= -->
+    <section class="table-card">
+      <div class="table-header">
+        <div>
+          <h2>Articles</h2>
+          <span>Manage all published content</span>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Tags</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(isLoading()){
+              <tr>
+                <td colspan="4">
+                  <div class="loading-box">Loading blogs...</div>
+                </td>
+              </tr>
+            }
+            @else if(blogs().length===0){
+              <tr>
+                <td colspan="4">
+                  <div class="empty-box">
+                    <div class="empty-icon">📝</div>
+                    <h3>No Blogs Found</h3>
+                    <p>Start writing your first article.</p>
+                  </div>
+                </td>
+              </tr>
+            }
+            @else{
+              @for(blog of blogs(); track blog.id){
+                <tr>
+                  <td>
+                    <div class="blog-info">
+                      <div class="cover">
+                        <img [src]="blog.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80'"
+                             [alt]="blog.title">
+                      </div>
+                      <div class="details">
+                        <h3>{{blog.title}}</h3>
+                        <p>{{blog.content | slice:0:90}}...</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tags">
+                      @for(tag of blog.tags; track tag){
+                        <span class="tag">{{tag.name ? tag.name : tag}}</span>
+                      }
+                    </div>
+                  </td>
+                  <td>
+                    @if(blog.status==='PUBLISHED'){
+                      <span class="status published">Published</span>
+                    } @else {
+                      <span class="status draft">Draft</span>
+                    }
+                  </td>
+                  <td>
+                    <div class="actions">
+                      <button class="publish" (click)="togglePublish(blog)">
+                        {{blog.status==='PUBLISHED'?'Unpublish':'Publish'}}
+                      </button>
+                      <button class="edit" (click)="openModal(blog)">Edit</button>
+                      <button class="delete" (click)="deleteBlog(blog.id)">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- Modal -->
+    <!-- ========================= -->
+    @if(isModalOpen()){
+      <div class="modal-overlay" (click)="closeModal()">
+        <div class="modal-container glass-3d-modal" (click)="$event.stopPropagation()">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-white drop-shadow-md">
+              {{editingBlogId() ? 'Edit Blog Post' : 'Write New Post'}}
+            </h2>
+            <button class="text-gray-400 hover:text-white transition-colors" (click)="closeModal()">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+
+          <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" class="space-y-5">
+            <div class="input-group">
+              <label>Title</label>
+              <input type="text" placeholder="Post Title" formControlName="title">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="input-group">
+                <label>URL Slug</label>
+                <input type="text" placeholder="my-awesome-post" formControlName="slug">
+              </div>
+
+              <div class="input-group">
+                <label>Cover Image URL</label>
+                <input type="text" placeholder="https://..." formControlName="coverImage">
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>Tags (Comma separated)</label>
+              <input type="text" placeholder="Java, Backend, System Design" formControlName="tags">
+            </div>
+
+            <div class="input-group">
+              <label>Category</label>
+              <input type="text" placeholder="e.g., Backend, Frontend, DevOps" formControlName="category">
+            </div>
+
+            <div class="input-group">
+              <label>Full Content (Markdown/HTML)</label>
+              <textarea placeholder="Write your post here..." formControlName="content" class="h-64"></textarea>
+            </div>
+
+            <div class="modal-buttons mt-8 pt-6 border-t border-white/5">
+              <button type="button" class="btn-3d-secondary" (click)="closeModal()">Cancel</button>
+              <button type="submit" class="btn-3d-primary" [disabled]="isSubmitting()">
+                {{ isSubmitting() ? 'Saving...' : 'Save Post' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+  </div>
+</div>

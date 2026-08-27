@@ -1,0 +1,917 @@
+/* ===========================================================
+   BACKGROUND
+=========================================================== */
+
+:host {
+  display: block;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 45px 45px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+}
+
+.floating-orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(110px);
+  animation:float 12s ease-in-out infinite;
+}
+
+.orb-purple{
+  width:420px;
+  height:420px;
+  left:-120px;
+  top:-80px;
+  background:#9333ea25;
+}
+
+.orb-pink{
+  width:360px;
+  height:360px;
+  right:-100px;
+  top:180px;
+  background:#ec489925;
+  animation-delay:3s;
+}
+
+.orb-indigo{
+  width:450px;
+  height:450px;
+  bottom:-120px;
+  left:35%;
+  background:#6366f125;
+  animation-delay:6s;
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0) scale(1);
+  }
+  50%{
+    transform:translateY(-40px) scale(1.08);
+  }
+}
+
+/* ===========================================================
+HEADER
+=========================================================== */
+
+.dashboard-chip{
+
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+
+  padding:.65rem 1rem;
+
+  border-radius:999px;
+
+  background:rgba(168,85,247,.1);
+
+  border:1px solid rgba(168,85,247,.3);
+
+  color:#c084fc;
+
+  font-size:.8rem;
+
+  margin-bottom:1rem;
+
+}
+
+.dashboard-chip svg{
+
+  width:18px;
+  height:18px;
+
+}
+
+.dashboard-title{
+
+  font-size:3rem;
+
+  font-weight:800;
+
+  color:white;
+
+}
+
+.dashboard-subtitle{
+
+  color:#94a3b8;
+
+  margin-top:.6rem;
+
+  max-width:700px;
+
+  line-height:1.8;
+
+}
+
+/* ===========================================================
+BUTTON
+=========================================================== */
+
+.primary-btn{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border:none;
+
+  cursor:pointer;
+
+  padding:1rem 2rem;
+
+  border-radius:18px;
+
+  background:linear-gradient(135deg,#9333ea,#7c3aed);
+
+  color:white;
+
+  font-weight:700;
+
+  transition:.35s;
+
+  box-shadow:
+  0 20px 45px rgba(147,51,234,.35);
+
+}
+
+.primary-btn:hover{
+
+  transform:
+  translateY(-6px)
+  scale(1.04);
+
+  box-shadow:
+  0 35px 65px rgba(147,51,234,.45);
+
+}
+
+/* ===========================================================
+STATS
+=========================================================== */
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+gap:1.5rem;
+
+margin-bottom:3rem;
+
+}
+
+.stat-card{
+
+position:relative;
+
+overflow:hidden;
+
+padding:2rem;
+
+border-radius:28px;
+
+background:rgba(15,23,42,.65);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(148,163,184,.12);
+
+display:flex;
+
+align-items:center;
+
+gap:1.2rem;
+
+transition:.4s;
+
+}
+
+.stat-card:hover{
+
+transform:
+translateY(-10px)
+rotateX(6deg);
+
+border-color:#9333ea55;
+
+box-shadow:
+0 30px 70px rgba(147,51,234,.18);
+
+}
+
+.stat-card::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:
+
+linear-gradient(130deg,
+transparent,
+rgba(255,255,255,.08),
+transparent);
+
+transform:translateX(-100%);
+
+transition:.8s;
+
+}
+
+.stat-card:hover::before{
+
+transform:translateX(100%);
+
+}
+
+.stat-icon{
+
+width:72px;
+
+height:72px;
+
+border-radius:22px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:2rem;
+
+}
+
+.purple{
+
+background:#9333ea22;
+
+}
+
+.blue{
+
+background:#3b82f622;
+
+}
+
+.green{
+
+background:#10b98122;
+
+}
+
+.orange{
+
+background:#f59e0b22;
+
+}
+
+.stat-card h3{
+
+font-size:.82rem;
+
+color:#94a3b8;
+
+margin-bottom:.4rem;
+
+}
+
+.stat-card h2{
+
+font-size:2rem;
+
+font-weight:800;
+
+color:white;
+
+}
+
+/* ===========================================================
+CATEGORY
+=========================================================== */
+
+.category-section{
+
+margin-bottom:4rem;
+
+animation:fadeUp .8s;
+
+}
+
+.category-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:1.8rem;
+
+}
+
+.category-header h2{
+
+font-size:1.8rem;
+
+color:white;
+
+font-weight:800;
+
+}
+
+.category-header span{
+
+color:#a855f7;
+
+}
+
+/* ===========================================================
+GRID
+=========================================================== */
+
+.skill-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:2rem;
+
+}
+
+/* ===========================================================
+CARD
+=========================================================== */
+
+.skill-card{
+
+position:relative;
+
+overflow:hidden;
+
+padding:2rem;
+
+border-radius:28px;
+
+background:rgba(15,23,42,.72);
+
+border:1px solid rgba(148,163,184,.12);
+
+backdrop-filter:blur(22px);
+
+transition:.45s;
+
+transform-style:preserve-3d;
+
+}
+
+.skill-card:hover{
+
+transform:
+translateY(-12px)
+rotateX(7deg)
+rotateY(-7deg);
+
+border-color:#a855f777;
+
+box-shadow:
+
+0 45px 90px rgba(168,85,247,.18),
+
+0 0 50px rgba(168,85,247,.12);
+
+}
+
+.card-glow{
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+right:-90px;
+
+top:-90px;
+
+border-radius:50%;
+
+background:#9333ea20;
+
+filter:blur(80px);
+
+opacity:0;
+
+transition:.5s;
+
+}
+
+.skill-card:hover .card-glow{
+
+opacity:1;
+
+}
+
+/* ===========================================================
+HEADER
+=========================================================== */
+
+.skill-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:1.8rem;
+
+}
+
+.skill-header h3{
+
+font-size:1.4rem;
+
+font-weight:700;
+
+color:white;
+
+}
+
+.skill-header small{
+
+color:#94a3b8;
+
+}
+
+/* ===========================================================
+SVG CIRCLE
+=========================================================== */
+
+.percentage-circle{
+
+position:relative;
+
+width:82px;
+
+height:82px;
+
+}
+
+.percentage-circle svg{
+
+width:82px;
+
+height:82px;
+
+transform:rotate(-90deg);
+
+}
+
+.percentage-circle circle{
+
+fill:none;
+
+stroke-width:7;
+
+stroke-linecap:round;
+
+}
+
+.percentage-circle circle:first-child{
+
+stroke:#1e293b;
+
+}
+
+.percentage-circle circle:last-child{
+
+stroke:#a855f7;
+
+stroke-dasharray:214;
+
+transition:1s;
+
+}
+
+.percentage-circle span{
+
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:.8rem;
+
+font-weight:700;
+
+color:white;
+
+}
+
+/* ===========================================================
+PROGRESS
+=========================================================== */
+
+.progress{
+
+margin:1.5rem 0;
+
+height:10px;
+
+background:#1e293b;
+
+border-radius:999px;
+
+overflow:hidden;
+
+}
+
+.progress-fill{
+
+height:100%;
+
+border-radius:999px;
+
+background:linear-gradient(90deg,#9333ea,#ec4899);
+
+transition:1s;
+
+}
+
+/* ===========================================================
+FOOTER
+=========================================================== */
+
+.skill-footer{
+
+display:flex;
+
+justify-content:space-between;
+
+color:#94a3b8;
+
+font-size:.85rem;
+
+margin-bottom:1.6rem;
+
+}
+
+/* ===========================================================
+BUTTONS
+=========================================================== */
+
+.actions{
+
+display:flex;
+
+gap:1rem;
+
+}
+
+.edit-btn,
+
+.delete-btn{
+
+flex:1;
+
+padding:.9rem;
+
+border-radius:14px;
+
+cursor:pointer;
+
+font-weight:700;
+
+transition:.35s;
+
+}
+
+.edit-btn{
+
+background:#9333ea22;
+
+border:1px solid #9333ea55;
+
+color:#d8b4fe;
+
+}
+
+.edit-btn:hover{
+
+transform:translateY(-4px);
+
+background:#9333ea;
+
+color:white;
+
+}
+
+.delete-btn{
+
+background:#ef444415;
+
+border:1px solid #ef444455;
+
+color:#fca5a5;
+
+}
+
+.delete-btn:hover{
+
+background:#ef4444;
+
+color:white;
+
+transform:translateY(-4px);
+
+}
+
+/* ===========================================================
+LOADER
+=========================================================== */
+
+.loader-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:2rem;
+
+}
+
+.loader-card{
+
+height:280px;
+
+border-radius:24px;
+
+background:
+
+linear-gradient(
+90deg,
+#1e293b,
+#334155,
+#1e293b);
+
+background-size:300%;
+
+animation:loading 1.4s infinite;
+
+}
+
+@keyframes loading{
+
+0%{
+
+background-position:0;
+
+}
+
+100%{
+
+background-position:300%;
+
+}
+
+}
+
+/* ===========================================================
+MODAL
+=========================================================== */
+
+.modal-card{
+
+width:min(900px,100%);
+
+max-height:90vh;
+
+overflow:auto;
+
+padding:2rem;
+
+border-radius:28px;
+
+background:#0f172ae6;
+
+border:1px solid rgba(168,85,247,.2);
+
+backdrop-filter:blur(24px);
+
+animation:popup .45s cubic-bezier(.2,.9,.2,1);
+
+}
+
+.modal-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+margin-bottom:2rem;
+
+}
+
+.modal-chip{
+
+display:inline-block;
+
+padding:.4rem .8rem;
+
+border-radius:999px;
+
+background:#9333ea22;
+
+color:#d8b4fe;
+
+font-size:.75rem;
+
+margin-bottom:.7rem;
+
+}
+
+.close-btn{
+
+width:46px;
+
+height:46px;
+
+border-radius:50%;
+
+background:#1e293b;
+
+color:white;
+
+}
+
+.modal-actions{
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:1rem;
+
+margin-top:2rem;
+
+}
+
+.cancel-btn,.save-btn{
+
+padding:1rem 2rem;
+
+border-radius:16px;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.save-btn{
+
+background:linear-gradient(135deg,#9333ea,#7c3aed);
+
+color:white;
+
+}
+
+.save-btn:hover{
+
+transform:translateY(-4px);
+
+}
+
+.cancel-btn{
+
+background:#1e293b;
+
+color:white;
+
+}
+
+.admin-input{
+
+width:100%;
+
+padding:.95rem 1rem;
+
+border-radius:14px;
+
+background:#020617;
+
+border:1px solid #334155;
+
+color:white;
+
+transition:.3s;
+
+}
+
+.admin-input:focus{
+
+outline:none;
+
+border-color:#9333ea;
+
+box-shadow:0 0 20px rgba(168,85,247,.25);
+
+}
+
+/* ===========================================================
+ANIMATIONS
+=========================================================== */
+
+@keyframes popup{
+
+0%{
+
+opacity:0;
+
+transform:translateY(40px) scale(.9);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/* ===========================================================
+RESPONSIVE
+=========================================================== */
+
+@media(max-width:768px){
+
+.dashboard-title{
+
+font-size:2rem;
+
+}
+
+.skill-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.stats-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.modal-actions{
+
+flex-direction:column;
+
+}
+
+}

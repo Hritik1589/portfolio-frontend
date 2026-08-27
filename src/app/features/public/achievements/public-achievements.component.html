@@ -1,0 +1,336 @@
+<div class="achievement-page">
+
+  <!-- ========================================================= -->
+  <!-- Background -->
+  <!-- ========================================================= -->
+
+  <div class="background">
+
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+
+    <div class="grid-overlay"></div>
+
+    @for (i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i) {
+      <span class="particle"></span>
+    }
+
+  </div>
+
+  <div class="container">
+
+    <!-- ========================================================= -->
+    <!-- Hero -->
+    <!-- ========================================================= -->
+
+    <section class="hero">
+
+      <span class="hero-badge">
+        Career Journey
+      </span>
+
+      <h1>
+        Achievements
+        <span>That Define My Growth</span>
+      </h1>
+
+      <p>
+        Every certification, project, and milestone represents
+        another step toward becoming a better Software Engineer.
+      </p>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- Loading -->
+    <!-- ========================================================= -->
+
+    @if (isLoading()) {
+
+      <section class="loading-grid">
+
+        @for (item of [1,2,3,4,5,6]; track item) {
+
+          <div class="loading-card">
+
+            <div class="loading-header"></div>
+
+            <div class="loading-title"></div>
+
+            <div class="loading-line"></div>
+
+            <div class="loading-line short"></div>
+
+            <div class="loading-button"></div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+    <!-- ========================================================= -->
+    <!-- Error -->
+    <!-- ========================================================= -->
+
+    @else if (errorMessage()) {
+
+      <section class="error-state">
+
+        <div class="error-icon">
+
+          ⚠️
+
+        </div>
+
+        <h2>
+
+          Unable to load achievements
+
+        </h2>
+
+        <p>
+
+          {{ errorMessage() }}
+
+        </p>
+
+      </section>
+
+    }
+
+    <!-- ========================================================= -->
+    <!-- Data -->
+    <!-- ========================================================= -->
+
+    @else {
+
+      @if (achievements().length > 0) {
+
+        <!-- ============================================= -->
+        <!-- Featured Achievement -->
+        <!-- ============================================= -->
+
+        <section class="featured-card">
+
+          <div class="featured-glow"></div>
+
+          <div class="featured-content">
+
+            <span class="featured-tag">
+
+              Featured Achievement
+
+            </span>
+
+            <h2>
+
+              {{ achievements()[0].title }}
+
+            </h2>
+
+            <h3>
+
+              {{ achievements()[0].organization }}
+
+            </h3>
+
+            <p>
+
+              {{ achievements()[0].description }}
+
+            </p>
+
+            <div class="featured-footer">
+
+              <span class="featured-date">
+
+                {{ achievements()[0].date | date:'MMMM yyyy' }}
+
+              </span>
+
+              @if (achievements()[0].certUrl) {
+
+                <a
+                  [href]="achievements()[0].certUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  View Certificate
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14 3h7v7M10 14L21 3M5 5v16h16"
+                    />
+
+                  </svg>
+
+                </a>
+
+              }
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ============================================= -->
+        <!-- Achievement Grid -->
+        <!-- ============================================= -->
+
+        @if (achievements().length > 1) {
+
+          <section class="achievement-grid">
+
+            @for (
+              achievement of achievements().slice(1);
+              track achievement.id;
+              let i = $index
+            ) {
+
+              <article
+                class="achievement-card"
+                [style.animationDelay]="((i + 1) * 120) + 'ms'"
+              >
+
+                <div class="gradient-border"></div>
+
+                <div class="shine"></div>
+
+                <div class="card-content">
+
+                  <div class="card-header">
+
+                    <span class="achievement-number">
+
+                      {{
+                        (i + 2) < 10
+                          ? '0' + (i + 2)
+                          : (i + 2)
+                      }}
+
+                    </span>
+
+                    <span class="achievement-date">
+
+                      {{ achievement.date | date:'MMM yyyy' }}
+
+                    </span>
+
+                  </div>
+
+                  <h3>
+
+                    {{ achievement.title }}
+
+                  </h3>
+
+                  <h4>
+
+                    {{ achievement.organization }}
+
+                  </h4>
+
+                  <p>
+
+                    {{ achievement.description }}
+
+                  </p>
+
+                  <div class="card-footer">
+
+                    @if (achievement.certUrl) {
+
+                      <a
+                        [href]="achievement.certUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+
+                        Certificate
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M14 3h7v7M10 14L21 3M5 5v16h16"
+                          />
+
+                        </svg>
+
+                      </a>
+
+                    }
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            }
+
+          </section>
+
+        }
+
+      }
+
+      <!-- ===================================================== -->
+      <!-- Empty State -->
+      <!-- ===================================================== -->
+
+      @else {
+
+        <section class="empty-state">
+
+          <div class="empty-circle">
+
+            🏆
+
+          </div>
+
+          <h2>
+
+            More Achievements Coming Soon
+
+          </h2>
+
+          <p>
+
+            Every certification, project, and accomplishment
+            will be showcased here as I continue growing as a
+            software engineer.
+
+          </p>
+
+        </section>
+
+      }
+
+    }
+
+  </div>
+
+</div>

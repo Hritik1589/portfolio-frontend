@@ -1,0 +1,113 @@
+<!-- Featured Projects Section -->
+@if(isLoadingFeatured()) {
+  <div class="projects-wrapper">
+    <h2 class="section-title skeleton-title">Loading Featured...</h2>
+    <div class="projects-grid">
+      @for(item of [1,2]; track item) {
+        <div class="project-skeleton"></div>
+      }
+    </div>
+  </div>
+}
+@else if(featuredProjects().length) {
+  <section class="projects-wrapper featured-projects">
+    <h2 class="section-title">Featured Projects</h2>
+    
+    <div class="projects-grid">
+      @for(project of featuredProjects(); track project.id; let i = $index) {
+        <a
+          class="project-card"
+          [routerLink]="['/projects', project.slug]"
+          [style.animation-delay.ms]="i * 100"
+          (mousemove)="cardMove($event)"
+          (mouseleave)="leaveCard($event)"
+        >
+          <div class="image-wrapper">
+            <img
+              [src]="project.imageUrl || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80'"
+              [alt]="project.title"
+              loading="lazy"
+            >
+            <div class="image-overlay"></div>
+            <div class="project-number">{{i + 1}}</div>
+          </div>
+
+          <div class="card-content">
+            <h3>{{project.title}}</h3>
+            <p class="date">{{project.startDate | date:'MMM yyyy'}}</p>
+            <p class="description">{{project.shortDescription}}</p>
+            
+            <div class="tech-list">
+              @for(tech of getVisibleTechnologies(project); track tech) {
+                <span>{{tech}}</span>
+              }
+              @if(project.technologies.length > 3) {
+                <span>+{{project.technologies.length - 3}}</span>
+              }
+            </div>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+}
+
+<!-- All Projects Section -->
+@if(isLoadingAll()) {
+  <div class="projects-wrapper">
+    <h2 class="section-title skeleton-title">Loading Projects...</h2>
+    <div class="projects-grid">
+      @for(item of [1,2,3,4,5,6]; track item) {
+        <div class="project-skeleton"></div>
+      }
+    </div>
+  </div>
+}
+@else if(allProjects().length) {
+  <section class="projects-wrapper all-projects">
+    <h2 class="section-title">All Projects</h2>
+    
+    <div class="projects-grid">
+      @for(project of allProjects(); track project.id; let i = $index) {
+        <a
+          class="project-card"
+          [routerLink]="[project.slug]"
+          [style.animation-delay.ms]="i * 100"
+          (mousemove)="cardMove($event)"
+          (mouseleave)="leaveCard($event)"
+        >
+          <div class="image-wrapper">
+            <img
+              [src]="project.imageUrl || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80'"
+              [alt]="project.title"
+              loading="lazy"
+            >
+            <div class="image-overlay"></div>
+            <div class="project-number">{{i + 1}}</div>
+          </div>
+
+          <div class="card-content">
+            <h3>{{project.title}}</h3>
+            <p class="date">{{project.startDate | date:'MMM yyyy'}}</p>
+            <p class="description">{{project.shortDescription}}</p>
+            
+           <div class="tech-list">
+              @for(tech of getVisibleTechnologies(project); track tech) {
+                <!-- 🚨 FIXED TECH: Extracting the 'name' property from the object -->
+               <span>{{ $any(tech).name || tech }}</span>
+              }
+              @if(project.technologies.length > 3) {
+                <span>+{{project.technologies.length - 3}}</span>
+              }
+            </div>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+}
+@else {
+  <div class="empty-state">
+    <h2>No projects found</h2>
+  </div>
+}

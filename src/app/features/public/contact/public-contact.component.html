@@ -1,0 +1,645 @@
+<div class="contact-page">
+
+  <!-- =========================================
+       Animated Background
+  ========================================== -->
+
+  <div class="bg-wrapper">
+
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="floating-circle circle-1"></div>
+    <div class="floating-circle circle-2"></div>
+    <div class="floating-circle circle-3"></div>
+    <div class="floating-circle circle-4"></div>
+
+  </div>
+
+  <div class="container">
+
+    <!-- =========================================
+          Back Button
+    ========================================== -->
+
+    <button
+      class="back-btn"
+      type="button"
+      (click)="goBack()">
+
+      <svg
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24">
+
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 19l-7-7 7-7">
+        </path>
+
+      </svg>
+
+      <span>Back</span>
+
+    </button>
+
+    <!-- =========================================
+              Hero
+    ========================================== -->
+
+    <section class="hero-section">
+
+      <div class="hero-badge">
+
+        <span class="pulse-dot"></span>
+
+        Available For Freelance & Full-Time
+
+      </div>
+
+      <h1 class="hero-title">
+
+        Let's Create
+
+        <span>Exceptional Digital Experiences</span>
+
+      </h1>
+
+      <p class="hero-description">
+
+        I design and develop scalable backend systems,
+        modern web applications and cloud-native solutions.
+
+        Whether you're building a startup or enterprise product,
+        let's bring your vision to life.
+
+      </p>
+
+    </section>
+
+    <!-- =========================================
+             Main Layout
+    ========================================== -->
+
+    <div class="content-grid">
+
+      <!-- =========================================
+                 LEFT COLUMN
+      ========================================== -->
+
+      <aside class="left-panel">
+
+        <!-- Card 1 -->
+
+        <div class="glass-card delay-1">
+
+          <div class="card-glow"></div>
+
+          <div class="icon purple">
+
+            ✉️
+
+          </div>
+
+          <div class="card-content">
+
+            <span class="card-label">
+
+              EMAIL
+
+            </span>
+
+            <h3>
+
+              Let's Talk
+
+            </h3>
+
+            <p>
+
+              Reach out for freelance work,
+              collaborations or technical discussions.
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- Card 2 -->
+
+        <div class="glass-card delay-2">
+
+          <div class="card-glow"></div>
+
+          <div class="icon blue">
+
+            📱
+
+          </div>
+
+          <div class="card-content">
+
+            <span class="card-label">
+
+              MOBILE
+
+            </span>
+
+            <h3>
+
+              Quick Response
+
+            </h3>
+
+            <p>
+
+              Usually replies within
+              a few hours.
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- Card 3 -->
+
+        <div class="glass-card delay-3">
+
+          <div class="card-glow"></div>
+
+          <div class="icon pink">
+
+            🚀
+
+          </div>
+
+          <div class="card-content">
+
+            <span class="card-label">
+
+              SERVICES
+
+            </span>
+
+            <h3>
+
+              Full Stack Development
+
+            </h3>
+
+            <p>
+
+              Angular • Spring Boot • AI • Cloud
+              Architecture • APIs
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- =========================================
+                Floating Stats
+        ========================================== -->
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+
+            <h2>
+
+              24h
+
+            </h2>
+
+            <span>
+
+              Average Reply
+
+            </span>
+
+          </div>
+
+          <div class="stat-card">
+
+            <h2>
+
+              100%
+
+            </h2>
+
+            <span>
+
+              Commitment
+
+            </span>
+
+          </div>
+
+          <div class="stat-card">
+
+            <h2>
+
+              ∞
+
+            </h2>
+
+            <span>
+
+              Innovation
+
+            </span>
+
+          </div>
+
+          <div class="stat-card">
+
+            <h2>
+
+              AI
+
+            </h2>
+
+            <span>
+
+              Ready
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+      <!-- =========================================
+             RIGHT COLUMN
+             (Form starts in Part 2)
+      ========================================== -->
+
+      <section class="form-wrapper">
+        <!-- ======================================================
+     CONTACT FORM
+====================================================== -->
+
+<div class="form-card">
+
+  <div class="form-header">
+
+    <div class="form-icon">
+      ✨
+    </div>
+
+    <div>
+
+      <h2>
+        Start Your Project
+      </h2>
+
+      <p>
+        Fill in the form below and I'll get back to you as soon as possible.
+      </p>
+
+    </div>
+
+  </div>
+
+  <form
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+    class="contact-form">
+
+    <!-- ===========================
+         Name + Email
+    ============================ -->
+
+    <div class="form-row">
+
+      <div class="input-group">
+
+        <label>Your Name *</label>
+
+        <div class="input-wrapper">
+
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="John Doe"
+            class="premium-input">
+
+        </div>
+
+        @if(isFieldInvalid('name')){
+          <p class="error-text">
+            Name must contain at least 2 characters.
+          </p>
+        }
+
+      </div>
+
+      <div class="input-group">
+
+        <label>Email Address *</label>
+
+        <div class="input-wrapper">
+
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="john@example.com"
+            class="premium-input">
+
+        </div>
+
+        @if(isFieldInvalid('email')){
+          <p class="error-text">
+            Enter a valid email address.
+          </p>
+        }
+
+      </div>
+
+    </div>
+
+    <!-- ===========================
+         Mobile + Subject
+    ============================ -->
+
+    <div class="form-row">
+
+      <div class="input-group">
+
+        <label>Mobile Number</label>
+
+        <div class="input-wrapper">
+
+          <input
+            type="text"
+            formControlName="mobileNumber"
+            placeholder="+91 9876543210"
+            class="premium-input">
+
+        </div>
+
+      </div>
+
+      <div class="input-group">
+
+        <label>Subject *</label>
+
+        <div class="input-wrapper">
+
+          <input
+            type="text"
+            formControlName="subject"
+            placeholder="Project Discussion"
+            class="premium-input">
+
+        </div>
+
+        @if(isFieldInvalid('subject')){
+          <p class="error-text">
+            Subject should contain at least 3 characters.
+          </p>
+        }
+
+      </div>
+
+    </div>
+
+    <!-- ===========================
+         Message
+    ============================ -->
+
+    <div class="input-group">
+
+      <label>Your Message *</label>
+
+      <div class="textarea-wrapper">
+
+        <textarea
+
+          rows="8"
+
+          formControlName="message"
+
+          placeholder="Tell me about your project..."
+
+          class="premium-textarea">
+
+        </textarea>
+
+      </div>
+
+      @if(isFieldInvalid('message')){
+        <p class="error-text">
+          Message must contain at least 10 characters.
+        </p>
+      }
+
+    </div>
+
+    <!-- ===========================
+         Features
+    ============================ -->
+
+    <div class="feature-grid">
+
+      <div class="feature-item">
+
+        <div class="feature-icon">
+          ⚡
+        </div>
+
+        <div>
+
+          <h4>Fast Response</h4>
+
+          <p>Replies within 24 hours.</p>
+
+        </div>
+
+      </div>
+
+      <div class="feature-item">
+
+        <div class="feature-icon">
+          🔒
+        </div>
+
+        <div>
+
+          <h4>Private</h4>
+
+          <p>Your information remains confidential.</p>
+
+        </div>
+
+      </div>
+
+      <div class="feature-item">
+
+        <div class="feature-icon">
+          🚀
+        </div>
+
+        <div>
+
+          <h4>Modern Tech</h4>
+
+          <p>Angular, Spring Boot & Cloud.</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ===========================
+         Status Panel
+    ============================ -->
+
+    <div class="status-panel">
+
+      <div class="status-item">
+
+        <span
+          class="status-dot"
+          [class.active]="contactForm.valid">
+        </span>
+
+        <span>
+
+          Form Status
+
+        </span>
+
+      </div>
+
+      <div class="status-item">
+
+        <strong>
+
+          {{ contactForm.valid ? 'Ready to Send' : 'Waiting for Input' }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+    <!-- ===========================
+         Submit Button
+    ============================ -->
+
+    <button
+
+      type="submit"
+
+      class="submit-btn"
+
+      [disabled]="contactForm.invalid || isSubmitting()">
+
+      <div class="button-glow"></div>
+
+      @if(isSubmitting()){
+
+        <span class="button-content">
+
+          <span class="loader"></span>
+
+          Sending Message...
+
+        </span>
+
+      }
+
+      @else{
+
+        <span class="button-content">
+
+          <span>
+
+            Send Message
+
+          </span>
+
+          <svg
+
+            class="send-icon"
+
+            fill="none"
+
+            stroke="currentColor"
+
+            viewBox="0 0 24 24">
+
+            <path
+
+              stroke-linecap="round"
+
+              stroke-linejoin="round"
+
+              stroke-width="2"
+
+              d="M5 12h14m-6-6l6 6-6 6">
+
+            </path>
+
+          </svg>
+
+        </span>
+
+      }
+
+    </button>
+
+  </form>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- =====================================
+      Bottom CTA
+====================================== -->
+
+<section class="bottom-section">
+
+  <div class="bottom-card">
+
+    <div class="bottom-content">
+
+      <span>
+
+        Ready to build something incredible?
+
+      </span>
+
+      <h2>
+
+        Let's turn your ideas into reality.
+
+      </h2>
+
+    </div>
+
+    <div class="bottom-light"></div>
+
+  </div>
+
+</section>
+
+</div>
+
+</div>

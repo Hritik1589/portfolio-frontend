@@ -1,0 +1,273 @@
+<div class="education-page">
+
+  <!-- ===================================================== -->
+  <!-- Animated Background -->
+  <!-- ===================================================== -->
+
+  <div class="background">
+
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+
+    <div class="grid-overlay"></div>
+
+    @for(item of [1,2,3,4,5,6,7,8,9,10,11,12]; track item){
+      <span class="particle"></span>
+    }
+
+  </div>
+
+  <div class="container">
+
+    <!-- ===================================================== -->
+    <!-- HERO -->
+    <!-- ===================================================== -->
+
+    <section class="hero">
+
+      <span class="hero-badge">
+
+        Academic Journey
+
+      </span>
+
+      <h1>
+
+        Education
+
+        <span>Timeline</span>
+
+      </h1>
+
+      <p>
+
+        My academic path, engineering foundation,
+        certifications and educational milestones that
+        helped shape my career.
+
+      </p>
+
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- LOADING -->
+    <!-- ===================================================== -->
+
+    @if(isLoading()){
+
+      <section class="loading-wrapper">
+
+        @for(item of [1,2,3]; track item){
+
+          <div class="loading-card">
+
+            <div class="loading-circle"></div>
+
+            <div class="loading-content">
+
+              <div class="loading-title"></div>
+
+              <div class="loading-line"></div>
+
+              <div class="loading-line short"></div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+    <!-- ===================================================== -->
+    <!-- ERROR -->
+    <!-- ===================================================== -->
+
+    @else if(errorMessage()){
+
+      <section class="error-box">
+
+        <div class="error-icon">
+
+          ⚠️
+
+        </div>
+
+        <h2>
+
+          Unable to load education
+
+        </h2>
+
+        <p>
+
+          {{ errorMessage() }}
+
+        </p>
+
+      </section>
+
+    }
+
+    <!-- ===================================================== -->
+    <!-- TIMELINE -->
+    <!-- ===================================================== -->
+
+    @else{
+
+      @if(educationList().length){
+
+      <section class="timeline">
+
+        <!-- Animated Timeline Line -->
+
+        <div class="timeline-line"></div>
+                <!-- ============================================== -->
+        <!-- Timeline Items -->
+        <!-- ============================================== -->
+
+        @for(edu of educationList(); track edu.id; let i = $index){
+
+        <article
+          class="timeline-item"
+          [class.left]="i % 2 === 0"
+          [class.right]="i % 2 !== 0"
+          [style.animationDelay]="(i * 180) + 'ms'">
+
+          <!-- Timeline Node -->
+
+          <div class="timeline-node">
+
+            <div class="node-core">
+
+              🎓
+
+            </div>
+
+          </div>
+
+          <!-- Card -->
+
+          <div class="education-card">
+
+            <div class="gradient-border"></div>
+
+            <div class="shine"></div>
+
+            <div class="card-content">
+
+              <!-- ========================= -->
+              <!-- TOP -->
+              <!-- ========================= -->
+
+              <div class="card-top">
+
+                <span class="duration">
+
+                  {{edu.startYear}}
+
+                  —
+
+                  {{edu.endYear ? edu.endYear : 'Present'}}
+
+                </span>
+
+                @if(edu.gpaOrPercentage){
+
+                <span class="grade">
+
+                  ⭐ {{edu.gpaOrPercentage}}
+
+                </span>
+
+                }
+
+              </div>
+
+              <!-- ========================= -->
+
+              <h2>
+
+                {{edu.degree}}
+
+              </h2>
+
+              <h3>
+
+                {{edu.university}}
+
+              </h3>
+
+              @if(edu.description){
+
+              <p>
+
+                {{edu.description}}
+
+              </p>
+
+              }
+
+              <!-- ========================= -->
+
+              <div class="card-footer">
+
+                <span>
+
+                  Academic Achievement
+
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+        }
+
+      </section>
+
+      }
+
+      <!-- ===================================================== -->
+      <!-- EMPTY -->
+      <!-- ===================================================== -->
+
+      @else{
+
+      <section class="empty-state">
+
+        <div class="empty-circle">
+
+          🎓
+
+        </div>
+
+        <h2>
+
+          No Education Found
+
+        </h2>
+
+        <p>
+
+          Academic information will appear here as new
+          qualifications and milestones are added.
+
+        </p>
+
+      </section>
+
+      }
+
+    }
+
+  </div>
+
+</div>

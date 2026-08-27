@@ -1,0 +1,377 @@
+<div class="messages-page">
+
+  <!-- ============================= -->
+  <!-- Animated Background -->
+  <!-- ============================= -->
+
+  <div class="bg-wrapper">
+
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+
+  </div>
+
+  <div class="page-container">
+
+    <!-- ========================================= -->
+    <!-- HERO -->
+    <!-- ========================================= -->
+
+    <section class="hero">
+
+      <div class="hero-left">
+
+        <div class="hero-badge">
+
+          <span class="live-dot"></span>
+
+          CRM Dashboard
+
+        </div>
+
+        <h1>
+
+          Client
+          <span>Messages</span>
+
+        </h1>
+
+        <p>
+
+          Manage client inquiries, reply faster,
+          organize conversations and monitor unread
+          requests from one premium dashboard.
+
+        </p>
+
+      </div>
+
+      <div class="hero-right">
+
+        <div class="hero-circle">
+
+          <svg
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 8l9 6 9-6m-18 8h18V8l-9-6-9 6v8z"/>
+
+          </svg>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Statistics -->
+    <!-- ========================================= -->
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-icon purple">
+
+          📩
+
+        </div>
+
+        <div>
+
+          <span>Total Messages</span>
+
+          <h2>{{ messages().length }}</h2>
+
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon blue">
+
+          🔥
+
+        </div>
+
+        <div>
+
+          <span>Unread</span>
+
+          <h2>{{ unreadCount() }}</h2>
+
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon green">
+
+          ⚡
+
+        </div>
+
+        <div>
+
+          <span>Status</span>
+
+          <h2>Online</h2>
+
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon orange">
+
+          ⭐
+
+        </div>
+
+        <div>
+
+          <span>Inbox</span>
+
+          <h2>Active</h2>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Toolbar -->
+    <!-- ========================================= -->
+
+    <section class="toolbar">
+
+      <div class="tabs">
+
+        <button
+
+          (click)="setTab('all')"
+
+          [class.active]="activeTab() === 'all'">
+
+          All
+
+        </button>
+
+        <button
+
+          (click)="setTab('unread')"
+
+          [class.active]="activeTab() === 'unread'">
+
+          Unread
+
+        </button>
+
+      </div>
+
+      <div class="search-box">
+
+        <svg
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+
+        </svg>
+
+        <input
+
+          type="text"
+
+          [value]="searchQuery()"
+
+          (input)="onSearchInput($event)"
+
+          placeholder="Search messages..." />
+
+      </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Loading -->
+    <!-- ========================================= -->
+
+    @if(isLoading()){
+
+    <section class="loading-grid">
+
+      @for(item of [1,2,3,4,5]; track item){
+
+      <div class="message-skeleton"></div>
+
+      }
+
+    </section>
+
+    }
+
+    <!-- ========================================= -->
+    <!-- Empty -->
+    <!-- ========================================= -->
+
+    @else if(messages().length===0){
+
+    <section class="empty-state">
+
+      <div class="empty-icon">
+
+        📭
+
+      </div>
+
+      <h2>
+
+        No Messages Found
+
+      </h2>
+
+      <p>
+
+        There are currently no messages available.
+
+      </p>
+
+    </section>
+
+    }
+
+    <!-- ========================================= -->
+    <!-- Messages -->
+    <!-- ========================================= -->
+
+    @else{
+
+    <section class="messages-grid">
+
+      @for(msg of messages(); track msg.id){
+
+      <article
+
+        class="message-card"
+
+        [class.unread]="!msg.isRead"
+
+        (click)="openMessage(msg)">
+
+        <div class="card-top">
+
+          <div>
+
+            <h3>
+
+              {{msg.name}}
+
+            </h3>
+
+            <p>
+
+              {{msg.email}}
+
+            </p>
+
+          </div>
+
+          @if(!msg.isRead){
+
+          <span class="status unread">
+
+            New
+
+          </span>
+
+          }
+
+          @else{
+
+          <span class="status">
+
+            Read
+
+          </span>
+
+          }
+
+        </div>
+
+        <div class="subject">
+
+          {{msg.subject}}
+
+        </div>
+
+        <div class="message-preview">
+
+          {{msg.message}}
+
+        </div>
+
+        <div class="card-bottom">
+
+          <span>
+
+            {{msg.createdAt | date:'medium'}}
+
+          </span>
+
+          <div>
+
+            <button
+
+              class="view-btn"
+
+              (click)="openMessage(msg);$event.stopPropagation()">
+
+              View
+
+            </button>
+
+            <button
+
+              class="delete-btn"
+
+              (click)="deleteMessage(msg.id,$event)">
+
+              Delete
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      }
+
+    </section>
+
+    }
+
+  </div>
+
+</div>

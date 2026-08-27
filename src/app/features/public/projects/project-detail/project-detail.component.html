@@ -1,0 +1,92 @@
+@if(isLoading()) {
+  <div class="loading-screen">
+    <div class="loader"></div>
+  </div>
+}
+@else if(project(); as p) {
+  <div class="project-page">
+    <!-- HERO -->
+    <div class="hero">
+      <img
+        class="hero-image"
+        [src]="p.imageUrl || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=90'"
+        [alt]="p.title"
+        loading="lazy"
+      >
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- CONTENT -->
+    <section class="content">
+     <a (click)="goBack()" style="cursor: pointer;" class="back-btn">Back</a>
+       
+
+      <div class="header">
+        <div>
+          <h1>{{p.title}}</h1>
+          <p class="subtitle">{{p.shortDescription}}</p>
+        </div>
+
+        @if(p.featured) {
+          <div class="featured">
+            ★ Featured
+          </div>
+        }
+      </div>
+
+      <div class="action-buttons">
+        @if(p.liveUrl) {
+          <a [href]="p.liveUrl" target="_blank" class="primary-btn">
+            Live Demo ↗
+          </a>
+        }
+
+        @if(p.githubUrl) {
+          <a [href]="p.githubUrl" target="_blank" class="secondary-btn">
+            GitHub
+          </a>
+        }
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <span>Started</span>
+          <h4>{{p.startDate | date:'MMMM yyyy'}}</h4>
+        </div>
+       <div class="info-card">
+          <span>Technologies</span>
+          <!-- 🚨 FIX 1: Added '?.' so it doesn't crash if technologies is null -->
+          <h4>{{ p.technologies?.length || 0 }}</h4> 
+        </div>
+        <div class="info-card">
+          <span>Status</span>
+          <h4>Completed</h4>
+        </div>
+      </div>
+
+      <div class="description-card">
+        <h2>Overview</h2>
+        <p>{{p.detailedDescription}}</p>
+      </div>
+
+    <div class="tech-section">
+        <h2>Technologies Used</h2>
+        <div class="tech-grid">
+          @if (p.technologies && p.technologies.length > 0) {
+            @for(tech of p.technologies; track tech) {
+              <span class="tech-chip">
+                <!-- 🚨 FIX: Ask for tech.name. If it's a string fallback to tech -->
+                {{ tech.name ? tech.name : tech }}
+              </span>
+            }
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+}
+@else {
+  <div class="empty">
+    <h2>Project not found</h2>
+  </div>
+}

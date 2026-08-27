@@ -1,0 +1,310 @@
+<div class="experience-page">
+
+  <!-- ================= BACKGROUND ================= -->
+
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="container mx-auto px-6 relative z-10">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Professional Journey
+      </div>
+
+      <h1 class="hero-title">
+        Experience
+        <span>Timeline</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Every role has been an opportunity to solve challenging problems,
+        build scalable software, collaborate with amazing teams,
+        and continuously grow as a Software Engineer.
+      </p>
+
+    </section>
+
+    <!-- ================= LOADING ================= -->
+
+    @if(isLoading()) {
+
+    <div class="timeline">
+
+      @for(item of [1,2,3];track item){
+
+      <div class="timeline-row">
+
+        <div class="timeline-node skeleton-circle"></div>
+
+        <div class="experience-card skeleton-card">
+
+        </div>
+
+      </div>
+
+      }
+
+    </div>
+
+    }
+
+    <!-- ================= ERROR ================= -->
+
+    @else if(errorMessage()){
+
+    <div class="error-card">
+
+      <div class="error-icon">
+        ⚠️
+      </div>
+
+      <h2>Unable to load experiences</h2>
+
+      <p>{{errorMessage()}}</p>
+
+    </div>
+
+    }
+
+    <!-- ================= TIMELINE ================= -->
+
+    @else {
+
+    @if(experiences().length){
+
+    <div class="timeline">
+
+      @for(exp of experiences();track exp.id; let i=$index){
+
+      <div
+        class="timeline-row"
+        [class.reverse]="i%2==0"
+        [style.animation-delay]="i*180 + 'ms'"
+      >
+
+        <!-- Center Line -->
+
+        <div class="timeline-node">
+
+          <div class="node-ring"></div>
+
+          <div class="node-core">
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20 7h-4V5a2 2 0 00-2-2H10a2 2 0 00-2
+              2v2H4a2 2 0 00-2
+              2v9a2 2 0 002
+              2h16a2 2 0 002-2V9a2 2
+              0 00-2-2z"/>
+            </svg>
+
+          </div>
+
+        </div>
+
+        <!-- CARD -->
+
+        <article class="experience-card">
+
+          <div class="card-glow"></div>
+
+          <div class="card-content">
+
+            <!-- TOP -->
+
+            <div class="top-row">
+
+              <div class="date-pill">
+
+                {{exp.startDate | date:'MMM yyyy'}}
+
+                —
+
+                {{exp.isCurrent || !exp.endDate ? 'Present' : (exp.endDate | date:'MMM yyyy')}}
+
+              </div>
+
+              @if(exp.isCurrent){
+
+              <div class="current-pill">
+
+                <span></span>
+
+                Current
+
+              </div>
+
+              }
+
+            </div>
+
+            <!-- ROLE -->
+
+            <h2 class="role">
+
+              {{exp.role}}
+
+            </h2>
+
+            <div class="company">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+
+                <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 21h18M5 21V7l8-4 6 3v15"/>
+
+              </svg>
+
+              {{exp.company}}
+
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="description">
+
+              {{exp.description}}
+
+            </div>
+
+            <!-- ================= ACHIEVEMENTS ================= -->
+
+            @if(exp.achievements){
+
+            <div class="achievement-box">
+
+              <div class="achievement-title">
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"/>
+
+                </svg>
+
+                Key Achievements
+
+              </div>
+
+              <div class="achievement-content">
+
+                {{exp.achievements}}
+
+              </div>
+
+            </div>
+
+            }
+
+            <!-- ================= FOOTER ================= -->
+
+            <div class="card-footer">
+
+              <div class="footer-line"></div>
+
+              <div class="footer-icon">
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4"/>
+
+                </svg>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      }
+
+    </div>
+
+    }
+
+    @else {
+
+    <!-- ================= EMPTY ================= -->
+
+    <section class="empty-state">
+
+      <div class="empty-circle">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M20 7h-4V5a2 2 0 00-2-2H10a2
+            2 0 00-2
+            2v2H4a2
+            2 0 00-2
+            2v9a2
+            2 0 002
+            2h16a2
+            2 0 002-2V9a2
+            2 0 00-2-2z"/>
+
+        </svg>
+
+      </div>
+
+      <h2>No Experience Available</h2>
+
+      <p>
+        Professional experience will appear here soon.
+      </p>
+
+    </section>
+
+    }
+
+    }
+
+  </div>
+
+</div>

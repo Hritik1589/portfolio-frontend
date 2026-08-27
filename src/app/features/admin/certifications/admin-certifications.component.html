@@ -1,0 +1,693 @@
+<div class="certifications-page">
+
+  <!-- ================= BACKGROUND ================= -->
+
+  <div class="bg-grid"></div>
+
+  <div class="bg-orb orb-purple"></div>
+
+  <div class="bg-orb orb-cyan"></div>
+
+  <div class="bg-noise"></div>
+
+  <!-- ================= CONTAINER ================= -->
+
+  <div class="page-container">
+
+    <!-- ========================================= -->
+    <!-- HEADER -->
+    <!-- ========================================= -->
+
+    <header class="page-header">
+
+      <div class="header-left">
+
+        <div class="header-badge">
+
+          <span class="badge-dot"></span>
+
+          Portfolio Dashboard
+
+        </div>
+
+        <h1>
+
+          Certifications
+
+          <span>Management</span>
+
+        </h1>
+
+        <p>
+
+          Manage your certifications professionally with a modern dashboard.
+
+        </p>
+
+      </div>
+
+      @if(certifications().length){
+
+      <button
+
+        class="add-btn"
+
+        (click)="openCreateModal()">
+
+        <span class="btn-icon">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <path
+
+              stroke-width="2"
+
+              stroke-linecap="round"
+
+              stroke-linejoin="round"
+
+              d="M12 4v16m8-8H4"/>
+
+          </svg>
+
+        </span>
+
+        <span>
+
+          Add Certification
+
+        </span>
+
+      </button>
+
+      }
+
+    </header>
+
+    <!-- ========================================= -->
+    <!-- LOADING -->
+    <!-- ========================================= -->
+
+    @if(isLoading()){
+
+    <div class="loading-wrapper">
+
+      <div class="loader-ring"></div>
+
+      <p>
+
+        Loading Certifications...
+
+      </p>
+
+    </div>
+
+    }
+
+    @else{
+
+    <!-- ========================================= -->
+    <!-- GRID -->
+    <!-- ========================================= -->
+
+    <section class="cert-grid">
+
+      @for(cert of certifications();track cert.id){
+
+      <article class="cert-card">
+
+        <div class="card-border"></div>
+
+        <div class="card-glow"></div>
+
+        <div class="shine"></div>
+
+        <div class="card-content">
+
+          <!-- ================= HEADER ================= -->
+
+          <div class="card-header">
+
+            <div class="cert-icon">
+
+              <svg
+
+                viewBox="0 0 24 24"
+
+                fill="none"
+
+                stroke="currentColor">
+
+                <path
+
+                  stroke-width="2"
+
+                  stroke-linecap="round"
+
+                  stroke-linejoin="round"
+
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42
+                  3.42 0 001.946-.806
+                  3.42 3.42 0 014.438 0
+                  3.42 3.42 0 001.946.806
+                  3.42 3.42 0 013.138 3.138
+                  3.42 3.42 0 00.806 1.946
+                  3.42 3.42 0 010 4.438
+                  3.42 3.42 0 00-.806 1.946
+                  3.42 3.42 0 01-3.138 3.138
+                  3.42 3.42 0 00-1.946.806
+                  3.42 3.42 0 01-4.438 0
+                  3.42 3.42 0 00-1.946-.806
+                  3.42 3.42 0 01-3.138-3.138
+                  3.42 3.42 0 00-.806-1.946
+                  3.42 3.42 0 010-4.438
+                  3.42 3.42 0 00.806-1.946
+                  3.42 3.42 0 013.138-3.138"/>
+
+              </svg>
+
+            </div>
+
+            <div class="action-buttons">
+
+              <button
+
+                class="icon-btn edit-btn"
+
+                (click)="openEditModal(cert.id)"
+
+                title="Edit">
+
+                <svg
+
+                  viewBox="0 0 24 24"
+
+                  fill="none"
+
+                  stroke="currentColor">
+
+                  <path
+
+                    stroke-width="2"
+
+                    stroke-linecap="round"
+
+                    stroke-linejoin="round"
+
+                    d="M15.232 5.232l3.536
+                    3.536m-2.036-5.036
+                    a2.5 2.5 0 113.536
+                    3.536L6.5
+                    21.036H3v-3.572
+                    L16.732
+                    3.732z"/>
+
+                </svg>
+
+              </button>
+
+              <button
+
+                class="icon-btn delete-btn"
+
+                (click)="deleteCertification(cert.id)"
+
+                title="Delete">
+
+                <svg
+
+                  viewBox="0 0 24 24"
+
+                  fill="none"
+
+                  stroke="currentColor">
+
+                  <path
+
+                    stroke-width="2"
+
+                    stroke-linecap="round"
+
+                    stroke-linejoin="round"
+
+                    d="M19
+                    7l-.867
+                    12.142A2
+                    2
+                    0
+                    0116.138
+                    21H7.862
+                    a2
+                    2
+                    0
+                    01-1.995-1.858L5
+                    7m5
+                    4v6m4-6v6m1-10V4a1
+                    1
+                    0
+                    00-1-1h-4a1
+                    1
+                    0
+                    00-1
+                    1v3M4
+                    7h16"/>
+
+                </svg>
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- ================= CONTENT ================= -->
+
+          <h3>
+
+            {{ cert.certificateName }}
+
+          </h3>
+
+          <h4>
+
+            {{ cert.issuingOrganization }}
+
+          </h4>
+
+          <div class="date-section">
+
+            <div class="date-item">
+
+              <span>
+
+                Issued
+
+              </span>
+
+              <strong>
+
+                {{ cert.issueDate | date:'mediumDate' }}
+
+              </strong>
+
+            </div>
+
+            @if(cert.expirationDate){
+
+            <div class="date-item">
+
+              <span>
+
+                Expires
+
+              </span>
+
+              <strong>
+
+                {{ cert.expirationDate | date:'mediumDate' }}
+
+              </strong>
+
+            </div>
+
+            }
+
+          </div>
+
+          <div class="card-footer">
+
+            @if(cert.credentialId){
+
+            <div class="credential-chip">
+
+              {{ cert.credentialId }}
+
+            </div>
+
+            }
+
+            @if(cert.credentialUrl){
+
+            <a
+
+              [href]="cert.credentialUrl"
+
+              target="_blank"
+
+              class="verify-link">
+
+              Verify →
+
+            </a>
+
+            }
+
+          </div>
+
+        </div>
+
+      </article>
+
+      }
+
+      @empty{
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+
+          🏆
+
+        </div>
+
+        <h2>
+
+          No Certifications Yet
+
+        </h2>
+
+        <p>
+
+          Start by adding your first certification.
+
+        </p>
+
+        <button
+
+          class="empty-btn"
+
+          (click)="openCreateModal()">
+
+          Add Certification
+
+        </button>
+
+      </div>
+
+      }
+
+    </section>
+
+    }
+        <!-- ========================================= -->
+    <!-- PREMIUM MODAL -->
+    <!-- ========================================= -->
+
+    @if(isModalOpen()){
+
+    <div class="modal-overlay">
+
+      <!-- Backdrop -->
+      <div
+        class="modal-backdrop"
+        (click)="closeModal()">
+      </div>
+
+      <!-- Modal -->
+      <div class="premium-modal">
+
+        <!-- Animated Effects -->
+        <div class="modal-border"></div>
+        <div class="modal-glow glow-purple"></div>
+        <div class="modal-glow glow-cyan"></div>
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="modal-header">
+
+          <div>
+
+            <div class="modal-chip">
+
+              {{ editingId() ? 'UPDATE' : 'CREATE' }}
+
+            </div>
+
+            <h2>
+
+              {{ editingId()
+                  ? 'Edit Certification'
+                  : 'Add Certification' }}
+
+            </h2>
+
+            <p>
+
+              Fill in the certification details below.
+
+            </p>
+
+          </div>
+
+          <button
+            class="close-btn"
+            (click)="closeModal()">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor">
+
+              <path
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"/>
+
+            </svg>
+
+          </button>
+
+        </div>
+
+        <!-- ================= ERROR ================= -->
+
+        @if(formError()){
+
+        <div class="error-box">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke-width="2"/>
+
+            <path
+              d="M12 8v4"
+              stroke-width="2"/>
+
+            <circle
+              cx="12"
+              cy="16"
+              r="1"/>
+
+          </svg>
+
+          <span>
+
+            {{ formError() }}
+
+          </span>
+
+        </div>
+
+        }
+
+        <!-- ================= BODY ================= -->
+
+        <div class="modal-body">
+
+          <form
+            [formGroup]="certForm"
+            (ngSubmit)="onSubmit()">
+
+            <!-- TITLE -->
+
+            <div class="input-group">
+
+              <input
+                type="text"
+                formControlName="certificateName"
+                placeholder=" ">
+
+              <label>
+
+                Certification Name *
+
+              </label>
+
+              @if(isFieldInvalid('name')){
+
+              <small>
+
+                Certification name is required.
+
+              </small>
+
+              }
+
+            </div>
+
+            <!-- ORGANIZATION -->
+
+            <div class="input-group">
+
+              <input
+                type="text"
+                formControlName="issuingOrganization"
+                placeholder=" ">
+
+              <label>
+
+                Issuing Organization *
+
+              </label>
+
+              @if(isFieldInvalid('issuingOrganization')){
+
+              <small>
+
+                Issuing organization is required.
+
+              </small>
+
+              }
+
+            </div>
+
+            <!-- ROW -->
+
+            <div class="two-column">
+
+              <div class="input-group">
+
+                <input
+                  type="text"
+                  formControlName="credentialId"
+                  placeholder=" ">
+
+                <label>
+
+                  Credential ID
+
+                </label>
+
+              </div>
+
+              <div class="input-group">
+
+                <input
+                  type="url"
+                  formControlName="credentialUrl"
+                  placeholder=" ">
+
+                <label>
+
+                  Credential URL
+
+                </label>
+
+              </div>
+
+            </div>
+
+            <!-- DATES -->
+
+            <div class="two-column">
+
+              <div class="input-group">
+
+                <input
+                  type="date"
+                  formControlName="issueDate">
+
+                <label class="fixed">
+
+                  Issue Date *
+
+                </label>
+
+                @if(isFieldInvalid('issueDate')){
+
+                <small>
+
+                  Issue date is required.
+
+                </small>
+
+                }
+
+              </div>
+
+              <div class="input-group">
+
+                <input
+                  type="date"
+                  formControlName="expirationDate">
+
+                <label class="fixed">
+
+                  Expiration Date
+
+                </label>
+
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- ================= FOOTER ================= -->
+
+        <div class="modal-footer">
+
+          <button
+            class="cancel-btn"
+            type="button"
+            (click)="closeModal()">
+
+            Cancel
+
+          </button>
+
+          <button
+            class="save-btn"
+            type="button"
+            (click)="onSubmit()"
+            [disabled]="certForm.invalid || isSubmitting()">
+
+            @if(isSubmitting()){
+
+            <span class="loader-mini"></span>
+
+            Saving...
+
+            }
+
+            @else{
+
+            Save Certification
+
+            }
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    }
+
+</div>

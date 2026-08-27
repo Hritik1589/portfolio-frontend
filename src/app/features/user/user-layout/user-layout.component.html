@@ -1,0 +1,222 @@
+<div class="layout-wrapper">
+
+  <!-- Background -->
+
+  <div class="gradient-bg">
+
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-cyan"></div>
+    <div class="orb orb-blue"></div>
+
+    <div class="grid-overlay"></div>
+
+  </div>
+
+  <!-- ===========================
+        NAVBAR
+  ============================ -->
+
+  <header class="navbar">
+
+    <div class="navbar-container">
+
+      <!-- Logo -->
+
+      <a
+        routerLink="/user/dashboard"
+        class="logo">
+
+        <div class="logo-icon">
+          HN
+        </div>
+
+        <div class="logo-text">
+
+          <h2>Hritik Negi</h2>
+
+          <span>Portfolio</span>
+
+        </div>
+
+      </a>
+
+      <!-- Navigation -->
+
+      <nav class="desktop-nav">
+
+        <a
+          routerLink="/user/dashboard"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{exact:true}">
+
+          Dashboard
+
+        </a>
+
+        <!-- 🚨 Added About Link -->
+        <a
+          routerLink="/user/about"
+          routerLinkActive="active-link">
+
+          About
+
+        </a>
+
+        <a
+          routerLink="/user/projects"
+          routerLinkActive="active-link">
+
+          Projects
+
+        </a>
+
+        <a
+          routerLink="/user/blogs"
+          routerLinkActive="active-link">
+
+          Blogs
+
+        </a>
+
+        <a
+      routerLink="/user/contact"
+      (click)="closeMenu()">
+
+      Contact
+
+    </a>
+
+        <a
+          routerLink="/user/profile"
+          routerLinkActive="active-link">
+
+          Profile
+
+        </a>
+
+      </nav>
+
+      <!-- Logout -->
+
+      <button
+        class="logout-btn"
+        (click)="logout()">
+
+        <svg
+          class="icon"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H9m5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h5a3 3 0 013 3v1"/>
+
+        </svg>
+
+        Logout
+
+      </button>
+
+      <!-- Mobile -->
+
+      <button
+        class="mobile-toggle"
+        (click)="toggleMenu()">
+
+        @if(!isMobileMenuOpen()){
+
+        ☰
+
+        }
+
+        @else{
+
+        ✕
+
+        }
+
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- Mobile Menu -->
+
+  @if(isMobileMenuOpen()){
+
+  <aside class="mobile-menu">
+
+    <a
+      routerLink="/user/dashboard"
+      (click)="closeMenu()">
+
+      Dashboard
+
+    </a>
+
+    <!-- 🚨 Added About Link for Mobile -->
+    <a
+      routerLink="/user/about"
+      (click)="closeMenu()">
+
+      About
+
+    </a>
+
+    <a
+      routerLink="/user/projects"
+      (click)="closeMenu()">
+
+      Projects
+
+    </a>
+
+    <a
+      routerLink="/user/blogs"
+      (click)="closeMenu()">
+
+      Blogs
+
+    </a>
+
+    <a
+          routerLink="/user/contact"
+          routerLinkActive="active-link">
+
+          Contact
+
+    </a>
+
+    <a
+      routerLink="/user/profile"
+      (click)="closeMenu()">
+
+      Profile
+
+    </a>
+
+    <button
+      class="mobile-logout"
+      (click)="logout()">
+
+      Logout
+
+    </button>
+
+  </aside>
+
+  }
+
+  <!-- Routed Pages -->
+
+  <main class="page-content">
+
+      <router-outlet></router-outlet>
+
+  </main>
+
+</div>

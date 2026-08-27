@@ -1,0 +1,220 @@
+<div class="admin-wrapper">
+
+  <!-- Animated Background -->
+  <div class="background">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+
+    @for(i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i){
+      <span class="particle"></span>
+    }
+  </div>
+
+  <!-- Mobile Overlay -->
+  @if(isSidebarOpen()){
+    <div
+      class="overlay"
+      (click)="toggleSidebar()">
+    </div>
+  }
+
+  <!-- ===================== SIDEBAR ===================== -->
+
+  <aside
+    class="sidebar"
+    [class.open]="isSidebarOpen()">
+
+    <!-- Logo -->
+
+    <div class="logo" style="cursor: pointer;" (click)="navigateToDashboard()">
+
+      <div class="logo-icon">
+
+        <div class="ring"></div>
+
+        <span>H</span>
+
+      </div>
+
+      <div>
+
+        <h2>Portfolio</h2>
+
+        <p>Admin Panel</p>
+
+      </div>
+
+    </div>
+
+    <!-- Profile -->
+
+    <div class="profile-card">
+
+      <div class="avatar">
+
+        H
+
+      </div>
+
+      <div>
+
+        <h4>Hritik Negi</h4>
+
+        <span>Administrator</span>
+
+      </div>
+
+    </div>
+
+    <!-- Navigation -->
+
+    <nav>
+
+      @for(item of navItems; track item.route){
+
+      <a
+
+        [routerLink]="item.route"
+
+        routerLinkActive="active"
+
+        [routerLinkActiveOptions]="{exact:false}"
+
+        (click)="isSidebarOpen.set(false)"
+
+      >
+
+        <div class="icon">
+
+          <svg
+
+            fill="none"
+
+            stroke="currentColor"
+
+            viewBox="0 0 24 24">
+
+            <path
+
+              stroke-linecap="round"
+
+              stroke-linejoin="round"
+
+              stroke-width="2"
+
+              [attr.d]="item.icon">
+
+            </path>
+
+          </svg>
+
+        </div>
+
+        <span>
+
+          {{item.label}}
+
+        </span>
+
+        <div class="hover-glow"></div>
+
+      </a>
+
+      }
+
+    </nav>
+
+    <!-- Bottom -->
+
+    <div class="sidebar-footer">
+
+      <button
+
+        class="logout"
+
+        (click)="logout()">
+
+        <svg
+
+          fill="none"
+
+          stroke="currentColor"
+
+          viewBox="0 0 24 24">
+
+          <path
+
+            stroke-linecap="round"
+
+            stroke-linejoin="round"
+
+            stroke-width="2"
+
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+
+          </path>
+
+        </svg>
+
+        Logout
+
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- ===================== CONTENT ===================== -->
+
+  <div class="content">
+
+    <!-- NAVBAR -->
+
+    <header>
+
+      <button
+
+        class="menu-btn"
+
+        (click)="toggleSidebar()">
+
+        ☰
+
+      </button>
+
+      <div class="header-right">
+
+        <div class="status">
+
+          <span></span>
+
+          Online
+
+        </div>
+
+        <div class="time">
+
+          {{ today | date:'EEEE, MMM d' }}
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- PAGE -->
+
+    <main>
+
+      <div class="page-card">
+
+        <router-outlet></router-outlet>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

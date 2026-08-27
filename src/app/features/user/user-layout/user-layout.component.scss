@@ -1,0 +1,477 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   ROOT
+========================================== */
+
+.layout-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: #050816;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   BACKGROUND
+========================================== */
+
+.gradient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background:
+      radial-gradient(circle at top left,
+          rgba(59,130,246,.15),
+          transparent 35%),
+
+      radial-gradient(circle at bottom right,
+          rgba(139,92,246,.15),
+          transparent 35%),
+
+      linear-gradient(180deg,#030712,#060d1f,#030712);
+}
+
+.grid-overlay{
+    position:absolute;
+    inset:0;
+
+    background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:55px 55px;
+
+    mask-image:radial-gradient(circle,#fff 30%,transparent 90%);
+}
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    animation:float 18s infinite alternate ease-in-out;
+}
+
+.orb-purple{
+    width:520px;
+    height:520px;
+    left:-140px;
+    top:-160px;
+    background:#7c3aed55;
+}
+
+.orb-cyan{
+    width:420px;
+    height:420px;
+    right:-100px;
+    bottom:-120px;
+    background:#06b6d455;
+}
+
+.orb-blue{
+    width:300px;
+    height:300px;
+    left:45%;
+    top:35%;
+    background:#2563eb44;
+}
+
+/* ==========================================
+   NAVBAR
+========================================== */
+
+.navbar{
+
+    position:fixed;
+
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:min(1320px,calc(100% - 32px));
+
+    height:82px;
+
+    border-radius:22px;
+
+    background:rgba(12,18,35,.75);
+
+    backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.35);
+
+    z-index:1000;
+
+}
+
+.navbar-container{
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:28px;
+
+    padding:0 26px;
+
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    text-decoration:none;
+
+    color:white;
+
+    flex-shrink:0;
+
+}
+
+.logo-icon{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#06b6d4,#6366f1);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:800;
+
+    font-size:20px;
+
+}
+
+.logo-text h2{
+
+    margin:0;
+
+    font-size:20px;
+
+}
+
+.logo-text span{
+
+    color:#94a3b8;
+
+    font-size:13px;
+
+}
+
+/* ==========================================
+   NAV LINKS
+========================================== */
+
+.desktop-nav{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+.desktop-nav a{
+
+    padding:12px 22px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    color:#94a3b8;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.desktop-nav a:hover{
+
+    color:white;
+
+    background:rgba(255,255,255,.06);
+
+}
+
+.active-link{
+
+    color:white !important;
+
+    background:linear-gradient(
+        135deg,
+        rgba(6,182,212,.25),
+        rgba(99,102,241,.20)
+    );
+
+}
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+.logout-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:700;
+
+    background:linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+
+    transition:.35s;
+
+    flex-shrink:0;
+
+}
+
+.logout-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 30px rgba(239,68,68,.35);
+
+}
+
+.logout-btn svg{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+/* ==========================================
+   MOBILE BUTTON
+========================================== */
+
+.mobile-toggle{
+
+    display:none;
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+.mobile-menu{
+
+    position:fixed;
+
+    top:110px;
+
+    left:16px;
+
+    right:16px;
+
+    background:#0f172a;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    z-index:999;
+
+}
+
+.mobile-menu a{
+
+    padding:14px;
+
+    border-radius:12px;
+
+    color:white;
+
+    text-decoration:none;
+
+    background:rgba(255,255,255,.04);
+
+}
+
+.mobile-logout{
+
+    margin-top:12px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ef4444;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+/* ==========================================
+   PAGE CONTENT
+========================================== */
+
+.page-content{
+
+    width:min(1320px,calc(100% - 32px));
+
+    margin:auto;
+
+    padding-top:130px;
+
+    padding-bottom:40px;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+.logo-text{
+
+display:none;
+
+}
+
+.desktop-nav{
+
+gap:4px;
+
+}
+
+.desktop-nav a{
+
+padding:10px 16px;
+
+font-size:14px;
+
+}
+
+.logout-btn{
+
+padding:10px 16px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.desktop-nav,
+.logout-btn{
+
+display:none;
+
+}
+
+.mobile-toggle{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.navbar{
+
+height:72px;
+
+}
+
+.page-content{
+
+padding-top:110px;
+
+}
+
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes float{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+100%{
+
+transform:translateY(45px);
+
+}
+
+}

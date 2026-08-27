@@ -1,0 +1,266 @@
+<div class="skills-page">
+
+  <!-- ========================= -->
+  <!-- Animated Background -->
+  <!-- ========================= -->
+
+  <div class="background">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="grid-overlay"></div>
+   
+  </div>
+
+  <div class="container">
+
+    <!-- ========================= -->
+    <!-- Hero -->
+    <!-- ========================= -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        <span></span>
+        Technical Arsenal
+      </div>
+
+      <h1>
+        My
+        <span>Technology Stack</span>
+      </h1>
+
+      <p>
+        Modern technologies, frameworks, cloud platforms and tools
+        that I use to build scalable, secure and production-ready applications.
+      </p>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- Filter -->
+    <!-- ========================= -->
+
+    <div class="category-wrapper">
+
+      @for(cat of categories; track cat){
+
+      <button
+        (click)="filterByCategory(cat)"
+        class="category-btn"
+        [class.active]="selectedCategory()===cat">
+
+        {{formatCategoryName(cat)}}
+
+      </button>
+
+      }
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Loading -->
+    <!-- ========================= -->
+
+    @if(isLoading()){
+
+    <div class="skills-grid">
+
+      @for(i of [1,2,3,4,5,6];track i){
+
+      <div class="skill-card skeleton">
+
+        <div class="s-circle"></div>
+
+        <div class="s-line long"></div>
+
+        <div class="s-line short"></div>
+
+        <div class="s-progress"></div>
+
+      </div>
+
+      }
+
+    </div>
+
+    }
+
+    <!-- ========================= -->
+    <!-- Error -->
+    <!-- ========================= -->
+
+    @else if(errorMessage()){
+
+    <div class="error-box">
+
+      <div class="emoji">⚠️</div>
+
+      <h2>Unable to load skills</h2>
+
+      <p>{{errorMessage()}}</p>
+
+    </div>
+
+    }
+
+    <!-- ========================= -->
+    <!-- Data -->
+    <!-- ========================= -->
+
+    @else{
+
+    @if(filteredSkills().length){
+
+    <div class="skills-grid">
+
+      @for(skill of filteredSkills();track skill.id;let i=$index){
+
+      <article
+        class="skill-card"
+        [style.animation-delay]="(i*100)+'ms'">
+
+        <!-- Glow -->
+
+        <div class="card-glow"></div>
+
+        <!-- Shine -->
+
+        <div class="shine"></div>
+
+        <!-- Header -->
+
+        <div class="card-header">
+
+          <div class="logo">
+
+            @if(skill.iconUrl){
+
+            <img
+              [src]="skill.iconUrl"
+              [alt]="skill.name">
+
+            }
+
+            @else{
+
+            <span>
+              {{skill.name.charAt(0)}}
+            </span>
+
+            }
+
+          </div>
+
+          <div>
+
+            <h3>
+
+              {{skill.name}}
+
+            </h3>
+
+            <p>
+
+              {{formatCategoryName(skill.category)}}
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- Ring -->
+
+        <div class="ring-wrapper">
+
+          <svg viewBox="0 0 120 120">
+
+            <circle
+              class="bg-ring"
+              cx="60"
+              cy="60"
+              r="50">
+            </circle>
+
+            <circle
+              class="progress-ring"
+              cx="60"
+              cy="60"
+              r="50"
+              [style.stroke-dashoffset]="314-(314*skill.proficiency/100)">
+            </circle>
+
+          </svg>
+
+          <div class="percentage">
+
+            {{skill.proficiency}}%
+
+          </div>
+
+        </div>
+
+        <!-- Progress -->
+
+        <div class="progress-area">
+
+          <div class="label">
+
+            <span>Proficiency</span>
+
+            <span>{{skill.proficiency}}%</span>
+
+          </div>
+
+          <div class="progress">
+
+            <div
+              class="fill"
+              [style.width.%]="skill.proficiency">
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        
+
+      </article>
+
+      }
+
+    </div>
+
+    }
+
+    @else{
+
+    <div class="empty-box">
+
+      <div class="icon">
+
+        ⚡
+
+      </div>
+
+      <h2>No Skills Found</h2>
+
+      <p>
+
+        No technologies available in this category.
+
+      </p>
+
+    </div>
+
+    }
+
+    }
+
+  </div>
+
+</div>

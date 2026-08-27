@@ -1,0 +1,236 @@
+<!-- Animated Background -->
+<div class="dashboard-bg">
+
+  @for (i of [1,2,3,4,5,6]; track i) {
+    <div class="orb orb-{{i}}"></div>
+  }
+
+  @for (i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i) {
+    <span class="particle"></span>
+  }
+
+</div>
+
+<div class="dashboard">
+
+  <!-- Hero -->
+
+  <section class="hero-card">
+
+    <div class="hero-content">
+
+      <div>
+
+        <span class="badge">
+          ● SYSTEM ONLINE
+        </span>
+
+        <h1>
+          Welcome Back,
+          <span>Administrator</span>
+        </h1>
+
+        <p>
+          Manage your portfolio, projects, blogs and incoming
+          messages from one beautiful dashboard.
+        </p>
+
+      </div>
+
+      <div class="hero-icon">
+
+        <div class="pulse-ring"></div>
+
+        <svg
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.7"
+            d="M9.75 17L15 12l-5.25-5"/>
+
+        </svg>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Cards -->
+
+  <div class="cards">
+
+    <!-- Messages -->
+
+    <!-- Messages -->
+    <div
+      class="metric-card"
+      style="cursor: pointer;"
+      (click)="navigateToMessages()"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <div class="shine"></div>
+
+      <div class="icon purple">
+        <svg
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+      </div>
+
+      <p>Unread Messages</p>
+
+      @if(isLoading()){
+        <div class="loader"></div>
+      } @else {
+        <h2>{{ unreadMessages() }}</h2>
+      }
+      <small>View Inbox</small>
+      
+    </div>
+    <!-- Real Projects Card (Extracted from loop) -->
+    <div
+      class="metric-card"
+      style="cursor: pointer;"
+      (click)="navigateToProjects()"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <div class="shine"></div>
+      <div class="icon blue">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </div>
+
+      <p>Projects</p>
+      
+      <!-- 🚨 Displays the real count we added to the TS file -->
+      <h2>{{ totalProjects() }}</h2> 
+      <small>Manage Portfolio</small>
+
+    </div>
+    <div
+      class="metric-card"
+      style="cursor: pointer;"
+      (click)="navigateToBlogs()"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <div class="shine"></div>
+      
+      <!-- Using purple icon for contrast against projects -->
+      <div class="icon purple">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+        </svg>
+      </div>
+
+      <p>Blogs</p>
+      
+      <!-- Displays the real count -->
+      <h2>{{ totalBlogs() }}</h2> 
+      <small>Manage Articles</small>
+
+    </div>
+    <div
+      class="metric-card"
+      style="cursor: pointer;"
+      (click)="navigateToAchievements()"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+      <div class="shine"></div>
+      <!-- Amber Icon for Achievements -->
+      <div class="icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+        </svg>
+      </div>
+      <p>Achievements</p>
+      <h2>{{ totalAchievements() }}</h2> 
+      <small>Manage Milestones</small>
+    </div>
+    
+    
+
+    <!-- Coming Soon -->
+
+   <div
+      class="metric-card"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <div class="shine"></div>
+      
+      <!-- Emerald/Green icon for traffic -->
+      <div class="icon" style="color: #34d399; background: rgba(52, 211, 153, 0.1);">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      </div>
+
+      <p>Total Visitors</p>
+      
+      <!-- Displays the real count from your TS signal -->
+      <h2>{{ totalVisitors() }}</h2> 
+      <small>Site Traffic Analytics</small>
+
+    </div>
+
+  </div>
+
+  <!-- Quick Actions -->
+
+  <section class="quick-actions">
+
+    <div
+      class="action-card"
+      style="cursor: pointer;"
+      (click)="navigateToBlogs()"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <h3>Create Blog</h3>
+
+      <p>Publish a new article instantly.</p>
+
+    </div>
+
+ <div
+      class="action-card"
+      style="cursor: pointer;"
+      (click)="navigateToProjects()"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <h3>Add Project</h3>
+      <p>Showcase latest work.</p>
+
+    </div>
+
+    <div
+      class="action-card"
+      (mousemove)="moveCard($event)"
+      (mouseleave)="leaveCard()">
+
+      <h3>Certificates</h3>
+
+      <p>Upload achievements.</p>
+
+    </div>
+
+  </section>
+
+</div>

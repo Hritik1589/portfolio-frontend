@@ -1,0 +1,620 @@
+<div class="education-page">
+
+  <!-- ========================================== -->
+  <!-- Animated Background -->
+  <!-- ========================================== -->
+
+  <div class="background">
+
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+
+    <div class="grid-overlay"></div>
+
+    @for(i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i){
+
+      <span class="particle"></span>
+
+    }
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Container -->
+  <!-- ========================================== -->
+
+  <div class="container">
+
+    <!-- ========================================== -->
+    <!-- Hero -->
+    <!-- ========================================== -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <span class="hero-badge">
+
+          <span class="dot"></span>
+
+          Academic Profile
+
+        </span>
+
+        <h1>
+
+          Education
+
+          <span>Management</span>
+
+        </h1>
+
+        <p>
+
+          Manage your education history, degrees, universities,
+          GPA and academic achievements with a modern dashboard.
+
+        </p>
+
+      </div>
+
+      <button
+        class="primary-btn"
+        (click)="openCreateModal()">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 5v14m-7-7h14"/>
+
+        </svg>
+
+        Add Education
+
+      </button>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- Statistics -->
+    <!-- ========================================== -->
+
+    <section class="stats-grid">
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+
+          🎓
+
+        </div>
+
+        <div>
+
+          <span>Total Records</span>
+
+          <h2>
+
+            {{educationList().length}}
+
+          </h2>
+
+        </div>
+
+      </article>
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+
+          🏫
+
+        </div>
+
+        <div>
+
+          <span>Latest Entry</span>
+
+          <h2>
+
+            @if(educationList().length){
+
+              {{educationList()[0].startYear}}
+
+            } @else{
+
+              --
+
+            }
+
+          </h2>
+
+        </div>
+
+      </article>
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+
+          ⭐
+
+        </div>
+
+        <div>
+
+          <span>Status</span>
+
+          <h2>
+
+            Active
+
+          </h2>
+
+        </div>
+
+      </article>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- Loading -->
+    <!-- ========================================== -->
+
+    @if(isLoading()){
+
+      <section class="loading-grid">
+
+        @for(item of [1,2,3,4,5,6];track item){
+
+          <div class="loading-card">
+
+            <div class="loading-header"></div>
+
+            <div class="loading-line"></div>
+
+            <div class="loading-line short"></div>
+
+            <div class="loading-footer"></div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+    @else{
+
+      <!-- ========================================== -->
+      <!-- Education Cards -->
+      <!-- ========================================== -->
+
+      @if(educationList().length){
+
+        <section class="education-grid">
+
+          @for(
+            education of educationList();
+            track education.id;
+            let i=$index
+          ){
+
+            <article class="education-card">
+
+              <div class="gradient-border"></div>
+
+              <div class="shine"></div>
+
+              <div class="card-content">
+
+                <!-- Header -->
+
+                <div class="card-header">
+
+                  <div class="education-icon">
+
+                    🎓
+
+                  </div>
+
+                  <div class="actions">
+
+                    <button
+                      class="edit-btn"
+                      (click)="openEditModal(education.id)">
+
+                      ✏️
+
+                    </button>
+
+                    <button
+                      class="delete-btn"
+                      (click)="deleteEducation(education.id)">
+
+                      🗑️
+
+                    </button>
+
+                  </div>
+
+                </div>
+
+                <!-- Number -->
+
+                <span class="education-number">
+
+                  {{
+                    (i+1)<10
+                    ? '0'+(i+1)
+                    : (i+1)
+                  }}
+
+                </span>
+
+                <!-- Degree -->
+
+                <h2>
+
+                  {{education.degree}}
+
+                </h2>
+
+                <!-- University -->
+
+                <h3>
+
+                  {{education.university}}
+
+                </h3>
+
+                <!-- Description -->
+
+                <p>
+
+                  {{education.description || 'No description available.'}}
+
+                </p>
+
+                <!-- Footer -->
+
+                <div class="card-footer">
+
+                  <span>
+
+                    {{education.startYear}}
+
+                    -
+
+                    {{education.endYear || 'Present'}}
+
+                  </span>
+
+                  @if(education.gpaOrPercentage){
+
+                    <span class="gpa">
+
+                      {{education.gpaOrPercentage}}
+
+                    </span>
+
+                  }
+
+                </div>
+
+              </div>
+
+            </article>
+
+          }
+
+        </section>
+
+      }
+
+      @else{
+
+        <!-- ========================================== -->
+        <!-- Empty -->
+        <!-- ========================================== -->
+
+        <section class="empty-state">
+
+          <div class="empty-icon">
+
+            🎓
+
+          </div>
+
+          <h2>
+
+            No Education Added
+
+          </h2>
+
+          <p>
+
+            Add your first education record to build
+            your professional portfolio.
+
+          </p>
+
+          <button
+            class="primary-btn"
+            (click)="openCreateModal()">
+
+            Add Education
+
+          </button>
+
+        </section>
+
+      }
+
+    }
+
+  </div>
+
+  <!-- Modal continues in Part 2 -->
+
+</div>
+<!-- ========================================================= -->
+<!-- CREATE / EDIT MODAL -->
+<!-- ========================================================= -->
+
+@if(isModalOpen()){
+
+<div class="modal-overlay">
+
+  <div class="modal-card">
+
+    <!-- ========================= -->
+    <!-- Modal Header -->
+    <!-- ========================= -->
+
+    <div class="modal-header">
+
+      <div>
+
+        <span class="modal-badge">
+
+          {{ editingId() ? 'Update Record' : 'New Record' }}
+
+        </span>
+
+        <h2>
+
+          {{
+            editingId()
+              ? 'Edit Education'
+              : 'Add Education'
+          }}
+
+        </h2>
+
+      </div>
+
+      <button
+        class="close-btn"
+        (click)="closeModal()">
+
+        ✕
+
+      </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Error -->
+    <!-- ========================= -->
+
+    @if(formError()){
+
+      <div class="form-error">
+
+        ⚠️ {{ formError() }}
+
+      </div>
+
+    }
+
+    <!-- ========================= -->
+    <!-- Form -->
+    <!-- ========================= -->
+
+    <form
+      class="education-form"
+      [formGroup]="educationForm">
+
+      <!-- Degree -->
+
+      <div class="form-group">
+
+        <label>
+
+          Degree *
+
+        </label>
+
+        <input
+          class="admin-input"
+          type="text"
+          formControlName="degree"
+          placeholder="Bachelor of Technology"/>
+
+        @if(isFieldInvalid('degree')){
+
+          <small>
+
+            Degree is required.
+
+          </small>
+
+        }
+
+      </div>
+
+      <!-- University -->
+
+      <div class="form-group">
+
+        <label>
+
+          University *
+
+        </label>
+
+        <input
+          class="admin-input"
+          type="text"
+          formControlName="university"
+          placeholder="Indian Institute of Technology"/>
+
+        @if(isFieldInvalid('university')){
+
+          <small>
+
+            University is required.
+
+          </small>
+
+        }
+
+      </div>
+
+      <!-- Start -->
+
+      <div class="form-group">
+
+        <label>
+
+          Start Year *
+
+        </label>
+
+        <input
+          class="admin-input"
+          type="number"
+          formControlName="startYear"/>
+
+        @if(isFieldInvalid('startYear')){
+
+          <small>
+
+            Valid year required.
+
+          </small>
+
+        }
+
+      </div>
+
+      <!-- End -->
+
+      <div class="form-group">
+
+        <label>
+
+          End Year
+
+        </label>
+
+        <input
+          class="admin-input"
+          type="number"
+          formControlName="endYear"
+          placeholder="Leave empty if continuing"/>
+
+      </div>
+
+      <!-- GPA -->
+
+      <div class="form-group full">
+
+        <label>
+
+          GPA / Percentage
+
+        </label>
+
+        <input
+          class="admin-input"
+          type="text"
+          formControlName="gpaOrPercentage"
+          placeholder="8.92 CGPA / 92%"/>
+
+      </div>
+
+      <!-- Description -->
+
+      <div class="form-group full">
+
+        <label>
+
+          Description
+
+        </label>
+
+        <textarea
+          rows="5"
+          class="admin-input"
+          formControlName="description"
+          placeholder="Describe your education, achievements, coursework, projects...">
+
+        </textarea>
+
+      </div>
+
+    </form>
+
+    <!-- ========================= -->
+    <!-- Footer -->
+    <!-- ========================= -->
+
+    <div class="modal-footer">
+
+      <button
+        class="cancel-btn"
+        (click)="closeModal()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="save-btn"
+        [disabled]="educationForm.invalid || isSubmitting()"
+        (click)="onSubmit()">
+
+        @if(isSubmitting()){
+
+          <span class="loader"></span>
+
+          Saving...
+
+        }
+
+        @else{
+
+          Save Education
+
+        }
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+}

@@ -1,0 +1,590 @@
+<div class="experience-page">
+
+  <!-- ========================================================= -->
+  <!-- Animated Background -->
+  <!-- ========================================================= -->
+
+  <div class="background">
+
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+
+    <div class="grid-overlay"></div>
+
+    @for(i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i){
+      <span class="particle"></span>
+    }
+
+  </div>
+
+  <div class="container">
+
+    <!-- ========================================================= -->
+    <!-- HERO -->
+    <!-- ========================================================= -->
+
+    <section class="hero">
+
+      <div>
+
+        <span class="hero-badge">
+
+          <span class="dot"></span>
+
+          Professional Career
+
+        </span>
+
+        <h1>
+
+          Experience
+
+          <span>Management</span>
+
+        </h1>
+
+        <p>
+
+          Manage internships, professional experience,
+          full-time roles and career history through a
+          modern administration dashboard.
+
+        </p>
+
+      </div>
+
+      <button
+        class="add-btn"
+        (click)="openCreateModal()">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 5v14M5 12h14"/>
+
+        </svg>
+
+        Add Experience
+
+      </button>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- Stats -->
+    <!-- ========================================================= -->
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+
+        <span>Total Experience</span>
+
+        <h2>
+
+          {{ totalExperiences()  }}
+
+        </h2>
+
+      </div>
+
+      <div class="stat-card">
+
+        <span>Current Position</span>
+
+        <h2>
+
+          {{ currentExperiences() }}
+
+        </h2>
+
+      </div>
+
+      <div class="stat-card">
+
+        <span>Past Roles</span>
+
+        <h2>
+
+          {{ previousExperiences() }}
+
+        </h2>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- Loading -->
+    <!-- ========================================================= -->
+
+    @if(isLoading()){
+
+      <section class="loading-grid">
+
+        @for(i of [1,2,3,4,5,6]; track i){
+
+          <div class="loading-card">
+
+            <div class="loading-circle"></div>
+
+            <div class="loading-line large"></div>
+
+            <div class="loading-line"></div>
+
+            <div class="loading-line short"></div>
+
+            <div class="loading-btn"></div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+    @else{
+
+      <!-- ========================================================= -->
+      <!-- Experience Grid -->
+      <!-- ========================================================= -->
+
+      <section class="experience-grid">
+
+        @for(exp of experiences(); track exp.id; let i=$index){
+
+          <article
+            class="experience-card"
+            [style.animationDelay]="i*120+'ms'">
+
+            <div class="gradient-border"></div>
+
+            <div class="card-glow"></div>
+
+            <div class="card-content">
+
+              <!-- ========================= -->
+              <!-- Header -->
+              <!-- ========================= -->
+
+              <div class="card-header">
+
+                <div class="company-icon">
+
+                  💼
+
+                </div>
+
+                <div class="action-buttons">
+
+                  <button
+                    class="edit-btn"
+                    (click)="openEditModal(exp.id)">
+
+                    ✏️
+
+                  </button>
+
+                  <button
+                    class="delete-btn"
+                    (click)="deleteExperience(exp.id)">
+
+                    🗑️
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              <!-- ========================= -->
+              <!-- Body -->
+              <!-- ========================= -->
+
+              <div class="card-body">
+
+                <h2>
+
+                  {{exp.role}}
+
+                </h2>
+
+                <h3>
+
+                  {{exp.company}}
+
+                </h3>
+
+                <p>
+
+                  {{exp.description}}
+
+                </p>
+
+                @if(exp.achievements){
+
+                  <div class="achievement-box">
+
+                    <strong>
+
+                      Key Achievements
+
+                    </strong>
+
+                    <p>
+
+                      {{exp.achievements}}
+
+                    </p>
+
+                  </div>
+
+                }
+
+              </div>
+
+              <!-- Footer continues in Part 2 -->
+                             <!-- ========================= -->
+              <!-- Footer -->
+              <!-- ========================= -->
+
+              <div class="card-footer">
+
+                <div class="date-range">
+
+                  <span>
+
+                    {{ exp.startDate | date:'MMM yyyy' }}
+
+                  </span>
+
+                  <span class="separator">
+
+                    →
+
+                  </span>
+
+                  <span>
+
+                    @if(exp.isCurrent){
+
+                      Present
+
+                    }
+
+                    @else{
+
+                      {{ exp.endDate | date:'MMM yyyy' }}
+
+                    }
+
+                  </span>
+
+                </div>
+
+                @if(exp.isCurrent){
+
+                  <span class="current-badge">
+
+                    Current
+
+                  </span>
+
+                }
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+        <!-- ==================================== -->
+        <!-- Empty State -->
+        <!-- ==================================== -->
+
+        @empty{
+
+          <section class="empty-state">
+
+            <div class="empty-icon">
+
+              💼
+
+            </div>
+
+            <h2>
+
+              No Experience Added
+
+            </h2>
+
+            <p>
+
+              Create your first professional experience
+              to start building your portfolio timeline.
+
+            </p>
+
+            <button
+              class="add-btn"
+              (click)="openCreateModal()">
+
+              Add Experience
+
+            </button>
+
+          </section>
+
+        }
+
+      </section>
+
+    }
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- Modal -->
+  <!-- ========================================================= -->
+
+  @if(isModalOpen()){
+
+    <div class="modal-overlay">
+
+      <div class="modal-card">
+
+        <!-- Header -->
+
+        <div class="modal-header">
+
+          <div>
+
+            <h2>
+
+              @if(editingId()){
+
+                Edit Experience
+
+              }
+
+              @else{
+
+                Add Experience
+
+              }
+
+            </h2>
+
+            <p>
+
+              Professional Experience Details
+
+            </p>
+
+          </div>
+
+          <button
+            class="close-btn"
+            (click)="closeModal()">
+
+            ✕
+
+          </button>
+
+        </div>
+
+        <!-- Error -->
+
+        @if(formError()){
+
+          <div class="error-banner">
+
+            {{ formError() }}
+
+          </div>
+
+        }
+
+        <!-- Form -->
+
+        <form
+          class="experience-form"
+          [formGroup]="experienceForm">
+
+          <!-- Company -->
+
+          <div class="form-group">
+
+            <label>
+
+              Company *
+
+            </label>
+
+            <input
+              class="admin-input"
+              formControlName="company"
+              placeholder="Google"/>
+
+          </div>
+
+          <!-- Role -->
+
+          <div class="form-group">
+
+            <label>
+
+              Role *
+
+            </label>
+
+            <input
+              class="admin-input"
+              formControlName="role"
+              placeholder="Software Engineer"/>
+
+          </div>
+
+          <!-- Start Date -->
+
+          <div class="form-group">
+
+            <label>
+
+              Start Date *
+
+            </label>
+
+            <input
+              type="date"
+              class="admin-input"
+              formControlName="startDate"/>
+
+          </div>
+
+          <!-- End Date -->
+
+          <div class="form-group">
+
+            <label>
+
+              End Date
+
+            </label>
+
+            <input
+              type="date"
+              class="admin-input"
+              formControlName="endDate"/>
+
+          </div>
+
+          <!-- Current -->
+
+          <div class="checkbox-group">
+
+            <label>
+
+              <input
+                type="checkbox"
+                formControlName="isCurrent"/>
+
+              I currently work here
+
+            </label>
+
+          </div>
+
+          <!-- Description -->
+
+          <div class="form-group full">
+
+            <label>
+
+              Description *
+
+            </label>
+
+            <textarea
+              rows="5"
+              class="admin-input"
+              formControlName="description"
+              placeholder="Describe your responsibilities...">
+
+            </textarea>
+
+          </div>
+
+          <!-- Achievements -->
+
+          <div class="form-group full">
+
+            <label>
+
+              Achievements
+
+            </label>
+
+            <textarea
+              rows="4"
+              class="admin-input"
+              formControlName="achievements"
+              placeholder="Awards, accomplishments, technologies...">
+
+            </textarea>
+
+          </div>
+
+        </form>
+
+        <!-- Footer -->
+
+        <div class="modal-footer">
+
+          <button
+            class="cancel-btn"
+            (click)="closeModal()">
+
+            Cancel
+
+          </button>
+
+          <button
+            class="save-btn"
+            [disabled]="experienceForm.invalid || isSubmitting()"
+            (click)="onSubmit()">
+
+            @if(isSubmitting()){
+
+              Saving...
+
+            }
+
+            @else{
+
+              Save Experience
+
+            }
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

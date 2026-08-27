@@ -1,0 +1,599 @@
+<div class="header-left">
+
+  <div class="title-icon">
+
+    <svg class="w-7 h-7"
+         fill="none"
+         stroke="currentColor"
+         viewBox="0 0 24 24">
+
+      <path stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+
+    </svg>
+
+  </div>
+
+
+  <div>
+
+    <h1 class="page-title">
+      Projects Management
+    </h1>
+
+
+    <p class="page-subtitle">
+      Manage portfolio projects with immersive 3D experience.
+    </p>
+
+
+  </div>
+
+</div>
+
+
+
+<button
+  class="add-btn floating-btn"
+  (click)="openModal()">
+
+  <span class="plus">+</span>
+
+  <span>
+    Add Project
+  </span>
+
+</button>
+
+
+
+<div class="stats-container">
+
+
+  <div class="stat-card glass-card">
+
+    <div class="stat-icon blue">
+      🚀
+    </div>
+
+    <div>
+
+      <h2>
+        {{projects().length}}
+      </h2>
+
+      <span>
+        Total Projects
+      </span>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="stat-card glass-card">
+
+    <div class="stat-icon purple">
+      ⚡
+    </div>
+
+    <div>
+
+      <h2>
+        {{projects().length}}
+      </h2>
+
+      <span>
+        Published
+      </span>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="stat-card glass-card">
+
+    <div class="stat-icon green">
+      💎
+    </div>
+
+    <div>
+
+      <h2>
+        100%
+      </h2>
+
+      <span>
+        Portfolio Ready
+      </span>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+<table>
+
+  <thead>
+
+    <tr>
+
+      <th>
+        Project
+      </th>
+
+
+      <th>
+        Technology
+      </th>
+
+
+      <th>
+        Links
+      </th>
+
+
+      <th class="text-right">
+        Actions
+      </th>
+
+
+    </tr>
+
+  </thead>
+
+
+
+  <tbody>
+
+
+    @if(isLoading()){
+
+      <tr>
+
+        <td colspan="4">
+
+          <div class="loader-area">
+
+            <div class="loader-ring"></div>
+
+            <p>
+              Loading Projects...
+            </p>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    }
+
+
+
+    @else if(projects().length === 0){
+
+      <tr>
+
+        <td colspan="4">
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              📁
+            </div>
+
+
+            <h3>
+              No Projects
+            </h3>
+
+
+            <p>
+              Create your first amazing project.
+            </p>
+
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    }
+
+
+
+    @else{
+
+
+      @for(project of projects(); track project.id){
+
+
+        <tr class="project-row">
+
+
+          <td>
+
+
+            <div class="project-info">
+
+
+              <div class="image-box">
+
+                <img
+                [src]="project.imageUrl"
+                [alt]="project.title">
+
+              </div>
+
+
+
+              <div>
+
+
+                <h3>
+                  {{project.title}}
+                </h3>
+
+
+                <p>
+                  {{project.shortDescription}}
+                </p>
+
+
+              </div>
+
+
+            </div>
+
+
+          </td>
+
+
+
+
+          <td>
+
+
+            <div class="tech-container">
+
+
+              @for(tech of project.technologies; track tech){
+
+
+                <span class="tech-chip">
+
+                  {{ tech.name ? tech.name : tech }}
+
+                </span>
+
+
+              }
+
+
+            </div>
+
+
+          </td>
+
+
+
+
+          <td>
+
+
+            <div class="links">
+
+
+              @if(project.githubUrl){
+
+                <a
+                [href]="project.githubUrl"
+                target="_blank">
+
+                  GitHub
+
+                </a>
+
+              }
+
+
+
+              @if(project.liveUrl){
+
+                <a
+                [href]="project.liveUrl"
+                target="_blank">
+
+                  Live
+
+                </a>
+
+              }
+
+
+            </div>
+
+
+          </td>
+
+
+
+
+          <td>
+
+
+            <div class="actions">
+
+
+              <button
+              class="edit-btn"
+              (click)="openModal(project)">
+
+                Edit
+
+              </button>
+
+
+
+              <button
+              class="delete-btn"
+              (click)="deleteProject(project.id)">
+
+                Delete
+
+              </button>
+
+
+            </div>
+
+
+          </td>
+
+
+        </tr>
+
+
+      }
+
+
+    }
+
+
+  </tbody>
+
+
+</table>
+
+
+
+
+
+<!-- ADD / EDIT PROJECT MODAL -->
+
+@if(isModalOpen()){
+
+
+<div class="modal-overlay">
+
+
+  <div class="modal-container glass-card">
+
+
+    <h2>
+
+      {{editingProjectId() ? 'Edit Project' : 'Add Project'}}
+
+    </h2>
+
+
+
+ <form 
+[formGroup]="projectForm"
+(ngSubmit)="onSubmit()">
+
+
+  <!-- Title -->
+  <div class="input-group">
+
+    <label>
+      Project Title
+    </label>
+
+    <input
+    type="text"
+    placeholder="Project Title"
+    formControlName="title">
+
+  </div>
+
+
+
+  <!-- Slug -->
+  <div class="input-group">
+
+    <label>
+      URL Slug
+    </label>
+
+    <input
+    type="text"
+    placeholder="my-project"
+    formControlName="slug">
+
+  </div>
+
+
+
+  <!-- Short Description -->
+  <div class="input-group">
+
+    <label>
+      Short Description
+    </label>
+
+    <input
+    type="text"
+    placeholder="Short Description"
+    formControlName="shortDescription">
+
+  </div>
+
+
+
+  <!-- Detailed Description -->
+  <div class="input-group">
+
+    <label>
+      Detailed Description
+    </label>
+
+    <textarea
+    placeholder="Detailed Description"
+    formControlName="detailedDescription">
+    </textarea>
+
+  </div>
+
+
+
+  <!-- Start Date Fixed -->
+  <div class="input-group">
+
+    <label>
+      Start Date
+    </label>
+
+    <input
+    type="date"
+    formControlName="startDate">
+
+  </div>
+
+
+
+  <!-- Image -->
+  <div class="input-group">
+
+    <label>
+      Image URL
+    </label>
+
+    <input
+    type="text"
+    placeholder="Image URL"
+    formControlName="imageUrl">
+
+  </div>
+
+
+
+  <!-- Live URL -->
+  <div class="input-group">
+
+    <label>
+      Live URL
+    </label>
+
+    <input
+    type="text"
+    placeholder="Live URL"
+    formControlName="liveUrl">
+
+  </div>
+
+
+
+  <!-- Github URL -->
+  <div class="input-group">
+
+    <label>
+      Github URL
+    </label>
+
+    <input
+    type="text"
+    placeholder="Github URL"
+    formControlName="githubUrl">
+
+  </div>
+
+
+
+
+  <!-- Technologies -->
+  <div class="input-group">
+
+    <label>
+      Technologies
+    </label>
+
+    <input
+    type="text"
+    placeholder="Java, Spring Boot, Angular"
+    formControlName="technologies">
+
+  </div>
+
+
+
+
+  <div class="modal-buttons">
+
+
+    <button
+    type="button"
+    class="delete-btn"
+    (click)="closeModal()">
+
+      Cancel
+
+    </button>
+
+
+
+    <button
+    type="submit"
+    class="edit-btn"
+    [disabled]="isSubmitting()">
+
+
+      @if(isSubmitting()){
+
+        Saving...
+
+      }
+      @else{
+
+        Save Project
+
+      }
+
+
+    </button>
+
+
+  </div>
+
+
+</form>
+
+
+  </div>
+
+
+</div>
+
+
+}

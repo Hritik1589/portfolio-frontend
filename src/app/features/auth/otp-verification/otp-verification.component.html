@@ -1,0 +1,386 @@
+<div class="otp-page">
+
+  <!-- Ambient background -->
+  <div class="bg-grid"></div>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+
+  <!-- Ambient orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Stars -->
+  <div class="stars" aria-hidden="true">
+    @for (star of stars; track $index) {
+      <span
+        [style.left.%]="star.left"
+        [style.top.%]="star.top"
+        [style.animation-delay.s]="star.delay"
+        [style.animation-duration.s]="star.duration">
+      </span>
+    }
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particles" aria-hidden="true">
+    @for (item of particles; track $index) {
+      <span
+        class="particle"
+        [style.left.%]="item.left"
+        [style.animation-delay.s]="item.delay"
+        [style.animation-duration.s]="item.duration"
+        [style.transform]="'scale(' + item.scale + ')'">
+      </span>
+    }
+  </div>
+
+  <!-- Shooting stars -->
+  <div class="shooting-stars" aria-hidden="true">
+    @for (item of shootingStars; track $index) {
+      <span
+        class="shooting-star"
+        [style.top.%]="item.top"
+        [style.animation-delay.s]="item.delay">
+      </span>
+    }
+  </div>
+
+  <!-- Main card -->
+  <main
+    #tiltCard
+    class="otp-card"
+    (mousemove)="onMouseMove($event)"
+    (mouseleave)="resetTilt()">
+
+    <!-- Mouse spotlight -->
+    <div
+      class="spotlight"
+      [style.left.px]="mouseX()"
+      [style.top.px]="mouseY()">
+    </div>
+
+    <!-- Animated border -->
+    <div class="border-glow"></div>
+
+    <!-- Card content -->
+    <div class="card-content">
+
+      <!-- Security badge -->
+      <div class="security-badge">
+        <span class="status-dot"></span>
+        Secure verification
+      </div>
+
+      <!-- Lock -->
+      <div class="lock-wrapper">
+        <div
+          class="lock-circle"
+          [class.success]="isSuccess()">
+
+          <div class="lock-ring"></div>
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="lock-icon"
+            aria-hidden="true">
+
+            <path
+              class="lock-shackle"
+              d="M8 10V7a4 4 0 0 1 8 0v3">
+            </path>
+
+            <rect
+              x="5"
+              y="10"
+              width="14"
+              height="10"
+              rx="2">
+            </rect>
+
+            @if (isSuccess()) {
+              <path
+                d="M8 15l3 3 5-6"
+                class="check-path">
+              </path>
+            }
+          </svg>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <div class="heading-area">
+
+        <div class="eyebrow">
+          <span></span>
+          Identity protection
+        </div>
+
+        <h1>
+          @if (isSuccess()) {
+            Identity Verified
+          } @else {
+            Verify your identity
+          }
+        </h1>
+
+        <p class="subtitle">
+          @if (isSuccess()) {
+            Your secure connection has been established.
+          } @else {
+            Enter the 6-digit code we sent to your device.
+          }
+        </p>
+
+      </div>
+
+      <!-- Error -->
+      @if (errorMessage()) {
+        <div
+          class="alert error"
+          role="alert">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true">
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              stroke-width="1.8"/>
+            <path
+              d="M12 8v5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"/>
+            <circle
+              cx="12"
+              cy="16.5"
+              r="1"
+              fill="currentColor"/>
+          </svg>
+
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- OTP form -->
+      <form
+        [formGroup]="otpForm"
+        (ngSubmit)="onSubmit()"
+        autocomplete="off">
+
+        <div class="otp-section">
+
+          <div
+            class="otp-boxes"
+            formArrayName="digits"
+            role="group"
+            aria-label="One-time password">
+
+            @for (control of digitsArray.controls; track $index) {
+              <input
+                #otpInput
+                [formControlName]="$index"
+                class="otp-input"
+                maxlength="1"
+                type="text"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                aria-label="OTP digit {{ $index + 1 }}"
+                (input)="onInput($event, $index)"
+                (keydown)="onKeyDown($event, $index)"
+                (paste)="onPaste($event)"
+                [disabled]="isLoading() || isSuccess()" />
+            }
+
+          </div>
+
+          <div class="otp-hint">
+            <span class="hint-icon">✦</span>
+            Six digits · One-time security code
+          </div>
+
+        </div>
+
+        <!-- Verify button -->
+        <button
+          type="submit"
+          class="verify-btn"
+          (mousemove)="moveButton($event)"
+          (mouseleave)="leaveButton()"
+          [style.transform]="'translate(' + buttonX() + 'px,' + buttonY() + 'px)'"
+          [disabled]="isLoading() || isSuccess()">
+
+          <div class="btn-bg"></div>
+          <div class="btn-shine"></div>
+
+          @if (isLoading()) {
+
+            <span class="button-loading">
+              <span class="loader"></span>
+              Verifying...
+            </span>
+
+          } @else if (isSuccess()) {
+
+            <span class="success-content">
+              <svg
+                width="19"
+                height="19"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true">
+
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+              </svg>
+
+              Verified
+            </span>
+
+          } @else {
+
+            <span class="button-content">
+              Verify code
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true">
+
+                <path
+                  d="M5 12h13M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+              </svg>
+            </span>
+
+          }
+
+        </button>
+
+      </form>
+
+      <!-- Countdown -->
+      <div class="countdown">
+
+        @if (resendCountdown() > 0) {
+
+          <span>
+            Didn't receive it?
+            <strong>
+              Resend in {{ resendCountdown() }}s
+            </strong>
+          </span>
+
+        } @else {
+
+          <span>Didn't receive the code?</span>
+
+          <button
+            type="button"
+            class="resend-btn"
+            (click)="resendOtp()">
+
+            Send a new code
+            <span>↗</span>
+
+          </button>
+
+        }
+
+      </div>
+
+      <!-- Trust footer -->
+      <div class="trust-footer">
+
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M12 3l7 3v5c0 4.5-3 7.8-7 10-4-2.2-7-5.5-7-10V6l7-3z"
+              stroke="currentColor"
+              stroke-width="1.7"/>
+            <path
+              d="M9 12l2 2 4-4"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+          </svg>
+          End-to-end protected
+        </div>
+
+        <span class="trust-divider"></span>
+
+        <div class="trust-item">
+          <span class="live-dot"></span>
+          System operational
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Success overlay -->
+    @if (isSuccess()) {
+
+      <div class="success-overlay">
+
+        <div class="success-glow"></div>
+
+        <div class="success-circle">
+
+          <div class="success-ring"></div>
+
+          <svg
+            width="62"
+            height="62"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true">
+
+            <path
+              d="M5 13l4 4L19 7"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+          </svg>
+
+        </div>
+
+        <div class="success-label">
+          <span></span>
+          VERIFIED
+        </div>
+
+        <h2>You're all set.</h2>
+
+        <p>
+          Secure verification completed.<br>
+          Redirecting you now...
+        </p>
+
+        <div class="success-progress">
+          <span></span>
+        </div>
+
+      </div>
+
+    }
+
+  </main>
+
+</div>

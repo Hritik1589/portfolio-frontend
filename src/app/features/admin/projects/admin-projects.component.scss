@@ -1,0 +1,1259 @@
+/* ===============================
+   PROJECTS PAGE
+================================= */
+
+:host {
+  display: block;
+}
+
+.projects-page {
+  position: relative;
+  min-height: 100%;
+  padding: 4px;
+  overflow: hidden;
+}
+
+/* ===============================
+   Animated Background
+================================= */
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 45px 45px;
+  mask-image: radial-gradient(circle, white 20%, transparent 90%);
+  pointer-events: none;
+  z-index: -3;
+}
+
+.bg-orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    animation:floatOrb 14s ease-in-out infinite;
+    opacity:.55;
+}
+
+.orb-1{
+    width:420px;
+    height:420px;
+    background:#3b82f6;
+    top:-160px;
+    left:-140px;
+}
+
+.orb-2{
+    width:380px;
+    height:380px;
+    background:#9333ea;
+    right:-120px;
+    bottom:-150px;
+    animation-delay:5s;
+}
+
+@keyframes floatOrb{
+
+0%,100%{
+transform:translateY(0) translateX(0);
+}
+
+50%{
+transform:translateY(-40px) translateX(30px);
+}
+
+}
+
+/* ===============================
+Header
+================================= */
+
+.page-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+gap:20px;
+flex-wrap:wrap;
+
+}
+
+.header-left{
+
+display:flex;
+align-items:center;
+gap:18px;
+
+}
+
+.title-icon{
+
+width:65px;
+height:65px;
+border-radius:18px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+box-shadow:
+0 0 35px rgba(37,99,235,.45);
+
+color:white;
+
+transition:.4s;
+
+}
+
+.title-icon:hover{
+
+transform:
+rotateY(20deg)
+rotateX(10deg)
+scale(1.08);
+
+}
+
+.page-title{
+
+font-size:34px;
+font-weight:800;
+color:white;
+
+}
+
+.page-subtitle{
+
+color:#94a3b8;
+
+margin-top:5px;
+
+}
+
+/* ===============================
+Button
+================================= */
+
+.add-btn{
+
+padding:15px 28px;
+
+border:none;
+
+border-radius:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+display:flex;
+
+gap:12px;
+
+align-items:center;
+
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+color:white;
+
+transition:.35s;
+
+box-shadow:
+
+0 12px 30px rgba(37,99,235,.45);
+
+}
+
+.add-btn:hover{
+
+transform:
+translateY(-6px)
+scale(1.04);
+
+box-shadow:
+
+0 20px 40px rgba(59,130,246,.45);
+
+}
+
+.plus{
+
+font-size:24px;
+
+font-weight:bold;
+
+}
+
+/* ===============================
+Stats
+================================= */
+
+.stats-row{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+gap:22px;
+
+margin-bottom:35px;
+
+}
+
+.glass-card{
+
+background:rgba(255,255,255,.04);
+
+backdrop-filter:blur(22px);
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:22px;
+
+overflow:hidden;
+
+transition:.45s;
+
+position:relative;
+
+}
+
+.glass-card::before{
+
+content:"";
+
+position:absolute;
+
+top:-50%;
+
+left:-50%;
+
+width:200%;
+
+height:200%;
+
+background:
+
+linear-gradient(
+
+transparent,
+
+rgba(255,255,255,.06),
+
+transparent
+
+);
+
+transform:rotate(25deg);
+
+transition:.6s;
+
+opacity:0;
+
+}
+
+.glass-card:hover::before{
+
+opacity:1;
+
+left:100%;
+
+}
+
+.glass-card:hover{
+
+transform:
+
+translateY(-10px)
+
+rotateX(8deg)
+
+rotateY(-8deg);
+
+border-color:#3b82f6;
+
+box-shadow:
+
+0 25px 60px rgba(37,99,235,.25);
+
+}
+
+.stat-card{
+
+padding:28px;
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+}
+
+.stat-icon{
+
+width:65px;
+
+height:65px;
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+}
+
+.blue{
+
+background:rgba(59,130,246,.15);
+
+}
+
+.purple{
+
+background:rgba(168,85,247,.15);
+
+}
+
+.green{
+
+background:rgba(16,185,129,.15);
+
+}
+
+.stat-card h2{
+
+font-size:32px;
+
+color:white;
+
+font-weight:800;
+
+}
+
+.stat-card span{
+
+color:#94a3b8;
+
+}
+
+/* ===============================
+Table
+================================= */
+
+.table-wrapper{
+
+overflow:hidden;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+thead{
+
+background:rgba(255,255,255,.05);
+
+}
+
+th{
+
+padding:20px;
+
+color:#cbd5e1;
+
+font-size:13px;
+
+text-transform:uppercase;
+
+letter-spacing:1px;
+
+}
+
+.project-row{
+
+transition:.35s;
+
+}
+
+.project-row:hover{
+
+background:rgba(255,255,255,.03);
+
+transform:scale(1.01);
+
+}
+
+td{
+
+padding:22px;
+
+border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+.project-info{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+}
+
+.image-box{
+
+width:75px;
+
+height:75px;
+
+border-radius:18px;
+
+overflow:hidden;
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.4s;
+
+}
+
+.image-box img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+transition:.5s;
+
+}
+
+.project-row:hover img{
+
+transform:scale(1.15);
+
+}
+
+.project-row:hover .image-box{
+
+box-shadow:
+
+0 0 25px rgba(59,130,246,.45);
+
+}
+
+.project-info h3{
+
+color:white;
+
+font-size:17px;
+
+font-weight:700;
+
+margin-bottom:6px;
+
+}
+
+.project-info p{
+
+color:#94a3b8;
+
+max-width:420px;
+
+display:-webkit-box;
+
+-webkit-line-clamp:2;
+
+-webkit-box-orient:vertical;
+
+overflow:hidden;
+
+}
+
+/* ===============================
+Tech Chips
+================================= */
+
+.tech-container{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:8px;
+
+}
+
+.tech-chip{
+
+padding:7px 14px;
+
+border-radius:999px;
+
+background:
+
+linear-gradient(135deg,
+
+rgba(59,130,246,.2),
+
+rgba(168,85,247,.2));
+
+color:#c4b5fd;
+
+font-size:12px;
+
+font-weight:600;
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.3s;
+
+}
+
+.tech-chip:hover{
+
+transform:
+
+translateY(-3px)
+
+scale(1.05);
+
+}
+
+/* ===============================
+Links
+================================= */
+
+.links{
+
+display:flex;
+
+gap:12px;
+
+}
+
+.links a{
+
+padding:9px 15px;
+
+border-radius:12px;
+
+background:rgba(255,255,255,.05);
+
+color:white;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+.links a:hover{
+
+background:#2563eb;
+
+}
+
+/* ===============================
+Buttons
+================================= */
+
+.actions{
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:12px;
+
+}
+
+.edit-btn,
+.delete-btn{
+
+padding:10px 18px;
+
+border:none;
+
+cursor:pointer;
+
+border-radius:12px;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.edit-btn{
+
+background:#2563eb;
+
+color:white;
+
+}
+
+.edit-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+.delete-btn{
+
+background:#ef4444;
+
+color:white;
+
+}
+
+.delete-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+/* ===============================
+Loader
+================================= */
+
+.loader-area{
+
+padding:70px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+.loader-ring{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+border:5px solid rgba(255,255,255,.08);
+
+border-top-color:#3b82f6;
+
+animation:spin .9s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* ===============================
+Empty
+================================= */
+
+.empty-state{
+
+padding:80px;
+
+text-align:center;
+
+}
+
+.empty-icon{
+
+font-size:70px;
+
+margin-bottom:15px;
+
+animation:floatOrb 4s infinite;
+
+}
+
+.empty-state h3{
+
+font-size:28px;
+
+color:white;
+
+margin-bottom:8px;
+
+}
+
+.empty-state p{
+
+color:#94a3b8;
+
+}
+
+/* ===============================
+Responsive
+================================= */
+
+@media(max-width:768px){
+
+.page-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.stats-row{
+
+grid-template-columns:1fr;
+
+}
+
+.project-info{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.actions{
+
+justify-content:flex-start;
+
+}
+
+}
+/* =================================
+   EXTRA 3D ENHANCEMENTS
+================================= */
+
+
+/* Page Entry Animation */
+.projects-page {
+  perspective: 1200px;
+  animation: pageReveal .8s ease forwards;
+}
+
+
+@keyframes pageReveal {
+
+  from {
+    opacity:0;
+    transform:translateY(30px) rotateX(5deg);
+  }
+
+  to {
+    opacity:1;
+    transform:translateY(0) rotateX(0);
+  }
+
+}
+
+
+
+/* Floating Add Button Animation */
+
+.floating-btn {
+  animation: none;
+}
+
+
+@keyframes floatButton {
+
+
+0%,100%{
+ transform:translateY(0);
+}
+
+
+50%{
+ transform:translateY(-8px);
+}
+
+
+}
+
+
+
+/* Glass Card 3D Shine */
+
+.glass-card {
+
+ transform-style:preserve-3d;
+ will-change:transform;
+
+}
+
+
+
+.glass-card:hover {
+
+
+box-shadow:
+
+0 30px 80px rgba(59,130,246,.25),
+0 0 40px rgba(168,85,247,.15);
+
+
+}
+
+
+
+/* Stats Icon Floating */
+
+.stat-icon {
+
+ transform:translateZ(30px);
+
+ animation:
+ iconFloat 3s ease-in-out infinite;
+
+}
+
+
+
+@keyframes iconFloat {
+
+
+0%,100%{
+ transform:translateY(0) translateZ(30px);
+}
+
+
+50%{
+ transform:translateY(-8px) translateZ(40px);
+}
+
+
+}
+
+
+
+/* Table Row Entrance */
+
+.project-row {
+
+ animation:
+
+ rowAnimation .5s ease forwards;
+
+
+}
+
+
+
+@keyframes rowAnimation {
+
+
+from{
+
+opacity:0;
+
+transform:
+translateX(-30px)
+rotateY(10deg);
+
+}
+
+
+to{
+
+opacity:1;
+
+transform:
+translateX(0)
+rotateY(0);
+
+}
+
+
+}
+
+
+
+/* Image 3D Depth */
+
+.image-box {
+
+transform-style:preserve-3d;
+
+}
+
+
+
+.image-box img {
+
+transform:translateZ(20px);
+
+}
+
+
+
+.image-box:hover {
+
+transform:
+
+rotateY(15deg)
+rotateX(8deg)
+scale(1.08);
+
+
+}
+
+
+
+/* Technology Chip Glow */
+
+
+.tech-chip {
+
+
+cursor:pointer;
+
+
+box-shadow:
+inset 0 0 10px rgba(255,255,255,.05);
+
+
+}
+
+
+.tech-chip:hover {
+
+
+box-shadow:
+
+0 0 25px rgba(168,85,247,.45);
+
+
+}
+
+
+
+/* Button 3D Press */
+
+
+.edit-btn,
+.delete-btn {
+
+
+position:relative;
+
+overflow:hidden;
+
+
+}
+
+
+
+.edit-btn:active,
+.delete-btn:active {
+
+
+transform:
+
+translateY(3px)
+scale(.95);
+
+
+}
+
+
+
+/* Modal Support (future use) */
+
+.modal-container input[type="date"] {
+  color-scheme: dark;
+  cursor:pointer;
+}
+
+
+.modal-container input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor:pointer;
+}
+
+
+
+@keyframes modal3D {
+
+
+from {
+
+
+opacity:0;
+
+transform:
+
+translateY(50px)
+rotateX(-15deg)
+scale(.9);
+
+
+}
+
+
+
+to {
+
+
+opacity:1;
+
+transform:
+
+translateY(0)
+rotateX(0)
+scale(1);
+
+
+}
+
+
+}
+
+
+
+
+/* Smooth Scrollbar */
+
+
+::-webkit-scrollbar {
+
+width:8px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+background:#050505;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+background:
+
+linear-gradient(
+180deg,
+#2563eb,
+#9333ea
+);
+
+
+border-radius:20px;
+
+}
+
+
+
+/* Mobile Optimization */
+
+@media(max-width:768px){
+
+
+.glass-card:hover {
+
+
+transform:
+
+translateY(-5px);
+
+
+}
+
+
+
+.page-title {
+
+font-size:28px;
+
+}
+
+
+
+}
+.add-btn{
+ position:relative;
+ z-index:999;
+}
+/* ===============================
+   MODAL
+================================= */
+
+.modal-overlay {
+
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:99999;
+
+}
+
+
+.modal-container {
+
+  width:600px;
+  max-width:90%;
+
+  max-height:90vh;
+  overflow-y:auto;
+
+  padding:35px;
+
+  background:#111827;
+
+  border-radius:25px;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  box-shadow:
+  0 30px 80px rgba(0,0,0,.6);
+
+  animation:modalShow .35s ease;
+
+}
+
+
+
+.modal-container h2 {
+
+  color:white;
+  font-size:28px;
+  margin-bottom:25px;
+
+}
+
+
+
+.modal-container form {
+
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+
+}
+
+
+
+.modal-container input,
+.modal-container textarea {
+
+
+  width:100%;
+
+  padding:14px 16px;
+
+  border-radius:12px;
+
+  background:#1e293b;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  color:white;
+
+  font-size:15px;
+
+
+}
+
+
+.modal-container textarea {
+
+ height:120px;
+
+ resize:none;
+
+}
+
+
+
+.modal-container input::placeholder,
+.modal-container textarea::placeholder {
+
+ color:#94a3b8;
+
+}
+
+
+
+.modal-buttons {
+
+ display:flex;
+
+ justify-content:flex-end;
+
+ gap:15px;
+
+ margin-top:20px;
+
+}
+
+
+
+.modal-buttons button {
+
+ min-width:120px;
+
+}
+
+
+
+@keyframes modalShow {
+
+
+from {
+
+opacity:0;
+
+transform:
+translateY(40px)
+scale(.9);
+
+}
+
+
+to {
+
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+
+}

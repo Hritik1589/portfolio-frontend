@@ -1,0 +1,263 @@
+<div class="blog-detail-page">
+
+  <!-- Background -->
+  <div class="background-effects">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <!-- Loading -->
+  @if(isLoading()){
+
+  <div class="loading-wrapper">
+
+    <div class="loading-card">
+
+      <div class="skeleton title"></div>
+
+      <div class="skeleton meta"></div>
+
+      <div class="skeleton image"></div>
+
+      <div class="skeleton line"></div>
+
+      <div class="skeleton line"></div>
+
+      <div class="skeleton line short"></div>
+
+    </div>
+
+  </div>
+
+  }
+
+  <!-- Not Found -->
+  @else if(!blog()){
+
+  <div class="empty-state">
+
+    <div class="empty-icon">
+      📭
+    </div>
+
+    <h2>Article Not Found</h2>
+
+    <p>
+      The article you're looking for doesn't exist or has been removed.
+    </p>
+
+    <button
+      class="primary-btn"
+      (click)="goBack()">
+
+      ← Back to Articles
+
+    </button>
+
+  </div>
+
+  }
+
+  <!-- Article -->
+  @else{
+
+  <div class="container">
+
+    <!-- Back Button -->
+
+    <button
+      class="back-btn"
+      (click)="goBack()">
+
+      ← Back to Articles
+
+    </button>
+
+    <!-- Hero -->
+
+    <section class="hero">
+
+      <!-- Image -->
+
+      <div class="hero-image">
+
+        <img
+          [src]="blog()?.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80'"
+          [alt]="blog()?.title">
+
+        <div class="hero-overlay"></div>
+
+      </div>
+
+      <!-- Floating Content -->
+
+      <div class="hero-content">
+
+        <!-- Tags -->
+
+        <div class="tags">
+
+          @for(tag of blog()?.tags;track tag){
+
+          <span class="tag">
+
+            {{tag.name ? tag.name : tag}}
+
+          </span>
+
+          }
+
+        </div>
+
+        <!-- Title -->
+
+        <h1>
+
+          {{blog()?.title}}
+
+        </h1>
+
+        <!-- Meta -->
+
+        <div class="meta">
+
+          <div class="author">
+
+            <div class="avatar">
+
+              H
+
+            </div>
+
+            <div>
+
+              <h4>
+
+                Hritik
+
+              </h4>
+
+              <span>
+
+                Software Engineer
+
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="date">
+
+            {{blog()?.publishedDate | date:'MMMM d, yyyy'}}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Reading Layout -->
+
+    <div class="article-layout">
+
+      <!-- Sidebar -->
+
+      <aside class="sidebar">
+
+        <div class="info-card">
+
+          <h4>
+
+            Article Info
+
+          </h4>
+
+          <ul>
+
+            <li>
+
+              📅
+
+              {{blog()?.publishedDate | date:'MMM d, yyyy'}}
+
+            </li>
+
+            <li>
+
+              📖
+
+              5 min read
+
+            </li>
+
+            <li>
+
+              ✍️
+
+              Technical Article
+
+            </li>
+
+          </ul>
+
+        </div>
+
+      </aside>
+
+      <!-- Content -->
+
+      <main class="content-card">
+
+        <article class="content">
+
+          <div class="whitespace-pre-wrap">
+
+            {{blog()?.content}}
+
+          </div>
+
+        </article>
+
+      </main>
+
+    </div>
+
+    <!-- Bottom CTA -->
+
+    <section class="bottom-card">
+
+      <h2>
+
+        Thanks for Reading!
+
+      </h2>
+
+      <p>
+
+        Explore more engineering tutorials, backend architecture guides and software development articles.
+
+      </p>
+
+      <button
+        class="primary-btn"
+        (click)="goBack()">
+
+        Explore More Articles
+
+      </button>
+
+    </section>
+
+  </div>
+
+  }
+
+</div>

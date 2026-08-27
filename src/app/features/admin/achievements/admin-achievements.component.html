@@ -1,0 +1,584 @@
+<div class="achievements-page">
+
+  <!-- ========================= -->
+  <!-- Animated Background -->
+  <!-- ========================= -->
+
+  <div class="bg-wrapper">
+
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+
+    <div class="grid-bg"></div>
+
+    <div class="noise-bg"></div>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- Main Container -->
+  <!-- ========================= -->
+
+  <div class="page-container">
+
+
+    <!-- ========================= -->
+    <!-- HERO SECTION -->
+    <!-- ========================= -->
+
+    <section class="hero">
+
+
+      <div class="hero-content">
+
+
+        <div class="hero-badge">
+
+          <span></span>
+
+          Portfolio Administration
+
+        </div>
+
+
+        <h1>
+
+          Achievement
+
+          <strong>
+            Management
+          </strong>
+
+        </h1>
+
+
+        <p>
+
+          Manage awards, certifications, hackathons and professional
+          achievements with an advanced immersive dashboard.
+
+        </p>
+
+
+      </div>
+
+
+
+      <button
+        class="add-btn"
+        (click)="openCreateModal()">
+
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor">
+
+          <path
+            stroke-width="2"
+            stroke-linecap="round"
+            d="M12 5v14M5 12h14"/>
+
+        </svg>
+
+
+        Add Achievement
+
+
+      </button>
+
+
+    </section>
+
+
+
+
+    <!-- ========================= -->
+    <!-- LOADING -->
+    <!-- ========================= -->
+
+
+    @if(isLoading()){
+
+
+      <div class="loading-wrapper">
+
+        <div class="loader-ring"></div>
+
+        <p>
+          Loading achievements...
+        </p>
+
+      </div>
+
+
+    }
+
+    @else {
+
+
+
+      <!-- ========================= -->
+      <!-- ACHIEVEMENT GRID -->
+      <!-- ========================= -->
+
+
+      <section class="achievement-grid">
+
+
+        @for(item of achievements(); track item.id; let i=$index){
+
+
+
+          <article
+            class="achievement-card"
+            [style.animation-delay]="i*120+'ms'">
+
+
+              <div class="card-border"></div>
+
+              <div class="card-glow"></div>
+
+
+              <div class="card-inner">
+
+
+                <!-- Header -->
+
+
+                <div class="card-header">
+
+
+                  <div class="achievement-icon">
+
+
+                    🏆
+
+
+                  </div>
+
+
+
+                  <div class="action-buttons">
+
+
+                    <button
+                      class="edit"
+                      (click)="openEditModal(item.id)">
+
+
+                      ✏️
+
+
+                    </button>
+
+
+
+                    <button
+                      class="delete"
+                      (click)="deleteAchievement(item.id)">
+
+
+                      🗑
+
+
+                    </button>
+
+
+                  </div>
+
+
+
+                </div>
+
+
+
+
+
+                <!-- Content -->
+
+
+                <h2>
+
+                  {{item.title}}
+
+                </h2>
+
+
+
+                <h3>
+
+                  {{item.organization}}
+
+                </h3>
+
+
+
+                <p>
+
+                  {{item.description}}
+
+                </p>
+
+
+
+
+                <!-- Footer -->
+
+
+                <div class="achievement-footer">
+
+
+                  <span>
+
+                    {{item.date | date:'mediumDate'}}
+
+                  </span>
+
+
+
+                  @if(item.certUrl){
+
+
+                    <a
+                      [href]="item.certUrl"
+                      target="_blank">
+
+                      Certificate ↗
+
+                    </a>
+
+
+                  }
+
+
+
+                </div>
+
+
+
+
+              </div>
+
+
+          </article>
+
+
+
+        }
+
+
+
+        @empty{
+
+
+          <div class="empty-state">
+
+
+            <div class="empty-icon">
+
+              🏆
+
+            </div>
+
+
+            <h2>
+
+              No Achievements
+
+            </h2>
+
+
+            <p>
+
+              Add your first achievement.
+
+            </p>
+
+
+            <button
+              (click)="openCreateModal()">
+
+              Create Achievement
+
+            </button>
+
+
+          </div>
+
+
+        }
+
+
+
+      </section>
+
+
+
+    }
+
+
+
+
+  </div>
+
+
+
+
+
+  <!-- ========================= -->
+  <!-- CREATE / EDIT MODAL -->
+  <!-- ========================= -->
+
+
+@if(isModalOpen()){
+
+
+
+<div class="modal-overlay">
+
+
+
+  <div class="modal-card">
+
+
+
+    <div class="modal-header">
+
+
+      <h2>
+
+        {{isEditMode() ? 'Update Achievement':'Add Achievement'}}
+
+      </h2>
+
+
+      <button
+        (click)="closeModal()">
+
+        ✕
+
+
+      </button>
+
+
+    </div>
+
+
+
+
+
+    <form
+      [formGroup]="achievementForm"
+      class="achievement-form">
+
+
+
+
+
+      <div class="form-group">
+
+
+        <label>
+          Title *
+        </label>
+
+
+        <input
+          class="admin-input"
+          formControlName="title"
+          placeholder="Google Hackathon Winner">
+
+
+      </div>
+
+
+
+
+
+      <div class="form-group">
+
+
+        <label>
+          Organization
+        </label>
+
+
+        <input
+          class="admin-input"
+          formControlName="organization"
+          placeholder="Microsoft">
+
+
+      </div>
+
+
+
+
+
+      <div class="form-group">
+
+
+        <label>
+          Achievement Date *
+        </label>
+
+
+        <input
+          type="date"
+          class="admin-input"
+          formControlName="date">
+
+
+      </div>
+
+
+
+
+
+      <div class="form-group full">
+
+
+        <label>
+          Description *
+        </label>
+
+
+        <textarea
+
+          rows="5"
+
+          class="admin-input"
+
+          formControlName="description"
+
+          placeholder="Describe achievement...">
+
+        </textarea>
+
+
+      </div>
+
+
+
+
+
+      <div class="form-group full">
+
+
+        <label>
+          Image URL
+        </label>
+
+
+        <input
+
+          class="admin-input"
+
+          formControlName="imageUrl"
+
+          placeholder="https://image-url">
+
+
+      </div>
+
+
+
+
+
+      <div class="form-group full">
+
+
+        <label>
+          Certificate URL
+        </label>
+
+
+        <input
+
+          class="admin-input"
+
+          formControlName="certUrl"
+
+          placeholder="https://certificate-link">
+
+
+      </div>
+
+
+
+
+    </form>
+
+
+
+
+
+
+    <div class="modal-footer">
+
+
+      <button
+        class="cancel-btn"
+        (click)="closeModal()">
+
+
+        Cancel
+
+
+      </button>
+
+
+
+
+      <button
+
+        class="save-btn"
+
+        [disabled]="achievementForm.invalid || isSubmitting()"
+
+        (click)="onSubmit()">
+
+
+
+        @if(isSubmitting()){
+
+
+          Saving...
+
+
+        }
+
+        @else{
+
+
+          Save Achievement
+
+
+        }
+
+
+
+      </button>
+
+
+
+    </div>
+
+
+
+
+
+  </div>
+
+
+</div>
+
+
+}
+
+
+
+</div>

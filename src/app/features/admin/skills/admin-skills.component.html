@@ -1,0 +1,262 @@
+<div class="relative min-h-screen overflow-hidden px-6 py-10">
+
+  <!-- ========================= -->
+  <!-- Animated Background -->
+  <!-- ========================= -->
+  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="floating-orb orb-purple"></div>
+    <div class="floating-orb orb-pink"></div>
+    <div class="floating-orb orb-indigo"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- PAGE HEADER -->
+  <!-- ========================= -->
+  <div class="flex flex-col lg:flex-row justify-between items-center gap-8 mb-10 relative z-10">
+    <div>
+      <div class="dashboard-chip">
+        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
+          <path d="M8 7V3M16 7V3M4 11H20M5 5H19C20.1046 5 21 5.89543 21 7V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V7C3 5.89543 3.89543 5 5 5Z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Skill Dashboard
+      </div>
+      <h1 class="dashboard-title">
+        Skill Management
+      </h1>
+      <p class="dashboard-subtitle">
+        Manage technologies, proficiency, categories and display order with a premium admin dashboard.
+      </p>
+    </div>
+
+    <button (click)="openCreateModal()" class="primary-btn">
+      <span>+</span>
+      Add Skill
+    </button>
+  </div>
+
+  <!-- ========================= -->
+  <!-- STATS -->
+  <!-- ========================= -->
+  @if(!isLoading()) {
+    <div class="stats-grid relative z-10">
+      <div class="stat-card">
+        <div class="stat-icon purple">💻</div>
+        <div>
+          <h3>Total Skills</h3>
+          <h2>{{ skills().length }}</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon blue">📂</div>
+        <div>
+          <h3>Categories</h3>
+          <h2>{{ groupedSkills().length }}</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon green">⭐</div>
+        <div>
+          <h3>Expert Skills</h3>
+          <h2>{{ expertSkillsCount() }}</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orange">🚀</div>
+        <div>
+          <h3>Average</h3>
+          <h2>{{ averageProficiency() }}%</h2>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- ========================= -->
+  <!-- LOADER -->
+  <!-- ========================= -->
+  @if(isLoading()) {
+    <div class="loader-grid relative z-10">
+      @for(item of [1,2,3,4]; track item) {
+        <div class="loader-card"></div>
+      }
+    </div>
+  }
+
+  <!-- ========================= -->
+  <!-- CATEGORY LIST -->
+  <!-- ========================= -->
+  @if(!isLoading()) {
+    <div class="relative z-10 space-y-12">
+      @for(group of groupedSkills(); track group.category) {
+        <section class="category-section">
+          
+          <!-- Category Header -->
+          <div class="category-header">
+            <div>
+              <h2>{{ formatCategoryName(group.category) }}</h2>
+              <span>{{ group.items.length }} Skills</span>
+            </div>
+          </div>
+
+          <!-- Cards -->
+          <div class="skill-grid">
+            @for(skill of group.items; track skill.id) {
+              <div class="skill-card">
+                
+                <!-- Glow -->
+                <div class="card-glow"></div>
+
+                <!-- Header -->
+                <div class="skill-header">
+                  <div>
+                    <h3>{{ skill.name }}</h3>
+                  </div>
+
+                  <div class="percentage-circle">
+                    <svg>
+                      <circle cx="40" cy="40" r="34"></circle>
+                      <circle cx="40" cy="40" r="34" [style.stroke-dashoffset]="214 - (214 * skill.proficiency / 100)"></circle>
+                    </svg>
+                    <span>{{ skill.proficiency }}%</span>
+                  </div>
+                </div>
+
+                <!-- Progress -->
+                <div class="progress">
+                  <div class="progress-fill" [style.width.%]="skill.proficiency"></div>
+                </div>
+
+                <!-- Info -->
+                <div class="skill-footer">
+                  <span class="category-pill">{{ formatCategoryName(skill.category) }}</span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="actions">
+                  <button class="edit-btn" (click)="openEditModal(skill.id)">Edit</button>
+                  <button class="delete-btn" (click)="deleteSkill(skill.id)">Delete</button>
+                </div>
+
+              </div>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+</div>
+
+<!-- ===================================================== -->
+<!-- PREMIUM CREATE / EDIT MODAL -->
+<!-- ===================================================== -->
+@if(isModalOpen()) {
+  <div class="fixed inset-0 z-[100] flex items-center justify-center p-5 bg-slate-950/70 backdrop-blur-xl animate-backdrop" (click)="closeModal()">
+    
+    <!-- Modal -->
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      
+      <!-- Background Glow -->
+      <div class="modal-glow"></div>
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div>
+          <span class="modal-chip">{{ editingId() ? 'UPDATE' : 'CREATE' }}</span>
+          <h2>{{ editingId() ? 'Edit Skill' : 'Add New Skill' }}</h2>
+          <p>Fill in the information below.</p>
+        </div>
+        <button class="close-btn" (click)="closeModal()">✕</button>
+      </div>
+
+      <!-- Error -->
+      @if(formError()) {
+        <div class="error-box">
+          {{ formError() }}
+        </div>
+      }
+
+      <!-- FORM -->
+      <form [formGroup]="skillForm" (ngSubmit)="onSubmit()" class="form-scroll">
+        
+        <!-- ====================== -->
+        <div class="grid md:grid-cols-2 gap-6">
+          
+          <!-- Skill Name -->
+          <div class="input-group">
+            <label>Skill Name</label>
+            <input class="admin-input" formControlName="name" placeholder="Angular"/>
+            @if(isFieldInvalid('name')) {
+              <small class="text-rose-400">Required</small>
+            }
+          </div>
+
+          <!-- Category -->
+          <div class="input-group">
+            <label>Category</label>
+            <select class="admin-input" formControlName="category">
+              @for(cat of categories; track cat) {
+                <option [value]="cat">{{ formatCategoryName(cat) }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Years -->
+          <div class="input-group">
+            <label>Experience (Years)</label>
+            <input class="admin-input" type="number" step="0.5" formControlName="yearsOfExperience" placeholder="4"/>
+          </div>
+
+          <!-- Display Order -->
+          <div class="input-group">
+            <label>Display Order</label>
+            <input class="admin-input" type="number" formControlName="displayOrder"/>
+          </div>
+        </div>
+
+        <!-- ICON -->
+        <div class="input-group mt-6">
+          <label>Icon URL</label>
+          <input class="admin-input" formControlName="iconUrl" placeholder="https://..."/>
+        </div>
+
+        <!-- ====================== -->
+        <!-- PROFICIENCY -->
+        <!-- ====================== -->
+        <div class="mt-8">
+          <div class="flex justify-between mb-3">
+            <label>Proficiency</label>
+            <span class="percentage-value">{{ skillForm.get('proficiency')?.value }}%</span>
+          </div>
+          
+          <input type="range" min="0" max="100" formControlName="proficiency" class="range-slider w-full cursor-pointer"/>
+          
+          <div class="progress-preview mt-2 h-2 bg-slate-800 rounded-full overflow-hidden">
+            <div class="progress-preview-fill h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300" [style.width.%]="skillForm.get('proficiency')?.value"></div>
+          </div>
+        </div>
+
+        <!-- ====================== -->
+        <div class="modal-actions mt-8 flex justify-end gap-4">
+          <button type="button" class="cancel-btn px-4 py-2 text-slate-300 hover:text-white" (click)="closeModal()">
+            Cancel
+          </button>
+          
+          <button type="submit" class="save-btn px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-500 disabled:opacity-50" [disabled]="isSubmitting()">
+            @if(!isSubmitting()) {
+              {{ editingId() ? 'Update Skill' : 'Create Skill' }}
+            } @else {
+              <span class="flex items-center gap-2">
+                <div class="loader w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Saving...
+              </span>
+            }
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+}

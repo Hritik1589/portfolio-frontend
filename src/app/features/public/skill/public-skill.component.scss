@@ -1,0 +1,764 @@
+/* =====================================================
+   PAGE
+===================================================== */
+
+.skills-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left,#312e81 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#581c87 0%,transparent 35%),
+    #020617;
+  padding: 110px 24px;
+  color: white;
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+  max-width:1400px;
+  margin:auto;
+  position:relative;
+  z-index:5;
+}
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  animation:float 14s ease-in-out infinite;
+}
+
+.orb-1{
+  width:520px;
+  height:520px;
+  left:-120px;
+  top:120px;
+  background:#8b5cf630;
+}
+
+.orb-2{
+  width:420px;
+  height:420px;
+  right:-120px;
+  top:80px;
+  background:#3b82f630;
+  animation-delay:2s;
+}
+
+.orb-3{
+  width:500px;
+  height:500px;
+  bottom:-120px;
+  left:40%;
+  background:#ec489930;
+  animation-delay:5s;
+}
+
+.grid-overlay{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+
+/* =====================================================
+ HERO
+===================================================== */
+
+.hero{
+  text-align:center;
+  margin-bottom:70px;
+  animation:fadeDown .8s ease;
+}
+
+.hero-badge{
+
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:10px 22px;
+
+  border-radius:999px;
+
+  background:rgba(139,92,246,.12);
+
+  border:1px solid rgba(139,92,246,.3);
+
+  color:#c084fc;
+
+  margin-bottom:30px;
+
+  font-weight:600;
+}
+
+.hero-badge span{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#8b5cf6;
+  animation:pulse 2s infinite;
+}
+
+.hero h1{
+
+  font-size:clamp(3rem,7vw,5rem);
+
+  font-weight:900;
+
+  margin-bottom:20px;
+}
+
+.hero h1 span{
+
+  background:linear-gradient(90deg,#8b5cf6,#3b82f6,#ec4899);
+
+  -webkit-background-clip:text;
+
+  color:transparent;
+}
+
+.hero p{
+
+  max-width:760px;
+
+  margin:auto;
+
+  color:#94a3b8;
+
+  font-size:1.15rem;
+
+  line-height:1.9;
+}
+
+/* =====================================================
+ FILTERS
+===================================================== */
+
+.category-wrapper{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+margin-bottom:70px;
+
+}
+
+.category-btn{
+
+padding:14px 24px;
+
+border-radius:16px;
+
+background:#111827;
+
+border:1px solid #334155;
+
+color:#94a3b8;
+
+transition:.35s;
+
+cursor:pointer;
+
+font-weight:600;
+
+}
+
+.category-btn:hover{
+
+transform:translateY(-4px);
+
+border-color:#8b5cf6;
+
+color:white;
+
+}
+
+.category-btn.active{
+
+background:linear-gradient(135deg,#7c3aed,#3b82f6);
+
+border:none;
+
+color:white;
+
+box-shadow:0 10px 35px rgba(124,58,237,.45);
+
+transform:translateY(-5px);
+
+}
+
+/* =====================================================
+ GRID
+===================================================== */
+
+.skills-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:30px;
+
+}
+
+/* =====================================================
+ CARD
+===================================================== */
+
+.skill-card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:28px;
+
+padding:30px;
+
+background:rgba(15,23,42,.65);
+
+backdrop-filter:blur(25px);
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.5s;
+
+transform-style:preserve-3d;
+
+animation:cardReveal .7s forwards;
+
+opacity:0;
+
+}
+
+.skill-card:hover{
+
+transform:
+
+perspective(1200px)
+
+rotateX(6deg)
+
+rotateY(-6deg)
+
+translateY(-15px);
+
+border-color:#8b5cf6;
+
+box-shadow:
+
+0 35px 70px rgba(139,92,246,.25),
+
+0 0 45px rgba(59,130,246,.15);
+
+}
+
+/* glow */
+
+.card-glow{
+
+position:absolute;
+
+inset:-40%;
+
+background:radial-gradient(circle,#8b5cf620,transparent 70%);
+
+opacity:0;
+
+transition:.5s;
+
+}
+
+.skill-card:hover .card-glow{
+
+opacity:1;
+
+}
+
+/* shine */
+
+.shine{
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:50%;
+
+height:100%;
+
+background:linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.12),
+
+transparent
+
+);
+
+transform:skewX(-25deg);
+
+transition:1s;
+
+}
+
+.skill-card:hover .shine{
+
+left:170%;
+
+}
+
+/* =====================================================
+ HEADER
+===================================================== */
+
+.card-header{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+margin-bottom:35px;
+
+}
+
+.logo{
+
+width:72px;
+
+height:72px;
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+background:linear-gradient(135deg,#7c3aed,#3b82f6);
+
+box-shadow:0 12px 35px rgba(139,92,246,.35);
+
+flex-shrink:0;
+
+}
+
+.logo img{
+
+width:44px;
+
+height:44px;
+
+object-fit:contain;
+
+}
+
+.logo span{
+
+font-size:1.7rem;
+
+font-weight:800;
+
+}
+
+.card-header h3{
+
+font-size:1.45rem;
+
+font-weight:700;
+
+margin-bottom:5px;
+
+}
+
+.card-header p{
+
+color:#94a3b8;
+
+font-size:.9rem;
+
+}
+
+/* =====================================================
+ RING
+===================================================== */
+
+.ring-wrapper{
+
+width:170px;
+
+margin:0 auto 30px;
+
+position:relative;
+
+}
+
+.ring-wrapper svg{
+
+width:170px;
+
+height:170px;
+
+transform:rotate(-90deg);
+
+}
+
+.bg-ring{
+
+fill:none;
+
+stroke:#1e293b;
+
+stroke-width:10;
+
+}
+
+.progress-ring{
+
+fill:none;
+
+stroke:url(#grad);
+
+stroke:#8b5cf6;
+
+stroke-width:10;
+
+stroke-linecap:round;
+
+stroke-dasharray:314;
+
+transition:1.5s;
+
+filter:drop-shadow(0 0 10px #8b5cf6);
+
+}
+
+.percentage{
+
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:2rem;
+
+font-weight:800;
+
+}
+
+/* =====================================================
+ PROGRESS
+===================================================== */
+
+.label{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:10px;
+
+font-size:.9rem;
+
+color:#94a3b8;
+
+}
+
+.progress{
+
+height:10px;
+
+background:#0f172a;
+
+border-radius:999px;
+
+overflow:hidden;
+
+}
+
+.fill{
+
+height:100%;
+
+background:linear-gradient(
+
+90deg,
+
+#8b5cf6,
+
+#3b82f6,
+
+#ec4899
+
+);
+
+border-radius:999px;
+
+transition:1.3s;
+
+box-shadow:0 0 18px #8b5cf6;
+
+}
+
+/* =====================================================
+ FOOTER
+===================================================== */
+
+.footer{
+
+margin-top:28px;
+
+padding-top:22px;
+
+border-top:1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+color:#cbd5e1;
+
+font-weight:600;
+
+}
+
+/* =====================================================
+ EMPTY + ERROR
+===================================================== */
+
+.empty-box,
+.error-box{
+
+text-align:center;
+
+padding:70px;
+
+border-radius:30px;
+
+background:rgba(15,23,42,.65);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+}
+
+.empty-box .icon,
+.error-box .emoji{
+
+font-size:4rem;
+
+margin-bottom:20px;
+
+}
+
+/* =====================================================
+ SKELETON
+===================================================== */
+
+.skeleton{
+
+animation:pulse 1.4s infinite;
+
+}
+
+.s-circle{
+
+width:70px;
+
+height:70px;
+
+border-radius:20px;
+
+background:#1e293b;
+
+margin-bottom:25px;
+
+}
+
+.s-line{
+
+height:12px;
+
+background:#1e293b;
+
+border-radius:999px;
+
+margin-bottom:12px;
+
+}
+
+.long{
+
+width:75%;
+
+}
+
+.short{
+
+width:45%;
+
+}
+
+.s-progress{
+
+height:10px;
+
+border-radius:999px;
+
+background:#1e293b;
+
+margin-top:40px;
+
+}
+
+/* =====================================================
+ ANIMATIONS
+===================================================== */
+
+@keyframes float{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-45px);
+
+}
+
+}
+
+@keyframes fadeDown{
+
+from{
+
+opacity:0;
+
+transform:translateY(-40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+@keyframes pulse{
+
+0%,100%{
+
+opacity:.6;
+
+}
+
+50%{
+
+opacity:1;
+
+}
+
+}
+
+@keyframes cardReveal{
+
+from{
+
+opacity:0;
+
+transform:translateY(60px) scale(.92);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/* =====================================================
+ RESPONSIVE
+===================================================== */
+
+@media(max-width:768px){
+
+.skills-page{
+
+padding:90px 20px;
+
+}
+
+.hero h1{
+
+font-size:2.8rem;
+
+}
+
+.skill-card{
+
+padding:24px;
+
+}
+
+.ring-wrapper{
+
+width:140px;
+
+}
+
+.ring-wrapper svg{
+
+width:140px;
+
+height:140px;
+
+}
+
+}

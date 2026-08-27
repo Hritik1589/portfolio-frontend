@@ -1,0 +1,652 @@
+<div class="profile-page">
+
+  <!-- ================= BACKGROUND EFFECTS ================= -->
+
+  <div class="aurora aurora-one"></div>
+  <div class="aurora aurora-two"></div>
+  <div class="aurora aurora-three"></div>
+
+  <div class="grid-background"></div>
+
+  <div class="floating-particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+
+  <!-- ================= MAIN CONTAINER ================= -->
+
+  <div class="profile-container animate-page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <section class="profile-header">
+
+      <div>
+        <div class="welcome-chip">
+          <span class="pulse-dot"></span>
+          Account Dashboard
+        </div>
+
+
+        <h1>
+          Welcome back,
+          <span>
+            {{ userProfile()?.name || 'User' }}
+          </span>
+        </h1>
+
+
+        <p>
+          Manage your profile information, security and account preferences.
+        </p>
+
+      </div>
+
+
+      <div class="header-status">
+
+        <div class="status-card">
+
+          <div class="status-icon">
+            ✨
+          </div>
+
+          <div>
+            <small>
+              Account Status
+            </small>
+
+            @if(userProfile()?.isEmailVerified){
+              <strong class="verified">
+                Verified
+              </strong>
+            }
+            @else {
+              <strong class="pending">
+                Pending
+              </strong>
+            }
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    @if(isLoading()){
+
+
+      <!-- ================= LOADING ================= -->
+
+
+      <div class="loader-wrapper">
+
+        <div class="loader-ring"></div>
+
+        <p>
+          Loading profile...
+        </p>
+
+      </div>
+
+
+    }
+
+    @else {
+
+
+    <!-- ================= CONTENT GRID ================= -->
+
+    <div class="profile-grid">
+
+
+      <!-- ================= 3D PROFILE CARD ================= -->
+
+
+      <section class="profile-card-wrapper">
+
+
+        <div
+          #tiltCard
+          class="profile-card"
+          [style.transform]="
+          'rotateX(' + cardRotateX() +
+          'deg) rotateY(' +
+          cardRotateY() +
+          'deg)'
+          "
+          (mousemove)="onMouseMove($event)"
+          (mouseleave)="resetTilt()"
+        >
+
+
+          <div class="card-glow"></div>
+
+
+          <!-- Avatar -->
+
+
+          <div class="avatar-wrapper">
+
+
+            <div class="avatar-ring">
+
+
+              <div class="avatar">
+
+                {{getInitials(userProfile()?.name || '')}}
+
+              </div>
+
+
+            </div>
+
+
+
+            <div
+              class="online-status"
+              [class.active]="userProfile()?.isEmailVerified">
+            </div>
+
+
+          </div>
+
+
+
+          <h2>
+            {{userProfile()?.name}}
+          </h2>
+
+
+          <p class="email">
+            {{userProfile()?.email}}
+          </p>
+
+
+
+          <div class="divider"></div>
+
+
+
+          <div class="info-row">
+
+            <span>
+              Account
+            </span>
+
+            @if(userProfile()?.isEmailVerified){
+
+              <label class="success">
+                Active
+              </label>
+
+            }
+            @else {
+
+              <label class="warning">
+                Pending
+              </label>
+
+            }
+
+          </div>
+
+
+
+          <div class="info-row">
+
+            <span>
+              Role
+            </span>
+
+            <label>
+              User
+            </label>
+
+          </div>
+
+
+
+
+          <div class="profile-badges">
+
+
+            <div>
+
+              <span>
+                🔐
+              </span>
+
+              Secure
+
+            </div>
+
+
+
+            <div>
+
+              <span>
+                ⚡
+              </span>
+
+              Active
+
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+
+
+      </section>
+
+
+
+
+
+
+      <!-- ================= RIGHT PANEL ================= -->
+
+
+      <section class="details-panel">
+
+
+        <div class="glass-card">
+
+
+          <div class="section-title">
+
+
+            <div class="title-icon">
+              ✎
+            </div>
+
+
+            <div>
+
+              <h3>
+                Personal Details
+              </h3>
+
+              <p>
+                Update your personal information
+              </p>
+
+            </div>
+
+
+          </div>
+
+
+
+
+
+          <!-- ALERTS -->
+
+
+          @if(successMessage()){
+
+          <div class="alert success-alert">
+
+            <span>
+              ✓
+            </span>
+
+            {{successMessage()}}
+
+          </div>
+
+          }
+
+
+
+          @if(errorMessage()){
+
+
+          <div class="alert error-alert">
+
+            <span>
+              !
+            </span>
+
+            {{errorMessage()}}
+
+          </div>
+
+
+          }
+
+
+
+
+
+          <!-- FORM -->
+
+
+          <form
+            [formGroup]="profileForm"
+            (ngSubmit)="onSubmit()"
+          >
+
+
+
+          <div class="form-grid">
+
+
+            <!-- NAME -->
+
+
+            <div class="input-group">
+
+
+              <label>
+                Full Name
+              </label>
+
+
+              <input
+                type="text"
+                formControlName="name"
+                placeholder="Enter your name"
+              >
+
+
+
+              @if(
+              profileForm.get('name')?.touched &&
+              profileForm.get('name')?.invalid
+              ){
+
+                <small>
+                  Minimum 2 characters required
+                </small>
+
+              }
+
+
+            </div>
+
+
+
+
+
+            <!-- MOBILE -->
+
+
+            <div class="input-group">
+
+
+              <label>
+                Mobile Number
+              </label>
+
+
+              <input
+                type="text"
+                formControlName="mobile"
+                placeholder="Enter mobile number"
+              >
+
+
+              @if(
+              profileForm.get('mobile')?.touched &&
+              profileForm.get('mobile')?.invalid
+              ){
+
+              <small>
+                Enter valid mobile number
+              </small>
+
+              }
+
+
+            </div>
+
+
+          </div>
+
+
+
+
+
+
+          <!-- EMAIL -->
+
+
+          <div class="input-group full">
+
+
+            <label>
+              Email Address
+            </label>
+
+
+            <input
+              type="email"
+              formControlName="email"
+            >
+
+
+            <span>
+              Email cannot be changed
+            </span>
+
+
+          </div>
+
+
+
+
+
+
+
+          <!-- PROFILE STRENGTH -->
+
+<!-- PROFILE STRENGTH -->
+
+          <div class="strength-box">
+
+            <div class="strength-header">
+
+              <span>
+                Profile Strength
+              </span>
+
+              <!-- 🚨 Dynamic Percentage -->
+              <strong>
+                {{ profileStrength() }}%
+              </strong>
+
+            </div>
+
+            <div class="progress">
+
+              <!-- 🚨 Dynamic Width Binding -->
+              <div [style.width.%]="profileStrength()"></div>
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+          <!-- BUTTON -->
+
+
+          <div class="button-area">
+
+
+            <button
+              type="submit"
+              [disabled]="profileForm.invalid || isSaving()"
+            >
+
+
+            @if(isSaving()){
+
+
+              <span class="button-loader"></span>
+
+              Saving Changes...
+
+
+            }
+            @else {
+
+
+              Save Profile
+
+            }
+
+
+            </button>
+
+
+          </div>
+
+
+
+
+          </form>
+
+
+
+        </div>
+
+
+
+      </section>
+
+
+    </div>
+
+
+
+
+
+    <!-- ================= STAT CARDS ================= -->
+
+
+    <section class="stats-grid">
+
+
+      <div class="stat-card">
+
+        <span>
+          📧
+        </span>
+
+        <div>
+
+          <small>
+            Email Verification
+          </small>
+
+
+          <strong>
+
+          {{
+            userProfile()?.isEmailVerified
+            ? 'Verified'
+            :'Pending'
+          }}
+
+          </strong>
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+      <div class="stat-card">
+
+
+        <span>
+          👤
+        </span>
+
+
+        <div>
+
+          <small>
+            Account Type
+          </small>
+
+
+          <strong>
+            Standard User
+          </strong>
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+      <div class="stat-card">
+
+
+        <span>
+          🛡
+        </span>
+
+
+        <div>
+
+          <small>
+            Security
+          </small>
+
+
+          <strong>
+            Protected
+          </strong>
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </section>
+
+
+
+
+    }
+
+
+  </div>
+
+
+</div>

@@ -1,0 +1,267 @@
+<div class="dashboard-page">
+
+  <!-- Floating Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb-cyan"></div>
+  <div class="bg-orb orb-purple"></div>
+  <div class="bg-orb orb-blue"></div>
+
+  <div class="sparkles">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="dashboard-container">
+
+    <!-- ===================================================== -->
+    <!-- HERO -->
+    <!-- ===================================================== -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Welcome to my Portfolio
+        </div>
+        <h1>
+          {{ getGreeting() }},
+          <span>{{ userName() }}</span>
+        </h1>
+        <p>
+          Explore my software engineering journey through enterprise
+          applications, backend APIs, Angular frontends, technical blogs
+          and production-ready projects.
+        </p>
+        <div class="hero-buttons">
+          <a routerLink="/user/projects" class="btn-primary">
+            Explore Projects
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5l5 5-5 5"/>
+            </svg>
+          </a>
+          <a routerLink="/user/blogs" class="btn-secondary">
+            Read Blogs
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="glow"></div>
+        <div class="time">
+          {{ currentTime() | date:'hh:mm a' }}
+        </div>
+        <div class="day">
+          {{ currentTime() | date:'EEEE' }}
+        </div>
+        <div class="date">
+          {{ currentTime() | date:'dd MMM yyyy' }}
+        </div>
+        <div class="divider"></div>
+        <div class="status">
+          <span class="status-dot"></span>
+          Portfolio Available
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- ABOUT -->
+    <!-- ===================================================== -->
+    <section class="about-section">
+      <div class="section-title">
+        <h2>About Me</h2>
+        <p>Software Engineer • Java Backend Developer</p>
+      </div>
+      <div class="about-card">
+        <div class="about-left">
+          <h3>
+            Building scalable software with modern technologies.
+          </h3>
+          <p>
+            Passionate about designing clean architectures,
+            building Spring Boot backend services,
+            developing Angular applications,
+            and solving real-world engineering problems.
+          </p>
+        </div>
+        <div class="about-right">
+          <div class="about-chip">Java</div>
+          <div class="about-chip">Spring Boot</div>
+          <div class="about-chip">Angular</div>
+          <div class="about-chip">REST APIs</div>
+          <div class="about-chip">MySQL</div>
+          <div class="about-chip">Docker</div>
+          <div class="about-chip">AWS</div>
+          <div class="about-chip">Git</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- FEATURED PROJECT -->
+    <!-- ===================================================== -->
+    <section class="featured-section">
+      <div class="section-title">
+        <h2>Featured Project</h2>
+        <p>One of my recent applications.</p>
+      </div>
+      <a routerLink="/user/projects" class="featured-card">
+        <div class="featured-content">
+          <span class="tag">Featured</span>
+          <h3>Movie Review Platform</h3>
+          <p>
+            Enterprise-grade application built using Spring Boot,
+            Angular, JWT Authentication and MySQL.
+          </p>
+          <div class="tech-list">
+            <span>Spring Boot</span>
+            <span>Angular</span>
+            <span>JWT</span>
+            <span>MySQL</span>
+          </div>
+        </div>
+        <div class="featured-arrow">→</div>
+      </a>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- BLOG -->
+    <!-- ===================================================== -->
+    <section class="blog-section">
+      <div class="section-title">
+        <h2>Latest Blog</h2>
+      </div>
+      <a routerLink="/user/blogs" class="blog-card">
+        <h3>Understanding JWT Authentication in Spring Boot</h3>
+        <p>
+          Learn how JWT works, token generation,
+          authentication flow and security best practices.
+        </p>
+        <span>Read Article →</span>
+      </a>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- DYNAMIC LINKS SECTIONS -->
+    <!-- ===================================================== -->
+    <section class="blog-section mt-12">
+      <div class="section-title">
+        <h2>Technical Stack</h2>
+      </div>
+      <a routerLink="/user/skills" class="blog-card" style="border-color: rgba(168, 85, 247, 0.3);">
+        <h3 class="text-purple-400" style="color: #c084fc;">View My Skills & Expertise</h3>
+        <p>
+          Explore my dynamically generated tech stack, programming languages, and framework proficiency levels.
+        </p>
+        <span class="text-purple-400" style="color: #c084fc;">Explore Tech Stack →</span>
+      </a>
+    </section>
+
+    <section class="blog-section mt-12">
+      <div class="section-title">
+        <h2>Professional Certifications</h2>
+      </div>
+      <a routerLink="/user/certifications" class="blog-card" style="border-color: rgba(6, 182, 212, 0.3);">
+        <h3 class="text-cyan-400">View My Verified Credentials</h3>
+        <p>
+          Explore my industry-recognized certifications, technical achievements, and continuous learning journey.
+        </p>
+        <span class="text-cyan-400">View Certifications →</span>
+      </a>
+    </section>
+
+    <section class="blog-section mt-8">
+      <div class="section-title">
+        <h2>Career Milestones</h2>
+      </div>
+      <a routerLink="/user/achievements" class="blog-card" style="border-color: rgba(245, 158, 11, 0.3);">
+        <h3 class="text-amber-400" style="color: #fbbf24;">View My Professional Journey</h3>
+        <p>
+          Discover my proudest moments, awards, and significant career milestones that shape my growth.
+        </p>
+        <span class="text-amber-400" style="color: #fbbf24;">Explore Achievements →</span>
+      </a>
+    </section>
+
+    <section class="blog-section mt-8">
+      <div class="section-title">
+        <h2>Academic Background</h2>
+      </div>
+      <a routerLink="/user/education" class="blog-card" style="border-color: rgba(16, 185, 129, 0.3);">
+        <h3 style="color: #34d399;">View My Education Journey</h3>
+        <p>
+          Explore my formal academic background, university degrees, and the institutions that shaped my engineering foundation.
+        </p>
+        <span style="color: #34d399;">Explore Education →</span>
+      </a>
+    </section>
+
+    <section class="blog-section mt-8">
+      <div class="section-title">
+        <h2>Professional Experience</h2>
+      </div>
+      <a routerLink="/user/experience" class="blog-card" style="border-color: rgba(59, 130, 246, 0.3);">
+        <h3 style="color: #60A5FA;">View My Career Timeline</h3>
+        <p>
+          Discover my professional journey, previous roles, and the impactful projects I've delivered throughout my career.
+        </p>
+        <span style="color: #60A5FA;">Explore Experience →</span>
+      </a>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- QUICK NAVIGATION -->
+    <!-- ===================================================== -->
+    <section class="quick-grid">
+      <a routerLink="/user/about" class="quick-card">
+        <h3>About Me</h3>
+        <p>Read my professional journey.</p>
+      </a>
+      <a routerLink="/user/projects" class="quick-card">
+        <h3>Projects</h3>
+        <p>Explore my software projects.</p>
+      </a>
+      <a routerLink="/user/skills" class="quick-card">
+        <h3>Skills</h3>
+        <p>View my tech stack.</p>
+      </a>
+      <a routerLink="/user/blogs" class="quick-card">
+        <h3>Blogs</h3>
+        <p>Read technical articles.</p>
+      </a>
+      <a routerLink="/user/certifications" class="quick-card">
+        <h3>Certifications</h3>
+        <p>View my verified credentials.</p>
+      </a>
+      <a routerLink="/user/experience" class="quick-card">
+        <h3>Experience</h3>
+        <p>View career history.</p>
+      </a>
+      <a routerLink="/user/profile" class="quick-card">
+        <h3>Profile</h3>
+        <p>View my profile.</p>
+      </a>
+      <a routerLink="/user/achievements" class="quick-card">
+        <h3>Achievements</h3>
+        <p>View career milestones.</p>
+      </a>
+      <a routerLink="/user/education" class="quick-card">
+        <h3>Education</h3>
+        <p>View academic background.</p>
+      </a>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- CTA -->
+    <!-- ===================================================== -->
+    <section class="cta-section">
+      <div class="cta-card">
+        <h2>Let's Build Something Amazing</h2>
+        <p>Interested in collaborating or discussing new opportunities?</p>
+        <a routerLink="/user/contact" class="btn-primary">
+          Contact Me
+        </a>
+      </div>
+    </section>
+
+  </div>
+</div>

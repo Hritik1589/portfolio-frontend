@@ -1,0 +1,2467 @@
+/* ==========================================================
+   ROOT VARIABLES
+========================================================== */
+
+:host {
+  display: block;
+
+  --bg: #050816;
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+
+  --border: rgba(255, 255, 255, 0.12);
+
+  --primary: #6d7cff;
+  --secondary: #9d6bff;
+  --cyan: #36d1ff;
+
+  --text: #ffffff;
+  --text-light: rgba(255,255,255,.75);
+
+  --shadow:
+      0 20px 50px rgba(0,0,0,.45);
+
+  --radius: 24px;
+
+  color: var(--text);
+}
+
+/* ==========================================================
+   PAGE
+========================================================== */
+
+.achievement-page{
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:100vh;
+
+    background:var(--bg);
+
+    padding:120px 0;
+}
+
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.container{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(1200px,92%);
+
+    margin:auto;
+
+}
+
+/* ==========================================================
+   GLOBAL
+========================================================== */
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* ==========================================================
+   SECTION SPACING
+========================================================== */
+
+section{
+
+    margin-bottom:80px;
+
+}
+
+/* ==========================================================
+   BACKGROUND WRAPPER
+========================================================== */
+
+.background{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+}
+
+/* ==========================================================
+   GRID OVERLAY
+========================================================== */
+
+.grid-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        );
+
+    background-size:60px 60px;
+
+    opacity:.18;
+
+}
+
+/* ==========================================================
+   SMOOTH SCROLL ANIMATIONS
+========================================================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+/* ==========================================================
+   CUSTOM SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#050816;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+        180deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--cyan);
+
+}
+/* ==========================================================
+   AURORA BLOBS
+========================================================== */
+
+.aurora {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    opacity: .45;
+
+    animation: auroraFloat 18s ease-in-out infinite;
+
+}
+
+/* -------------------------- */
+
+.aurora-1 {
+
+    width: 420px;
+    height: 420px;
+
+    top: -120px;
+    left: -120px;
+
+    background: #6d7cff;
+
+    animation-delay: 0s;
+
+}
+
+/* -------------------------- */
+
+.aurora-2 {
+
+    width: 500px;
+    height: 500px;
+
+    right: -180px;
+    top: 15%;
+
+    background: #8b5cf6;
+
+    animation-delay: -6s;
+
+}
+
+/* -------------------------- */
+
+.aurora-3 {
+
+    width: 380px;
+    height: 380px;
+
+    bottom: -120px;
+    left: 35%;
+
+    background: #36d1ff;
+
+    animation-delay: -12s;
+
+}
+
+/* ==========================================================
+   FLOATING PARTICLES
+========================================================== */
+
+.particle {
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.7);
+
+    box-shadow:
+        0 0 10px rgba(255,255,255,.5),
+        0 0 20px rgba(255,255,255,.3);
+
+    animation: particleFloat linear infinite;
+
+}
+
+/* ==========================================================
+   PARTICLE POSITIONS
+========================================================== */
+
+.particle:nth-child(5) {
+
+    left: 8%;
+    top: 85%;
+
+    animation-duration: 14s;
+}
+
+.particle:nth-child(6) {
+
+    left: 18%;
+    top: 60%;
+
+    animation-duration: 20s;
+}
+
+.particle:nth-child(7) {
+
+    left: 28%;
+    top: 15%;
+
+    animation-duration: 17s;
+}
+
+.particle:nth-child(8) {
+
+    left: 42%;
+    top: 80%;
+
+    animation-duration: 16s;
+}
+
+.particle:nth-child(9) {
+
+    left: 58%;
+    top: 30%;
+
+    animation-duration: 21s;
+}
+
+.particle:nth-child(10) {
+
+    left: 70%;
+    top: 70%;
+
+    animation-duration: 19s;
+}
+
+.particle:nth-child(11) {
+
+    left: 82%;
+    top: 18%;
+
+    animation-duration: 18s;
+}
+
+.particle:nth-child(12) {
+
+    left: 92%;
+    top: 55%;
+
+    animation-duration: 15s;
+}
+
+.particle:nth-child(13) {
+
+    left: 12%;
+    top: 28%;
+
+    animation-duration: 23s;
+}
+
+.particle:nth-child(14) {
+
+    left: 37%;
+    top: 48%;
+
+    animation-duration: 20s;
+}
+
+.particle:nth-child(15) {
+
+    left: 63%;
+    top: 8%;
+
+    animation-duration: 17s;
+}
+
+.particle:nth-child(16) {
+
+    left: 87%;
+    top: 90%;
+
+    animation-duration: 22s;
+}
+
+/* ==========================================================
+   AURORA ANIMATION
+========================================================== */
+
+@keyframes auroraFloat {
+
+    0% {
+
+        transform:
+            translate(0,0)
+            scale(1);
+
+    }
+
+    25% {
+
+        transform:
+            translate(40px,-40px)
+            scale(1.1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-30px,40px)
+            scale(.95);
+
+    }
+
+    75% {
+
+        transform:
+            translate(50px,30px)
+            scale(1.08);
+
+    }
+
+    100% {
+
+        transform:
+            translate(0,0)
+            scale(1);
+
+    }
+
+}
+
+/* ==========================================================
+   PARTICLE FLOAT
+========================================================== */
+
+@keyframes particleFloat {
+
+    from {
+
+        transform:
+            translateY(0)
+            scale(.6);
+
+        opacity: 0;
+
+    }
+
+    15% {
+
+        opacity: .9;
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-180px)
+            scale(1);
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(-380px)
+            scale(.4);
+
+        opacity: 0;
+
+    }
+
+}
+/* ==========================================================
+   HERO SECTION
+========================================================== */
+
+.hero {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    max-width: 850px;
+
+    margin: 0 auto 70px;
+
+    animation: fadeUp .8s ease forwards;
+
+}
+
+/* ==========================================================
+   HERO BADGE
+========================================================== */
+
+.hero-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 22px;
+
+    border-radius: 999px;
+
+    background: rgba(109, 124, 255, .12);
+
+    border: 1px solid rgba(109, 124, 255, .25);
+
+    color: #b9c4ff;
+
+    font-size: .95rem;
+
+    font-weight: 600;
+
+    letter-spacing: .6px;
+
+    margin-bottom: 24px;
+
+    backdrop-filter: blur(18px);
+
+    transition: all .35s ease;
+
+}
+
+.hero-badge::before {
+
+    content: "";
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 10px var(--cyan),
+        0 0 20px var(--cyan);
+
+}
+
+.hero-badge:hover {
+
+    transform: translateY(-3px);
+
+    background: rgba(109, 124, 255, .18);
+
+}
+
+/* ==========================================================
+   HERO TITLE
+========================================================== */
+
+.hero h1 {
+
+    font-size: clamp(3rem, 6vw, 5rem);
+
+    line-height: 1.08;
+
+    font-weight: 800;
+
+    margin-bottom: 22px;
+
+    letter-spacing: -.04em;
+
+    color: white;
+
+}
+
+.hero h1 span {
+
+    display: block;
+
+    margin-top: 10px;
+
+    background: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--cyan),
+        var(--secondary)
+    );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    background-size: 250%;
+
+    animation: gradientMove 6s linear infinite;
+
+}
+
+/* ==========================================================
+   HERO SUBTITLE
+========================================================== */
+
+.hero p {
+
+    max-width: 720px;
+
+    margin: auto;
+
+    color: var(--text-light);
+
+    font-size: 1.1rem;
+
+    line-height: 1.8;
+
+}
+
+/* ==========================================================
+   HERO ANIMATIONS
+========================================================== */
+
+@keyframes gradientMove {
+
+    0% {
+
+        background-position: 0%;
+
+    }
+
+    100% {
+
+        background-position: 250%;
+
+    }
+
+}
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(40px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:768px){
+
+    .hero{
+
+        margin-bottom:50px;
+
+    }
+
+    .hero h1{
+
+        font-size:2.8rem;
+
+    }
+
+    .hero p{
+
+        font-size:1rem;
+
+        line-height:1.7;
+
+        padding:0 10px;
+
+    }
+
+    .hero-badge{
+
+        font-size:.85rem;
+
+        padding:8px 18px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .hero h1{
+
+        font-size:2.2rem;
+
+    }
+
+    .hero p{
+
+        font-size:.95rem;
+
+    }
+
+}
+/* ==========================================================
+   FEATURED CARD
+========================================================== */
+
+.featured-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: var(--radius);
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(22px);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 40px;
+    
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+
+    transition: .4s ease;
+
+}
+
+.featured-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: rgba(109,124,255,.35);
+
+}
+
+/* ==========================================================
+   GLOW
+========================================================== */
+
+.featured-glow {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(109,124,255,.28),
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(54,209,255,.18),
+            transparent 40%
+        );
+
+    pointer-events: none;
+
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.featured-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 42px;
+
+}
+
+/* ==========================================================
+   TAG
+========================================================== */
+
+.featured-tag {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(109,124,255,.15);
+
+    color: #d9deff;
+
+    font-size: .85rem;
+
+    font-weight: 600;
+
+    letter-spacing: .4px;
+
+    margin-bottom: 22px;
+
+}
+
+.featured-tag::before {
+
+    content: "★";
+
+    color: #ffd166;
+
+}
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.featured-content h2 {
+
+    font-size: clamp(2rem,4vw,2.8rem);
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+
+    color: white;
+
+}
+
+/* ==========================================================
+   ORGANIZATION
+========================================================== */
+
+.featured-content h3 {
+
+    color: var(--cyan);
+
+    font-size: 1.15rem;
+
+    font-weight: 600;
+
+    margin-bottom: 22px;
+
+}
+
+/* ==========================================================
+   DESCRIPTION
+========================================================== */
+
+.featured-content p {
+
+    color: var(--text-light);
+
+    line-height: 1.8;
+
+    font-size: 1rem;
+
+    max-width: 820px;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.featured-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    margin-top: 32px;
+
+}
+
+/* ==========================================================
+   DATE CHIP
+========================================================== */
+
+.featured-date {
+
+    padding: 8px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.06);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    color: rgba(255,255,255,.75);
+
+    font-size: .9rem;
+
+}
+
+/* ==========================================================
+   BUTTON
+========================================================== */
+
+.featured-footer a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: .35s;
+
+}
+
+.featured-footer a svg {
+
+    width: 18px;
+
+    height: 18px;
+
+}
+
+.featured-footer a:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(109,124,255,.35);
+
+}
+
+/* ==========================================================
+   SHINE EFFECT
+========================================================== */
+
+.featured-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+
+    left: -50%;
+
+    width: 45%;
+
+    height: 300%;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0),
+            rgba(255,255,255,.18),
+            rgba(255,255,255,0)
+        );
+
+    transform: rotate(25deg);
+
+    transition: 1s;
+
+}
+
+.featured-card:hover::before {
+
+    left: 150%;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:768px){
+
+    .featured-content{
+
+        padding:30px;
+
+    }
+
+    .featured-content h2{
+
+        font-size:2rem;
+
+    }
+
+    .featured-footer{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .featured-footer a{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .featured-content{
+
+        padding:24px;
+
+    }
+
+    .featured-content h2{
+
+        font-size:1.7rem;
+
+    }
+
+    .featured-content h3{
+
+        font-size:1rem;
+
+    }
+
+}
+/* ==========================================================
+   FEATURED CARD
+========================================================== */
+
+.featured-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: var(--radius);
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(22px);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 60px;
+
+    transition: .4s ease;
+
+}
+
+.featured-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: rgba(109,124,255,.35);
+
+}
+
+/* ==========================================================
+   GLOW
+========================================================== */
+
+.featured-glow {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(109,124,255,.28),
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(54,209,255,.18),
+            transparent 40%
+        );
+
+    pointer-events: none;
+
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.featured-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 42px;
+
+}
+
+/* ==========================================================
+   TAG
+========================================================== */
+
+.featured-tag {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(109,124,255,.15);
+
+    color: #d9deff;
+
+    font-size: .85rem;
+
+    font-weight: 600;
+
+    letter-spacing: .4px;
+
+    margin-bottom: 22px;
+
+}
+
+.featured-tag::before {
+
+    content: "★";
+
+    color: #ffd166;
+
+}
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.featured-content h2 {
+
+    font-size: clamp(2rem,4vw,2.8rem);
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+
+    color: white;
+
+}
+
+/* ==========================================================
+   ORGANIZATION
+========================================================== */
+
+.featured-content h3 {
+
+    color: var(--cyan);
+
+    font-size: 1.15rem;
+
+    font-weight: 600;
+
+    margin-bottom: 22px;
+
+}
+
+/* ==========================================================
+   DESCRIPTION
+========================================================== */
+
+.featured-content p {
+
+    color: var(--text-light);
+
+    line-height: 1.8;
+
+    font-size: 1rem;
+
+    max-width: 820px;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.featured-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    margin-top: 32px;
+
+}
+
+/* ==========================================================
+   DATE CHIP
+========================================================== */
+
+.featured-date {
+
+    padding: 8px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.06);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    color: rgba(255,255,255,.75);
+
+    font-size: .9rem;
+
+}
+
+/* ==========================================================
+   BUTTON
+========================================================== */
+
+.featured-footer a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: .35s;
+
+}
+
+.featured-footer a svg {
+
+    width: 18px;
+
+    height: 18px;
+
+}
+
+.featured-footer a:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(109,124,255,.35);
+
+}
+
+/* ==========================================================
+   SHINE EFFECT
+========================================================== */
+
+.featured-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+
+    left: -50%;
+
+    width: 45%;
+
+    height: 300%;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0),
+            rgba(255,255,255,.18),
+            rgba(255,255,255,0)
+        );
+
+    transform: rotate(25deg);
+
+    transition: 1s;
+
+}
+
+.featured-card:hover::before {
+
+    left: 150%;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:768px){
+
+    .featured-content{
+
+        padding:30px;
+
+    }
+
+    .featured-content h2{
+
+        font-size:2rem;
+
+    }
+
+    .featured-footer{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .featured-footer a{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .featured-content{
+
+        padding:24px;
+
+    }
+
+    .featured-content h2{
+
+        font-size:1.7rem;
+
+    }
+
+    .featured-content h3{
+
+        font-size:1rem;
+
+    }
+
+}
+/* ==========================================================
+   ACHIEVEMENT GRID
+========================================================== */
+
+.achievement-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+
+    gap: 30px;
+
+    align-items: stretch;
+
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.achievement-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: var(--surface);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(20px);
+
+    transition: all .35s ease;
+
+    animation: cardReveal .7s ease forwards;
+
+    opacity: 0;
+
+    transform: translateY(40px);
+
+    min-height: 330px;
+
+}
+
+.achievement-card:hover {
+
+    transform: translateY(-10px);
+
+    border-color: rgba(109,124,255,.35);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.45);
+
+}
+
+/* ==========================================================
+   ANIMATED BORDER
+========================================================== */
+
+.gradient-border {
+
+    position: absolute;
+
+    inset: 0;
+
+    padding: 1px;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        135deg,
+        rgba(109,124,255,.65),
+        rgba(54,209,255,.45),
+        rgba(157,107,255,.65)
+    );
+
+    opacity: 0;
+
+    transition: .35s;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+
+            mask-composite: exclude;
+
+}
+
+.achievement-card:hover .gradient-border {
+
+    opacity: 1;
+
+}
+
+/* ==========================================================
+   SHINE
+========================================================== */
+
+.shine {
+
+    position: absolute;
+
+    top: -120%;
+
+    left: -60%;
+
+    width: 45%;
+
+    height: 320%;
+
+    transform: rotate(25deg);
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0),
+            rgba(255,255,255,.18),
+            rgba(255,255,255,0)
+        );
+
+    transition: .9s;
+
+}
+
+.achievement-card:hover .shine {
+
+    left: 170%;
+
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.card-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    height: 100%;
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 26px;
+
+}
+
+/* ==========================================================
+   NUMBER
+========================================================== */
+
+.achievement-number {
+
+    width: 54px;
+
+    height: 54px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 700;
+
+    font-size: 1rem;
+
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    box-shadow:
+        0 10px 25px rgba(109,124,255,.30);
+
+}
+
+/* ==========================================================
+   DATE
+========================================================== */
+
+.achievement-date {
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.05);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    color: rgba(255,255,255,.72);
+
+    font-size: .82rem;
+
+}
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.card-content h3 {
+
+    font-size: 1.35rem;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+
+    color: white;
+
+    line-height: 1.35;
+
+}
+
+/* ==========================================================
+   ORGANIZATION
+========================================================== */
+
+.card-content h4 {
+
+    color: var(--cyan);
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+
+}
+
+/* ==========================================================
+   DESCRIPTION
+========================================================== */
+
+.card-content p {
+
+    color: var(--text-light);
+
+    line-height: 1.75;
+
+    flex: 1;
+
+    margin-bottom: 28px;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.card-footer {
+
+    margin-top: auto;
+
+}
+
+/* ==========================================================
+   CERTIFICATE BUTTON
+========================================================== */
+
+.card-footer a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 18px;
+
+    border-radius: 12px;
+
+    background: rgba(109,124,255,.14);
+
+    border: 1px solid rgba(109,124,255,.22);
+
+    color: #dfe3ff;
+
+    font-weight: 600;
+
+    transition: .3s;
+
+}
+
+.card-footer a svg {
+
+    width: 17px;
+
+    height: 17px;
+
+}
+
+.card-footer a:hover {
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(109,124,255,.35);
+
+}
+
+/* ==========================================================
+   CARD REVEAL
+========================================================== */
+
+@keyframes cardReveal {
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:992px){
+
+    .achievement-grid{
+
+        grid-template-columns: repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .achievement-grid{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+
+    }
+
+    .achievement-card{
+
+        min-height:auto;
+
+    }
+
+    .card-content{
+
+        padding:24px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .card-content h3{
+
+        font-size:1.2rem;
+
+    }
+
+    .achievement-number{
+
+        width:46px;
+
+        height:46px;
+
+        font-size:.9rem;
+
+    }
+
+    .card-header{
+
+        margin-bottom:20px;
+
+    }
+
+}
+/* ==========================================================
+   LOADING GRID
+========================================================== */
+
+.loading-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 28px;
+
+}
+
+.loading-card {
+
+    padding: 28px;
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.06);
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+/* ==========================================================
+   SHIMMER
+========================================================== */
+
+.loading-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    transform: translateX(-100%);
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.08),
+        transparent
+    );
+
+    animation: shimmer 1.6s infinite;
+
+}
+
+.loading-header {
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    margin-bottom: 24px;
+
+}
+
+.loading-title {
+
+    height: 22px;
+
+    width: 80%;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.08);
+
+    margin-bottom: 18px;
+
+}
+
+.loading-line {
+
+    height: 14px;
+
+    width: 100%;
+
+    border-radius: 6px;
+
+    background: rgba(255,255,255,.06);
+
+    margin-bottom: 12px;
+
+}
+
+.loading-line.short {
+
+    width: 70%;
+
+}
+
+.loading-button {
+
+    width: 140px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    margin-top: 30px;
+
+    background: rgba(255,255,255,.08);
+
+}
+
+/* ==========================================================
+   ERROR
+========================================================== */
+
+.error-state {
+
+    text-align: center;
+
+    padding: 80px 30px;
+
+    border-radius: 24px;
+
+    background: rgba(255,80,80,.06);
+
+    border: 1px solid rgba(255,80,80,.18);
+
+}
+
+.error-icon {
+
+    font-size: 4rem;
+
+    margin-bottom: 24px;
+
+}
+
+.error-state h2 {
+
+    margin-bottom: 16px;
+
+}
+
+.error-state p {
+
+    color: var(--text-light);
+
+}
+
+/* ==========================================================
+   EMPTY
+========================================================== */
+
+.empty-state {
+
+    text-align: center;
+
+    padding: 90px 30px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+}
+
+.empty-circle {
+
+    width: 110px;
+
+    height: 110px;
+
+    margin: auto;
+
+    margin-bottom: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 3rem;
+
+    background: linear-gradient(
+        135deg,
+        rgba(109,124,255,.18),
+        rgba(54,209,255,.18)
+    );
+
+}
+
+.empty-state h2 {
+
+    font-size: 2rem;
+
+    margin-bottom: 18px;
+
+}
+
+.empty-state p {
+
+    max-width: 620px;
+
+    margin: auto;
+
+    color: var(--text-light);
+
+    line-height: 1.8;
+
+}
+
+/* ==========================================================
+   SHIMMER
+========================================================== */
+
+@keyframes shimmer {
+
+    100% {
+
+        transform: translateX(100%);
+
+    }
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
+}
+
+/* ==========================================================
+   LARGE SCREENS
+========================================================== */
+
+@media (min-width:1400px){
+
+    .container{
+
+        max-width:1300px;
+
+    }
+
+}
+
+/* ==========================================================
+   TABLETS
+========================================================== */
+
+@media (max-width:992px){
+
+    .achievement-page{
+
+        padding:90px 0;
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:768px){
+
+    .achievement-page{
+
+        padding:70px 0;
+
+    }
+
+    section{
+
+        margin-bottom:55px;
+
+    }
+
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width:480px){
+
+    .loading-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .loading-card{
+
+        padding:22px;
+
+    }
+
+    .empty-state{
+
+        padding:60px 20px;
+
+    }
+
+    .error-state{
+
+        padding:60px 20px;
+
+    }
+
+}
+/* ==========================================================
+   LOADING GRID
+========================================================== */
+
+.loading-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 28px;
+
+}
+
+.loading-card {
+
+    padding: 28px;
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.06);
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+/* ==========================================================
+   SHIMMER
+========================================================== */
+
+.loading-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    transform: translateX(-100%);
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.08),
+        transparent
+    );
+
+    animation: shimmer 1.6s infinite;
+
+}
+
+.loading-header {
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    margin-bottom: 24px;
+
+}
+
+.loading-title {
+
+    height: 22px;
+
+    width: 80%;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.08);
+
+    margin-bottom: 18px;
+
+}
+
+.loading-line {
+
+    height: 14px;
+
+    width: 100%;
+
+    border-radius: 6px;
+
+    background: rgba(255,255,255,.06);
+
+    margin-bottom: 12px;
+
+}
+
+.loading-line.short {
+
+    width: 70%;
+
+}
+
+.loading-button {
+
+    width: 140px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    margin-top: 30px;
+
+    background: rgba(255,255,255,.08);
+
+}
+
+/* ==========================================================
+   ERROR
+========================================================== */
+
+.error-state {
+
+    text-align: center;
+
+    padding: 80px 30px;
+
+    border-radius: 24px;
+
+    background: rgba(255,80,80,.06);
+
+    border: 1px solid rgba(255,80,80,.18);
+
+}
+
+.error-icon {
+
+    font-size: 4rem;
+
+    margin-bottom: 24px;
+
+}
+
+.error-state h2 {
+
+    margin-bottom: 16px;
+
+}
+
+.error-state p {
+
+    color: var(--text-light);
+
+}
+
+/* ==========================================================
+   EMPTY
+========================================================== */
+
+.empty-state {
+
+    text-align: center;
+
+    padding: 90px 30px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+}
+
+.empty-circle {
+
+    width: 110px;
+
+    height: 110px;
+
+    margin: auto;
+
+    margin-bottom: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 3rem;
+
+    background: linear-gradient(
+        135deg,
+        rgba(109,124,255,.18),
+        rgba(54,209,255,.18)
+    );
+
+}
+
+.empty-state h2 {
+
+    font-size: 2rem;
+
+    margin-bottom: 18px;
+
+}
+
+.empty-state p {
+
+    max-width: 620px;
+
+    margin: auto;
+
+    color: var(--text-light);
+
+    line-height: 1.8;
+
+}
+
+/* ==========================================================
+   SHIMMER
+========================================================== */
+
+@keyframes shimmer {
+
+    100% {
+
+        transform: translateX(100%);
+
+    }
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
+}
+
+/* ==========================================================
+   LARGE SCREENS
+========================================================== */
+
+@media (min-width:1400px){
+
+    .container{
+
+        max-width:1300px;
+
+    }
+
+}
+
+/* ==========================================================
+   TABLETS
+========================================================== */
+
+@media (max-width:992px){
+
+    .achievement-page{
+
+        padding:90px 0;
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:768px){
+
+    .achievement-page{
+
+        padding:70px 0;
+
+    }
+
+    section{
+
+        margin-bottom:55px;
+
+    }
+
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width:480px){
+
+    .loading-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .loading-card{
+
+        padding:22px;
+
+    }
+
+    .empty-state{
+
+        padding:60px 20px;
+
+    }
+
+    .error-state{
+
+        padding:60px 20px;
+
+    }
+
+}

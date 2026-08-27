@@ -1,0 +1,370 @@
+<div class="blog-page">
+
+  <!-- ========================================= -->
+  <!-- Animated Background -->
+  <!-- ========================================= -->
+
+  <div class="bg-wrapper">
+
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+
+    <div class="grid-overlay"></div>
+
+   
+
+  </div>
+
+  <div class="container">
+
+    <!-- ========================================= -->
+    <!-- Hero -->
+    <!-- ========================================= -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        <span></span>
+        Engineering Journal
+      </div>
+
+      <h1>
+
+        Building
+
+        <span>Modern Software</span>
+
+        One Article At A Time
+
+      </h1>
+
+      <p>
+
+        Tutorials, architecture guides, backend engineering,
+        cloud computing, Angular, Spring Boot, AI and
+        real-world software development experiences.
+
+      </p>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Toolbar -->
+    <!-- ========================================= -->
+
+    <section class="toolbar">
+
+      <!-- Search -->
+
+      <div class="search-box">
+
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24">
+
+          <path
+            fill="currentColor"
+            d="M15.5 14h-.79l-.28-.27
+               A6.471 6.471 0 0016 9.5
+               6.5 6.5 0 109.5 16
+               c1.61 0 3.09-.59 4.23-1.57
+               l.27.28v.79L20 21.49
+               21.49 20l-5.99-6zm-6 0
+               C7.01 14 5 11.99 5 9.5
+               S7.01 5 9.5 5
+               14 7.01 14 9.5
+               11.99 14 9.5 14z"/>
+
+        </svg>
+
+        <input
+
+          type="text"
+
+          [ngModel]="searchQuery()"
+
+          (ngModelChange)="onSearchChange($event)"
+
+          placeholder="Search articles..."
+
+        />
+
+      </div>
+
+      <!-- Categories -->
+
+      <div class="categories">
+
+        @for(cat of categories;track cat){
+
+        <button
+
+          (click)="filterByCategory(cat)"
+
+          class="chip"
+
+          [class.active]="selectedCategory()===cat || (!selectedCategory() && cat==='All')">
+
+          {{cat}}
+
+        </button>
+
+        }
+
+      </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Loading -->
+    <!-- ========================================= -->
+
+    @if(isLoading()){
+
+    <section class="blog-grid">
+
+      @for(i of [1,2,3,4,5,6];track i){
+
+      <div class="blog-card skeleton">
+
+        <div class="image"></div>
+
+        <div class="content">
+
+          <div class="line lg"></div>
+
+          <div class="line md"></div>
+
+          <div class="line sm"></div>
+
+        </div>
+
+      </div>
+
+      }
+
+    </section>
+
+    }
+
+    <!-- ========================================= -->
+    <!-- Empty -->
+    <!-- ========================================= -->
+
+    @else if(blogs().length===0){
+
+    <div class="empty-state">
+
+      <div class="icon">
+
+        📚
+
+      </div>
+
+      <h2>
+
+        No Articles Found
+
+      </h2>
+
+      <p>
+
+        Try changing the search keyword or category.
+
+      </p>
+
+    </div>
+
+    }
+
+    <!-- ========================================= -->
+    <!-- Blogs -->
+    <!-- ========================================= -->
+
+    @else{
+
+    <!-- Featured -->
+
+    @if(blogs().length){
+
+    <section
+
+      class="featured-card"
+
+      (mousemove)="cardMove($event)"
+
+      (mouseleave)="leaveCard($event)"
+
+      [routerLink]="[blogs()[0].slug]">
+
+      <div class="featured-image">
+
+        <img [src]="blogs()[0].coverImage" [alt]="blogs()[0].title">
+
+        <div class="overlay"></div>
+
+      </div>
+
+      <div class="featured-content">
+
+        <span class="featured-badge">
+
+          Featured
+
+        </span>
+
+        <div class="meta">
+
+          <span>
+
+            {{blogs()[0].publishedDate | date:'MMMM d, yyyy'}}
+
+          </span>
+
+          <span>
+
+            •
+
+          </span>
+
+          <span>
+
+            5 min read
+
+          </span>
+
+        </div>
+
+        <h2>
+
+          {{blogs()[0].title}}
+
+        </h2>
+
+        <p>
+
+          {{blogs()[0].excerpt}}
+
+        </p>
+
+        <div class="tags">
+
+          @for(tag of blogs()[0].tags;track tag){
+
+          <span>
+
+            {{tag.name ? tag.name : tag}}
+
+          </span>
+
+          }
+
+        </div>
+
+        <button>
+
+          Read Article →
+
+        </button>
+
+      </div>
+
+    </section>
+
+    }
+
+    <!-- Grid -->
+
+    <section class="blog-grid">
+
+      @for(blog of blogs().slice(1);track blog.id){
+
+      <article
+
+        class="blog-card"
+
+        (mousemove)="cardMove($event)"
+
+        (mouseleave)="leaveCard($event)"
+
+        [routerLink]="[blog.slug]">
+
+        <div class="shine"></div>
+
+        <div class="image-wrapper">
+
+          <img [src]="blog.coverImage" [alt]="blog.title">
+
+        </div>
+
+        <div class="content">
+
+          <div class="meta">
+
+            <span>
+
+              {{blog.publishedDate | date:'MMM d, yyyy'}}
+
+            </span>
+
+            <span>
+
+              •
+
+            </span>
+
+            <span>
+
+              5 min read
+
+            </span>
+
+          </div>
+
+          <h3>
+
+            {{blog.title}}
+
+          </h3>
+
+          <p>
+
+            {{blog.excerpt}}
+
+          </p>
+
+          <div class="tags">
+
+            @for(tag of blog.tags;track tag){
+
+            <span>
+
+              {{tag.name ? tag.name : tag}}
+
+            </span>
+
+            }
+
+          </div>
+
+          <div class="read-more">
+
+            Read More →
+
+          </div>
+
+        </div>
+
+      </article>
+
+      }
+
+    </section>
+
+    }
+
+  </div>
+
+</div>

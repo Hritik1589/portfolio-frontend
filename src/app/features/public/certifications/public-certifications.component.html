@@ -1,0 +1,408 @@
+<div class="certifications-page">
+
+  <!-- ===================== -->
+  <!-- Animated Background -->
+  <!-- ===================== -->
+
+  <div class="bg-wrapper">
+
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+
+    <div class="grid-overlay"></div>
+
+    <div class="noise-layer"></div>
+
+    <div class="particles">
+
+      @for(item of [1,2,3,4,5,6,7,8,9,10,11,12]; track item){
+        <span class="particle"></span>
+      }
+
+    </div>
+
+  </div>
+
+  <!-- ===================== -->
+  <!-- Content -->
+  <!-- ===================== -->
+
+  <div class="page-container">
+
+    <!-- ===================== -->
+    <!-- Hero -->
+    <!-- ===================== -->
+
+    <section class="hero-section animate-fade">
+
+      <div class="hero-badge">
+
+        <span class="badge-dot"></span>
+
+        Professional Portfolio
+
+      </div>
+
+      <h1>
+
+        Professional
+
+        <span>Certifications</span>
+
+      </h1>
+
+      <p>
+
+        Verified credentials showcasing continuous learning,
+        technical expertise and industry-recognized achievements.
+
+      </p>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- Loading -->
+    <!-- ===================== -->
+
+    @if(isLoading()){
+
+      <section class="loading-grid">
+
+        @for(item of [1,2,3,4,5,6];track item){
+
+          <div class="skeleton-card">
+
+            <div class="skeleton-icon"></div>
+
+            <div class="skeleton-title"></div>
+
+            <div class="skeleton-subtitle"></div>
+
+            <div class="skeleton-line"></div>
+
+            <div class="skeleton-line small"></div>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+    <!-- ===================== -->
+    <!-- Error -->
+    <!-- ===================== -->
+
+    @else if(errorMessage()){
+
+      <section class="error-state">
+
+        <div class="error-icon">
+
+          ⚠
+
+        </div>
+
+        <h2>
+
+          Something went wrong
+
+        </h2>
+
+        <p>
+
+          {{ errorMessage() }}
+
+        </p>
+
+      </section>
+
+    }
+
+    <!-- ===================== -->
+    <!-- Cards -->
+    <!-- ===================== -->
+
+    @else{
+
+      <section class="cert-grid">
+
+        @for(cert of certifications(); track cert.id; let i = $index){
+
+          <article
+
+            class="cert-card"
+
+            #card
+
+            [style.animation-delay]="(i*120)+'ms'"
+
+            (mousemove)="onCardMove($event)"
+
+            (mouseleave)="resetCard($event)">
+
+            <!-- Animated Border -->
+
+            <div class="holo-border"></div>
+
+            <!-- Spotlight -->
+
+            <div class="spotlight"></div>
+
+            <!-- Reflection -->
+
+            <div class="reflection"></div>
+
+            <!-- Glow -->
+
+            <div class="card-glow"></div>
+
+            <!-- Floating Orb -->
+
+            <div class="floating-orb"></div>
+
+            <!-- Inner -->
+
+            <div class="card-inner">
+
+              <div class="glass-card">
+
+                <!-- Header -->
+
+                <div class="card-header">
+
+                  <div class="cert-icon">
+
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24">
+
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138"/>
+
+                    </svg>
+
+                  </div>
+
+                  <div class="issue-chip">
+
+                    {{ cert.issueDate | date:'MMM yyyy' }}
+
+                  </div>
+
+                </div>
+
+                <!-- Title -->
+
+                <h3>
+
+                  {{ cert.certificateName }}
+
+                </h3>
+
+                <!-- Organization -->
+
+                <h4>
+
+                  {{ cert.issuingOrganization }}
+
+                </h4>
+                                <!-- ========================= -->
+                <!-- Credential ID -->
+                <!-- ========================= -->
+
+                @if(cert.credentialId){
+
+                  <div class="credential-id">
+
+                    <span class="label">
+
+                      Credential ID
+
+                    </span>
+
+                    <span class="value">
+
+                      {{ cert.credentialId }}
+
+                    </span>
+
+                  </div>
+
+                }
+
+                <!-- Spacer -->
+
+                <div class="card-spacer"></div>
+
+                <!-- ========================= -->
+                <!-- Footer -->
+                <!-- ========================= -->
+
+                <div class="card-footer">
+
+                  <div class="footer-left">
+
+                    <div class="footer-label">
+
+                      Issued
+
+                    </div>
+
+                    <div class="footer-value">
+
+                      {{ cert.issueDate | date:'mediumDate' }}
+
+                    </div>
+
+                  </div>
+
+                  @if(cert.expirationDate){
+
+                    <div class="footer-right">
+
+                      <div class="footer-label">
+
+                        Expires
+
+                      </div>
+
+                      <div class="footer-value">
+
+                        {{ cert.expirationDate | date:'mediumDate' }}
+
+                      </div>
+
+                    </div>
+
+                  }
+
+                </div>
+
+                <!-- ========================= -->
+                <!-- Verify Button -->
+                <!-- ========================= -->
+
+                @if(cert.credentialUrl){
+
+                  <a
+
+                    class="verify-btn"
+
+                    [href]="cert.credentialUrl"
+
+                    target="_blank"
+
+                    rel="noopener noreferrer">
+
+                    <span>
+
+                      Verify Credential
+
+                    </span>
+
+                    <svg
+
+                      class="verify-icon"
+
+                      fill="none"
+
+                      stroke="currentColor"
+
+                      viewBox="0 0 24 24">
+
+                      <path
+
+                        stroke-linecap="round"
+
+                        stroke-linejoin="round"
+
+                        stroke-width="2"
+
+                        d="M14 5h5m0 0v5m0-5L10 14"/>
+
+                      <path
+
+                        stroke-linecap="round"
+
+                        stroke-linejoin="round"
+
+                        stroke-width="2"
+
+                        d="M5 9v10h10"/>
+
+                    </svg>
+
+                  </a>
+
+                }
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+        @empty{
+
+          <!-- ========================= -->
+          <!-- Empty State -->
+          <!-- ========================= -->
+
+          <div class="empty-state">
+
+            <div class="empty-circle">
+
+              <svg
+
+                fill="none"
+
+                stroke="currentColor"
+
+                viewBox="0 0 24 24">
+
+                <path
+
+                  stroke-linecap="round"
+
+                  stroke-linejoin="round"
+
+                  stroke-width="1.5"
+
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138"/>
+
+              </svg>
+
+            </div>
+
+            <h2>
+
+              No Certifications Yet
+
+            </h2>
+
+            <p>
+
+              New certifications and achievements will appear here soon.
+
+            </p>
+
+          </div>
+
+        }
+
+      </section>
+
+    }
+
+  </div>
+
+</div>
