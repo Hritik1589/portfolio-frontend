@@ -342,20 +342,13 @@ export class RegisterComponent implements AfterViewInit {
           this.isLoading.set(false);
 
           if (res.success) {
-
-            this.successMessage.set(
-
-              'Account created successfully!'
-
-            );
-
-            setTimeout(() => {
-            this.router.navigate(['/verify-otp'], { 
-              state: { email: payload.email } 
-            });
-          }, 2000);
-
-          }
+  this.successMessage.set('Account created successfully! Please login.');
+  
+  setTimeout(() => {
+    // OTP ki jagah seedha Login page par bhej diya ✅
+    this.router.navigate(['/login']); 
+  }, 2000);
+}
 
         },
 
