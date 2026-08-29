@@ -1,6 +1,11 @@
+
 <div class="register-page">
 
-  <!-- Animated Background -->
+  <!-- =========================================================
+       ATMOSPHERE
+  ========================================================== -->
+
+  <div class="bg-noise"></div>
   <div class="bg-grid"></div>
   <div class="bg-gradient"></div>
 
@@ -15,364 +20,515 @@
     }
   </div>
 
-  <!-- Particles -->
+  <!-- Floating particles -->
   <div class="particles">
     @for(particle of particles; track particle){
       <span class="particle"></span>
     }
   </div>
 
-  <!-- Card -->
+  <!-- Decorative orbital rings -->
+  <div class="scene-ring ring-1"></div>
+  <div class="scene-ring ring-2"></div>
+  <div class="scene-ring ring-3"></div>
+
+  <!-- =========================================================
+       REGISTER CARD
+  ========================================================== -->
+
   <div
-      #tiltCard
-      class="register-card"
-      (mousemove)="onMouseMove($event)"
-      (mouseleave)="resetTilt()">
+    #tiltCard
+    class="register-card"
+    (mousemove)="onMouseMove($event)"
+    (mouseleave)="resetTilt()">
 
-      <!-- Spotlight -->
-      <div
-          class="spotlight"
-          [style.left.px]="mouseX()"
-          [style.top.px]="mouseY()">
+    <!-- Dynamic spotlight -->
+    <div
+      class="spotlight"
+      [style.left.px]="mouseX()"
+      [style.top.px]="mouseY()">
+    </div>
+
+    <!-- Animated holographic border -->
+    <div class="border-glow"></div>
+
+    <!-- Inner shine -->
+    <div class="card-shine"></div>
+
+    <!-- Top status -->
+    <div class="system-status">
+      <span class="status-dot"></span>
+      <span>SECURE REGISTRATION</span>
+      <span class="status-line"></span>
+      <span class="status-code">AUTH_2026</span>
+    </div>
+
+    <!-- =======================================================
+         LOGO
+    ======================================================== -->
+
+    <div class="logo-wrapper">
+
+      <div class="logo-orbit orbit-a"></div>
+      <div class="logo-orbit orbit-b"></div>
+
+      <div class="logo-circle">
+        <span class="logo-glow"></span>
+        <span class="logo-icon">🚀</span>
       </div>
 
-      <!-- Animated Border -->
-      <div class="border-glow"></div>
+      <div class="logo-pulse"></div>
 
-      <!-- Logo -->
+    </div>
 
-      <div class="logo-wrapper">
+    <!-- =======================================================
+         HEADER
+    ======================================================== -->
 
-          <div class="logo-circle">
+    <div class="heading-area">
 
-              🚀
+      <span class="eyebrow">
+        <span></span>
+        NEW USER PROTOCOL
+      </span>
 
-          </div>
-
-      </div>
-
-      <!-- Heading -->
-
-      <h1>Create Account</h1>
+      <h1>
+        Create
+        <span class="gradient-text">Account</span>
+      </h1>
 
       <p class="subtitle">
-
-          Join the digital command center.
-
+        Join the digital command center.
+        <br>
+        <span>Build your identity. Enter the future.</span>
       </p>
 
-      <!-- Messages -->
+    </div>
 
-      @if(errorMessage()){
+    <!-- =======================================================
+         ALERTS
+    ======================================================== -->
+
+    @if(errorMessage()){
 
       <div class="alert error">
 
-          {{errorMessage()}}
+        <div class="alert-icon">!</div>
+
+        <div class="alert-content">
+          <strong>Registration Failed</strong>
+          <span>{{errorMessage()}}</span>
+        </div>
 
       </div>
 
-      }
+    }
 
-      @if(successMessage()){
+    @if(successMessage()){
 
       <div class="alert success">
 
-          {{successMessage()}}
+        <div class="alert-icon">✓</div>
+
+        <div class="alert-content">
+          <strong>Registration Successful</strong>
+          <span>{{successMessage()}}</span>
+        </div>
 
       </div>
 
-      }
+    }
 
-      <form
-          [formGroup]="registerForm"
-          (ngSubmit)="onSubmit()">
+    <!-- =======================================================
+         FORM
+    ======================================================== -->
 
-          <!-- Name -->
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()">
 
-          <div class="floating-input">
+      <!-- Name -->
 
-              <input
+      <div class="floating-input">
 
-                  type="text"
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20 21a8 8 0 0 0-16 0M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
+          </svg>
+        </div>
 
-                  formControlName="name"
+        <input
+          type="text"
+          formControlName="name"
+          placeholder=" "
+          autocomplete="name">
 
-                  placeholder=" ">
+        <label>Full Name</label>
 
-              <label>
+        <span class="input-line"></span>
 
-                  Full Name
+        @if(registerForm.controls.name.touched &&
+            registerForm.controls.name.invalid){
 
-              </label>
+          <small>
+            Enter your full name
+          </small>
 
-              @if(registerForm.controls.name.touched &&
-                  registerForm.controls.name.invalid){
-
-              <small>
-
-                  Enter your full name
-
-              </small>
-
-              }
-
-          </div>
-
-          <!-- Email -->
-
-          <div class="floating-input">
-
-              <input
-
-                  type="email"
-
-                  formControlName="email"
-
-                  placeholder=" ">
-
-              <label>
-
-                  Email Address
-
-              </label>
-
-              @if(registerForm.controls.email.touched &&
-                  registerForm.controls.email.invalid){
-
-              <small>
-
-                  Enter a valid email
-
-              </small>
-
-              }
-
-          </div>
-
-          <!-- Mobile -->
-
-          <div class="floating-input">
-
-              <input
-
-                  type="text"
-
-                  formControlName="mobile"
-
-                  placeholder=" ">
-
-              <label>
-
-                  Mobile Number(Compulsory)
-
-              </label>
-
-          </div>
-                    <!-- Password -->
-
-          <div class="floating-input password-field">
-
-              <input
-                  [type]="showPassword() ? 'text' : 'password'"
-                  formControlName="password"
-                  placeholder=" ">
-
-              <label>Password</label>
-
-              <button
-                  type="button"
-                  class="eye-btn"
-                  (click)="togglePassword()">
-
-                  @if(showPassword()){
-                      👁️
-                  } @else {
-                      🙈
-                  }
-
-              </button>
-
-              @if(registerForm.controls.password.touched &&
-                  registerForm.controls.password.invalid){
-
-                  <small>
-
-                      Minimum 8 characters required
-
-                  </small>
-
-              }
-
-          </div>
-
-          <!-- Password Strength -->
-
-          <div class="strength-wrapper">
-
-              <div class="strength-bar">
-
-                  <div
-                      class="strength-fill"
-                      [style.width.%]="passwordStrength()">
-                  </div>
-
-              </div>
-
-              <span class="strength-text">
-
-                  {{ passwordStrengthLabel() }}
-
-              </span>
-
-          </div>
-
-          <!-- Confirm Password -->
-
-          <div class="floating-input">
-
-              <input
-                  [type]="showPassword() ? 'text' : 'password'"
-                  formControlName="confirmPassword"
-                  placeholder=" ">
-
-              <label>
-
-                  Confirm Password
-
-              </label>
-
-              @if(registerForm.hasError('passwordsMismatch')
-                  && registerForm.controls.confirmPassword.touched){
-
-                  <small>
-
-                      Passwords do not match
-
-                  </small>
-
-              }
-
-          </div>
-
-          <!-- Register Button -->
-
-          <button
-
-              type="submit"
-
-              class="register-btn"
-
-              [disabled]="isLoading()"
-
-              (mousemove)="moveButton($event)"
-
-              (mouseleave)="leaveButton()"
-
-              [style.transform]="
-                'translate(' +
-                buttonX() +
-                'px,' +
-                buttonY() +
-                'px)'">
-
-              @if(isLoading()){
-
-                  <span class="loader"></span>
-
-              } @else {
-
-                  <span>Create Account</span>
-
-              }
-
-          </button>
-
-      </form>
-
-      <!-- Divider -->
-
-      <div class="divider">
-
-          <span>OR</span>
+        }
 
       </div>
 
-      <!-- Social Buttons -->
+      <!-- Email -->
 
-      <div class="social-buttons">
+      <div class="floating-input">
 
-          <button
-              type="button"
-              class="social-btn">
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/>
+            <path d="m3 7 9 6 9-6"/>
+          </svg>
+        </div>
 
-              <span>🟢</span>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder=" "
+          autocomplete="email">
 
-              Continue with Google
+        <label>Email Address</label>
 
-          </button>
+        <span class="input-line"></span>
 
-          <button
-              type="button"
-              class="social-btn">
+        @if(registerForm.controls.email.touched &&
+            registerForm.controls.email.invalid){
 
-              <span>🐙</span>
+          <small>
+            Enter a valid email
+          </small>
 
-              Continue with GitHub
-
-          </button>
-
-      </div>
-
-      <!-- Footer -->
-
-      <div class="footer">
-
-          <p>
-
-              Already have an account?
-
-              <a routerLink="/login">
-
-                  Sign In
-
-              </a>
-
-          </p>
+        }
 
       </div>
 
-      <!-- Success Overlay -->
+      <!-- Mobile -->
 
-      @if(successMessage()){
+      <div class="floating-input">
+
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="6" y="2" width="12" height="20" rx="2"/>
+            <path d="M10 18h4"/>
+          </svg>
+        </div>
+
+        <input
+          type="text"
+          formControlName="mobile"
+          placeholder=" "
+          autocomplete="tel">
+
+        <label>Mobile Number <span>(Compulsory)</span></label>
+
+        <span class="input-line"></span>
+
+      </div>
+
+      <!-- Password -->
+
+      <div class="floating-input password-field">
+
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="10" width="16" height="11" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+          </svg>
+        </div>
+
+        <input
+          [type]="showPassword() ? 'text' : 'password'"
+          formControlName="password"
+          placeholder=" "
+          autocomplete="new-password">
+
+        <label>Password</label>
+
+        <span class="input-line"></span>
+
+        <button
+          type="button"
+          class="eye-btn"
+          (click)="togglePassword()"
+          aria-label="Toggle password visibility">
+
+          @if(showPassword()){
+            <span>👁️</span>
+          } @else {
+            <span>🙈</span>
+          }
+
+        </button>
+
+        @if(registerForm.controls.password.touched &&
+            registerForm.controls.password.invalid){
+
+          <small>
+            Minimum 8 characters required
+          </small>
+
+        }
+
+      </div>
+
+      <!-- Password strength -->
+
+      <div class="strength-wrapper">
+
+        <div class="strength-header">
+          <span>Password strength</span>
+
+          <span
+            class="strength-text"
+            [class.visible]="passwordStrength() > 0">
+            {{ passwordStrengthLabel() }}
+          </span>
+        </div>
+
+        <div class="strength-bar">
+
+          <div
+            class="strength-fill"
+            [style.width.%]="passwordStrength()">
+          </div>
+
+          <span class="strength-glow"></span>
+
+        </div>
+
+        <div class="strength-segments">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+      </div>
+
+      <!-- Confirm Password -->
+
+      <div class="floating-input password-field">
+
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+
+        <input
+          [type]="showPassword() ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          placeholder=" "
+          autocomplete="new-password">
+
+        <label>Confirm Password</label>
+
+        <span class="input-line"></span>
+
+        @if(registerForm.hasError('passwordsMismatch')
+            && registerForm.controls.confirmPassword.touched){
+
+          <small>
+            Passwords do not match
+          </small>
+
+        }
+
+      </div>
+
+      <!-- =====================================================
+           REGISTER BUTTON
+      ====================================================== -->
+
+      <button
+        type="submit"
+        class="register-btn"
+        [disabled]="isLoading()"
+        (mousemove)="moveButton($event)"
+        (mouseleave)="leaveButton()"
+        [style.transform]="
+          'translate(' +
+          buttonX() +
+          'px,' +
+          buttonY() +
+          'px)'">
+
+        <span class="button-bg"></span>
+        <span class="button-shine"></span>
+
+        @if(isLoading()){
+
+          <span class="button-content">
+            <span class="loader"></span>
+            <span>Creating Account...</span>
+          </span>
+
+        } @else {
+
+          <span class="button-content">
+
+            <span>Create Account</span>
+
+            <span class="button-arrow">
+              →
+            </span>
+
+          </span>
+
+        }
+
+      </button>
+
+    </form>
+
+    <!-- =======================================================
+         DIVIDER
+    ======================================================== -->
+
+    <div class="divider">
+      <span class="divider-line"></span>
+      <span class="divider-orb"></span>
+      <span>OR CONTINUE WITH</span>
+      <span class="divider-orb"></span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- =======================================================
+         SOCIAL
+    ======================================================== -->
+
+    <div class="social-buttons">
+
+      <button
+        type="button"
+        class="social-btn">
+
+        <span class="social-icon google-icon">
+          G
+        </span>
+
+        <span>Continue with Google</span>
+
+        <span class="social-arrow">↗</span>
+
+      </button>
+
+      <button
+        type="button"
+        class="social-btn">
+
+        <span class="social-icon github-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.61-3.37-1.18-3.37-1.18-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.91c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.58 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+          </svg>
+        </span>
+
+        <span>Continue with GitHub</span>
+
+        <span class="social-arrow">↗</span>
+
+      </button>
+
+    </div>
+
+    <!-- =======================================================
+         FOOTER
+    ======================================================== -->
+
+    <div class="footer">
+
+      <span>Already have an account?</span>
+
+      <a routerLink="/login">
+        Sign In
+        <span>→</span>
+      </a>
+
+    </div>
+
+    <!-- Security footer -->
+
+    <div class="security-footer">
+
+      <span class="security-lock">⌁</span>
+
+      <span>Protected by secure authentication</span>
+
+      <span class="security-dot"></span>
+
+      <span>ENCRYPTED</span>
+
+    </div>
+
+    <!-- =======================================================
+         SUCCESS OVERLAY
+    ======================================================== -->
+
+    @if(successMessage()){
 
       <div class="success-overlay">
 
-          <div class="success-card">
+        <div class="success-particles">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
 
-              <div class="success-icon">
+        <div class="success-card">
 
-                  ✓
+          <div class="success-ring ring-one"></div>
+          <div class="success-ring ring-two"></div>
 
-              </div>
+          <div class="success-icon">
+            <span>✓</span>
+          </div>
 
-              <h2>
+          <div class="success-label">
+            IDENTITY CREATED
+          </div>
 
-                  Account Created
+          <h2>
+            Account Created
+          </h2>
 
-              </h2>
+          <p>
+            Your digital identity has been successfully initialized.
+          </p>
 
-              <p>
+          <div class="redirect-loader">
 
-                  Redirecting to login...
-
-              </p>
+            <span></span>
+            <span></span>
+            <span></span>
 
           </div>
 
+          <small>
+            Redirecting to login...
+          </small>
+
+        </div>
+
       </div>
 
-      }
+    }
 
   </div>
 
 </div>
+
