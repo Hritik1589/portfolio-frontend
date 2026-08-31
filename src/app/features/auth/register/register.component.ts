@@ -29,6 +29,38 @@ export function passwordsMatchValidator(
   return password === confirm ? null : { passwordsMismatch: true };
 }
 
+/* ---------------------------------------------
+  Official Email Validator
+----------------------------------------------*/
+export function officialEmailValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  const email = control.value;
+  if (!email) return null;
+
+  const allowedDomains = [
+    'gmail.com',
+    'yahoo.com',
+    'yahoo.in',
+    'outlook.com',
+    'hotmail.com',
+    'icloud.com',
+    'live.com',
+    'msn.com'
+  ];
+
+  const parts = email.split('@');
+  if (parts.length !== 2) return null; 
+
+  const domain = parts[1].toLowerCase();
+
+  if (!allowedDomains.includes(domain)) {
+    return { invalidDomain: true }; 
+  }
+
+  return null;
+}
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -66,8 +98,12 @@ export class RegisterComponent implements AfterViewInit {
   ----------------------------- */
   registerForm = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
-    email: ['', [Validators.required, Validators.email]],
-    mobile: [''],
+    email: ['', [Validators.required, Validators.email, officialEmailValidator]],
+    // 🚨 YAHAN MOBILE VALIDATION ADD KIYA HAI 🚨
+    mobile: ['', [
+      Validators.required, 
+      Validators.pattern('^[6-9][0-9]{9}$') // Standard 10-digit number validation
+    ]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', Validators.required]
   }, {
@@ -176,6 +212,19 @@ export class RegisterComponent implements AfterViewInit {
   onSubmit() {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
+      
+      // Email Domain Error Check
+      if (this.registerForm.get('email')?.hasError('invalidDomain')) {
+        this.errorMessage.set('Please use an official email provider (Gmail, Yahoo, Outlook, etc).');
+        return;
+      }
+
+      // 🚨 Mobile Number Error Check 🚨
+      if (this.registerForm.get('mobile')?.hasError('pattern')) {
+        this.errorMessage.set('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+      
       return;
     }
 
@@ -189,11 +238,9 @@ export class RegisterComponent implements AfterViewInit {
       next: (res) => {
         this.isLoading.set(false);
         if (res.success) {
-          // Message update kiya gaya hai
           this.successMessage.set('Account created successfully! Redirecting to login...');
           
           setTimeout(() => {
-            // 🚨 YAHAN CHANGE HAI: '/verify-otp' ko hata kar '/login' kar diya hai
             this.router.navigate(['/login'], {
               state: { email: payload.email }
             });
