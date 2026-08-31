@@ -5,139 +5,165 @@
        ATMOSPHERE
   ========================================================== -->
 
-  <div class="bg-noise"></div>
   <div class="bg-grid"></div>
   <div class="bg-gradient"></div>
+  <div class="bg-noise"></div>
 
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <div class="aurora aurora-one"></div>
+  <div class="aurora aurora-two"></div>
+  <div class="aurora aurora-three"></div>
 
   <!-- Stars -->
-  <div class="stars">
-    @for(star of stars; track star){
+  <div class="stars" aria-hidden="true">
+    @for (star of stars; track star) {
       <span></span>
     }
   </div>
 
   <!-- Floating particles -->
-  <div class="particles">
-    @for(particle of particles; track particle){
+  <div class="particles" aria-hidden="true">
+    @for (particle of particles; track particle) {
       <span class="particle"></span>
     }
   </div>
 
-  <!-- Decorative orbital rings -->
-  <div class="scene-ring ring-1"></div>
-  <div class="scene-ring ring-2"></div>
-  <div class="scene-ring ring-3"></div>
+  <!-- Orbital rings -->
+  <div class="orbit-scene" aria-hidden="true">
+    <span class="scene-orbit orbit-1"></span>
+    <span class="scene-orbit orbit-2"></span>
+    <span class="scene-orbit orbit-3"></span>
+  </div>
+
 
   <!-- =========================================================
        REGISTER CARD
   ========================================================== -->
 
-  <div
+  <main
     #tiltCard
     class="register-card"
     (mousemove)="onMouseMove($event)"
-    (mouseleave)="resetTilt()">
+    (mouseleave)="resetTilt()"
+  >
 
     <!-- Dynamic spotlight -->
     <div
       class="spotlight"
       [style.left.px]="mouseX()"
-      [style.top.px]="mouseY()">
+      [style.top.px]="mouseY()"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Animated border -->
+    <div class="card-border" aria-hidden="true"></div>
+
+    <!-- Glass shine -->
+    <div class="card-shine" aria-hidden="true"></div>
+
+
+    <!-- =======================================================
+         SYSTEM BAR
+    ======================================================== -->
+
+    <div class="system-bar">
+      <div class="system-left">
+        <span class="system-status-dot"></span>
+        <span>SECURE REGISTRATION</span>
+      </div>
+
+      <div class="system-center"></div>
+
+      <span class="system-code">AUTH_2026</span>
     </div>
 
-    <!-- Animated holographic border -->
-    <div class="border-glow"></div>
-
-    <!-- Inner shine -->
-    <div class="card-shine"></div>
-
-    <!-- Top status -->
-    <div class="system-status">
-      <span class="status-dot"></span>
-      <span>SECURE REGISTRATION</span>
-      <span class="status-line"></span>
-      <span class="status-code">AUTH_2026</span>
-    </div>
 
     <!-- =======================================================
          LOGO
     ======================================================== -->
 
-    <div class="logo-wrapper">
+    <div class="logo-stage">
 
-      <div class="logo-orbit orbit-a"></div>
-      <div class="logo-orbit orbit-b"></div>
-
-      <div class="logo-circle">
-        <span class="logo-glow"></span>
-        <span class="logo-icon">🚀</span>
-      </div>
+      <div class="logo-orbit logo-orbit-a"></div>
+      <div class="logo-orbit logo-orbit-b"></div>
+      <div class="logo-orbit logo-orbit-c"></div>
 
       <div class="logo-pulse"></div>
 
+      <div class="logo-core">
+        <div class="logo-core-glow"></div>
+        <span class="logo-symbol">🚀</span>
+      </div>
+
     </div>
+
 
     <!-- =======================================================
          HEADER
     ======================================================== -->
 
-    <div class="heading-area">
+    <header class="heading">
 
-      <span class="eyebrow">
-        <span></span>
-        NEW USER PROTOCOL
-      </span>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span>NEW USER PROTOCOL</span>
+        <span class="eyebrow-line"></span>
+      </div>
 
       <h1>
         Create
         <span class="gradient-text">Account</span>
       </h1>
 
-      <p class="subtitle">
+      <p>
         Join the digital command center.
         <br>
         <span>Build your identity. Enter the future.</span>
       </p>
 
-    </div>
+    </header>
+
 
     <!-- =======================================================
-         ALERTS
+         GLOBAL ERROR
     ======================================================== -->
 
-    @if(errorMessage()){
+    @if (errorMessage()) {
+      <div class="global-alert error-alert">
 
-      <div class="alert error">
+        <div class="alert-icon">
+          !
+        </div>
 
-        <div class="alert-icon">!</div>
-
-        <div class="alert-content">
+        <div class="alert-copy">
           <strong>Registration Failed</strong>
-          <span>{{errorMessage()}}</span>
+          <span>{{ errorMessage() }}</span>
         </div>
 
-      </div>
+        <div class="alert-pulse"></div>
 
+      </div>
     }
 
-    @if(successMessage()){
 
-      <div class="alert success">
+    <!-- =======================================================
+         SUCCESS MESSAGE
+    ======================================================== -->
 
-        <div class="alert-icon">✓</div>
+    @if (successMessage() && !isLoading()) {
+      <div class="global-alert success-alert">
 
-        <div class="alert-content">
+        <div class="alert-icon">
+          ✓
+        </div>
+
+        <div class="alert-copy">
           <strong>Registration Successful</strong>
-          <span>{{successMessage()}}</span>
+          <span>{{ successMessage() }}</span>
         </div>
 
       </div>
-
     }
+
 
     <!-- =======================================================
          FORM
@@ -145,101 +171,240 @@
 
     <form
       [formGroup]="registerForm"
-      (ngSubmit)="onSubmit()">
+      (ngSubmit)="onSubmit()"
+      novalidate
+      autocomplete="on"
+    >
 
-      <!-- Name -->
+      <!-- =====================================================
+           NAME
+      ====================================================== -->
 
-      <div class="floating-input">
+      <div
+        class="field"
+        [class.field-invalid]="
+          registerForm.controls.name.touched &&
+          registerForm.controls.name.invalid
+        "
+        [class.field-valid]="
+          registerForm.controls.name.touched &&
+          registerForm.controls.name.valid
+        "
+      >
 
-        <div class="input-icon">
+        <div class="field-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M20 21a8 8 0 0 0-16 0M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+            <circle cx="12" cy="7" r="4"/>
           </svg>
         </div>
 
         <input
+          id="name"
           type="text"
           formControlName="name"
           placeholder=" "
-          autocomplete="name">
+          autocomplete="name"
+          spellcheck="false"
+        >
 
-        <label>Full Name</label>
+        <label for="name">Full Name</label>
 
-        <span class="input-line"></span>
+        <span class="field-status">
+          @if (
+            registerForm.controls.name.touched &&
+            registerForm.controls.name.valid
+          ) {
+            ✓
+          }
+        </span>
 
-        @if(registerForm.controls.name.touched &&
-            registerForm.controls.name.invalid){
+        <span class="field-laser"></span>
 
-          <small>
-            Enter your full name
+        @if (
+          registerForm.controls.name.touched &&
+          registerForm.controls.name.hasError('required')
+        ) {
+          <small class="field-error">
+            Please enter your full name.
           </small>
+        }
 
+        @if (
+          registerForm.controls.name.touched &&
+          registerForm.controls.name.hasError('minlength')
+        ) {
+          <small class="field-error">
+            Name must contain at least 2 characters.
+          </small>
         }
 
       </div>
 
-      <!-- Email -->
 
-      <div class="floating-input">
+      <!-- =====================================================
+           EMAIL
+      ====================================================== -->
 
-        <div class="input-icon">
+      <div
+        class="field"
+        [class.field-invalid]="
+          registerForm.controls.email.touched &&
+          registerForm.controls.email.invalid
+        "
+        [class.field-valid]="
+          registerForm.controls.email.touched &&
+          registerForm.controls.email.valid
+        "
+      >
+
+        <div class="field-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/>
-            <path d="m3 7 9 6 9-6"/>
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="m4 7 8 6 8-6"/>
           </svg>
         </div>
 
         <input
+          id="email"
           type="email"
           formControlName="email"
           placeholder=" "
-          autocomplete="email">
+          autocomplete="email"
+          inputmode="email"
+          spellcheck="false"
+        >
 
-        <label>Email Address</label>
+        <label for="email">Email Address</label>
 
-        <span class="input-line"></span>
+        <span class="field-status">
+          @if (
+            registerForm.controls.email.touched &&
+            registerForm.controls.email.valid
+          ) {
+            ✓
+          }
+        </span>
 
-        @if(registerForm.controls.email.touched &&
-            registerForm.controls.email.invalid){
+        <span class="field-laser"></span>
 
-          <small>
-            Enter a valid email
+        @if (
+          registerForm.controls.email.touched &&
+          registerForm.controls.email.hasError('required')
+        ) {
+          <small class="field-error">
+            Email address is required.
           </small>
+        }
 
+        @if (
+          registerForm.controls.email.touched &&
+          registerForm.controls.email.hasError('email')
+        ) {
+          <small class="field-error">
+            Please enter a valid email address.
+          </small>
+        }
+
+        @if (
+          registerForm.controls.email.touched &&
+          registerForm.controls.email.hasError('invalidDomain')
+        ) {
+          <small class="field-error">
+            Please use Gmail, Yahoo, Outlook, Hotmail, iCloud or another supported provider.
+          </small>
         }
 
       </div>
 
-      <!-- Mobile -->
 
-      <div class="floating-input">
+      <!-- =====================================================
+           MOBILE
+      ====================================================== -->
 
-        <div class="input-icon">
+      <div
+        class="field"
+        [class.field-invalid]="
+          registerForm.controls.mobile.touched &&
+          registerForm.controls.mobile.invalid
+        "
+        [class.field-valid]="
+          registerForm.controls.mobile.touched &&
+          registerForm.controls.mobile.valid
+        "
+      >
+
+        <div class="field-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="6" y="2" width="12" height="20" rx="2"/>
+            <rect x="6" y="2.5" width="12" height="19" rx="2.5"/>
             <path d="M10 18h4"/>
           </svg>
         </div>
 
         <input
-          type="text"
+          id="mobile"
+          type="tel"
           formControlName="mobile"
           placeholder=" "
-          autocomplete="tel">
+          autocomplete="tel"
+          inputmode="numeric"
+          maxlength="10"
+        >
 
-        <label>Mobile Number <span>(Compulsory)</span></label>
+        <label for="mobile">
+          Mobile Number
+          <span class="required-label">Required</span>
+        </label>
 
-        <span class="input-line"></span>
+        <span class="field-status">
+          @if (
+            registerForm.controls.mobile.touched &&
+            registerForm.controls.mobile.valid
+          ) {
+            ✓
+          }
+        </span>
+
+        <span class="field-laser"></span>
+
+        @if (
+          registerForm.controls.mobile.touched &&
+          registerForm.controls.mobile.hasError('required')
+        ) {
+          <small class="field-error">
+            Mobile number is required.
+          </small>
+        }
+
+        @if (
+          registerForm.controls.mobile.touched &&
+          registerForm.controls.mobile.hasError('pattern')
+        ) {
+          <small class="field-error">
+            Enter a valid 10-digit Indian mobile number.
+          </small>
+        }
 
       </div>
 
-      <!-- Password -->
 
-      <div class="floating-input password-field">
+      <!-- =====================================================
+           PASSWORD
+      ====================================================== -->
 
-        <div class="input-icon">
+      <div
+        class="field password-field"
+        [class.field-invalid]="
+          registerForm.controls.password.touched &&
+          registerForm.controls.password.invalid
+        "
+        [class.field-valid]="
+          registerForm.controls.password.touched &&
+          registerForm.controls.password.valid
+        "
+      >
+
+        <div class="field-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="4" y="10" width="16" height="11" rx="2"/>
             <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
@@ -247,79 +412,143 @@
         </div>
 
         <input
+          id="password"
           [type]="showPassword() ? 'text' : 'password'"
           formControlName="password"
           placeholder=" "
-          autocomplete="new-password">
+          autocomplete="new-password"
+        >
 
-        <label>Password</label>
-
-        <span class="input-line"></span>
+        <label for="password">Password</label>
 
         <button
           type="button"
-          class="eye-btn"
+          class="password-toggle"
           (click)="togglePassword()"
-          aria-label="Toggle password visibility">
-
-          @if(showPassword()){
-            <span>👁️</span>
+          [attr.aria-label]="
+            showPassword()
+              ? 'Hide password'
+              : 'Show password'
+          "
+        >
+          @if (showPassword()) {
+            <svg viewBox="0 0 24 24">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
           } @else {
-            <span>🙈</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M3 3l18 18"/>
+              <path d="M10.6 5.2A9.9 9.9 0 0 1 12 5c6.5 0 10 7 10 7a17.5 17.5 0 0 1-3.2 4.2"/>
+              <path d="M6.2 6.3C3.4 8.4 2 12 2 12s3.5 7 10 7a9.9 9.9 0 0 0 4-.8"/>
+            </svg>
           }
-
         </button>
 
-        @if(registerForm.controls.password.touched &&
-            registerForm.controls.password.invalid){
+        <span class="field-laser"></span>
 
-          <small>
-            Minimum 8 characters required
+        @if (
+          registerForm.controls.password.touched &&
+          registerForm.controls.password.hasError('required')
+        ) {
+          <small class="field-error">
+            Password is required.
           </small>
+        }
 
+        @if (
+          registerForm.controls.password.touched &&
+          registerForm.controls.password.hasError('minlength')
+        ) {
+          <small class="field-error">
+            Password must contain at least 8 characters.
+          </small>
         }
 
       </div>
 
-      <!-- Password strength -->
 
-      <div class="strength-wrapper">
+      <!-- =====================================================
+           PASSWORD STRENGTH
+      ====================================================== -->
 
-        <div class="strength-header">
-          <span>Password strength</span>
+      <div
+        class="strength-panel"
+        [class.strength-active]="passwordStrength() > 0"
+      >
 
-          <span
-            class="strength-text"
-            [class.visible]="passwordStrength() > 0">
-            {{ passwordStrengthLabel() }}
-          </span>
-        </div>
+        <div class="strength-top">
 
-        <div class="strength-bar">
-
-          <div
-            class="strength-fill"
-            [style.width.%]="passwordStrength()">
+          <div class="strength-title">
+            <span class="strength-dot"></span>
+            Password security
           </div>
 
-          <span class="strength-glow"></span>
+          @if (passwordStrength() > 0) {
+            <span
+              class="strength-label"
+              [class.weak]="passwordStrength() < 40"
+              [class.medium]="
+                passwordStrength() >= 40 &&
+                passwordStrength() < 70
+              "
+              [class.strong]="passwordStrength() >= 70"
+            >
+              {{ passwordStrengthLabel() }}
+            </span>
+          }
+
+        </div>
+
+        <div class="strength-track">
+
+          <div
+            class="strength-progress"
+            [style.width.%]="passwordStrength()"
+          ></div>
+
+          <span class="strength-sweep"></span>
 
         </div>
 
         <div class="strength-segments">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span [class.active]="passwordStrength() >= 25"></span>
+          <span [class.active]="passwordStrength() >= 40"></span>
+          <span [class.active]="passwordStrength() >= 70"></span>
+          <span [class.active]="passwordStrength() >= 90"></span>
+        </div>
+
+        <div class="strength-hints">
+          <span>8+ characters</span>
+          <span>Uppercase</span>
+          <span>Number</span>
+          <span>Symbol</span>
         </div>
 
       </div>
 
-      <!-- Confirm Password -->
 
-      <div class="floating-input password-field">
+      <!-- =====================================================
+           CONFIRM PASSWORD
+      ====================================================== -->
 
-        <div class="input-icon">
+      <div
+        class="field password-field"
+        [class.field-invalid]="
+          registerForm.controls.confirmPassword.touched &&
+          (
+            registerForm.controls.confirmPassword.invalid ||
+            registerForm.hasError('passwordsMismatch')
+          )
+        "
+        [class.field-valid]="
+          registerForm.controls.confirmPassword.touched &&
+          registerForm.controls.confirmPassword.valid &&
+          !registerForm.hasError('passwordsMismatch')
+        "
+      >
+
+        <div class="field-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"/>
             <path d="m9 12 2 2 4-4"/>
@@ -327,25 +556,50 @@
         </div>
 
         <input
+          id="confirmPassword"
           [type]="showPassword() ? 'text' : 'password'"
           formControlName="confirmPassword"
           placeholder=" "
-          autocomplete="new-password">
+          autocomplete="new-password"
+        >
 
-        <label>Confirm Password</label>
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
 
-        <span class="input-line"></span>
+        <span class="field-status">
+          @if (
+            registerForm.controls.confirmPassword.touched &&
+            registerForm.controls.confirmPassword.valid &&
+            !registerForm.hasError('passwordsMismatch')
+          ) {
+            ✓
+          }
+        </span>
 
-        @if(registerForm.hasError('passwordsMismatch')
-            && registerForm.controls.confirmPassword.touched){
+        <span class="field-laser"></span>
 
-          <small>
-            Passwords do not match
+        @if (
+          registerForm.controls.confirmPassword.touched &&
+          registerForm.controls.confirmPassword.hasError('required')
+        ) {
+          <small class="field-error">
+            Please confirm your password.
           </small>
+        }
 
+        @if (
+          registerForm.controls.confirmPassword.touched &&
+          registerForm.controls.confirmPassword.valid &&
+          registerForm.hasError('passwordsMismatch')
+        ) {
+          <small class="field-error">
+            Passwords do not match.
+          </small>
         }
 
       </div>
+
 
       <!-- =====================================================
            REGISTER BUTTON
@@ -354,31 +608,48 @@
       <button
         type="submit"
         class="register-btn"
+        [class.loading]="isLoading()"
         [disabled]="isLoading()"
         (mousemove)="moveButton($event)"
         (mouseleave)="leaveButton()"
         [style.transform]="
           'translate(' +
           buttonX() +
-          'px,' +
+          'px, ' +
           buttonY() +
-          'px)'">
+          'px)'
+        "
+      >
 
-        <span class="button-bg"></span>
+        <span class="button-background"></span>
         <span class="button-shine"></span>
+        <span class="button-particles"></span>
 
-        @if(isLoading()){
+        @if (isLoading()) {
 
           <span class="button-content">
-            <span class="loader"></span>
-            <span>Creating Account...</span>
+
+            <span class="loader-ring"></span>
+
+            <span class="button-text">
+              Creating Account
+            </span>
+
+            <span class="loading-dots">
+              <i></i>
+              <i></i>
+              <i></i>
+            </span>
+
           </span>
 
         } @else {
 
           <span class="button-content">
 
-            <span>Create Account</span>
+            <span class="button-text">
+              Create Account
+            </span>
 
             <span class="button-arrow">
               →
@@ -392,95 +663,121 @@
 
     </form>
 
+
     <!-- =======================================================
          DIVIDER
     ======================================================== -->
 
     <div class="divider">
-      <span class="divider-line"></span>
-      <span class="divider-orb"></span>
-      <span>OR CONTINUE WITH</span>
-      <span class="divider-orb"></span>
-      <span class="divider-line"></span>
+
+      <span></span>
+
+      <div class="divider-core">
+        <i></i>
+        <span>OR CONTINUE WITH</span>
+        <i></i>
+      </div>
+
+      <span></span>
+
     </div>
 
+
     <!-- =======================================================
-         SOCIAL
+         SOCIAL LOGIN
     ======================================================== -->
 
     <div class="social-buttons">
 
-      <button
-        type="button"
-        class="social-btn">
+      <button type="button" class="social-btn">
 
-        <span class="social-icon google-icon">
+        <span class="social-icon google">
           G
         </span>
 
-        <span>Continue with Google</span>
+        <span class="social-text">
+          Google
+        </span>
 
-        <span class="social-arrow">↗</span>
+        <span class="social-arrow">
+          ↗
+        </span>
 
       </button>
 
-      <button
-        type="button"
-        class="social-btn">
+      <button type="button" class="social-btn">
 
-        <span class="social-icon github-icon">
-          <svg viewBox="0 0 24 24">
+        <span class="social-icon github">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
-              d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.61-3.37-1.18-3.37-1.18-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.91c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.58 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+              d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.61-3.37-1.18-3.37-1.18-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.91c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.58 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+            />
           </svg>
         </span>
 
-        <span>Continue with GitHub</span>
+        <span class="social-text">
+          GitHub
+        </span>
 
-        <span class="social-arrow">↗</span>
+        <span class="social-arrow">
+          ↗
+        </span>
 
       </button>
 
     </div>
+
 
     <!-- =======================================================
          FOOTER
     ======================================================== -->
 
-    <div class="footer">
+    <div class="register-footer">
 
       <span>Already have an account?</span>
 
       <a routerLink="/login">
-        Sign In
-        <span>→</span>
+        <span>Sign In</span>
+        <strong>→</strong>
       </a>
 
     </div>
 
-    <!-- Security footer -->
+
+    <!-- =======================================================
+         SECURITY FOOTER
+    ======================================================== -->
 
     <div class="security-footer">
 
-      <span class="security-lock">⌁</span>
+      <span class="security-icon">
+        ◈
+      </span>
 
-      <span>Protected by secure authentication</span>
+      <span>
+        Secure authentication
+      </span>
 
-      <span class="security-dot"></span>
+      <i></i>
 
-      <span>ENCRYPTED</span>
+      <span>
+        256-BIT ENCRYPTED
+      </span>
 
     </div>
+
 
     <!-- =======================================================
          SUCCESS OVERLAY
     ======================================================== -->
 
-    @if(successMessage()){
+    @if (successMessage()) {
 
       <div class="success-overlay">
 
-        <div class="success-particles">
+        <div class="success-stars">
+          <span></span>
+          <span></span>
           <span></span>
           <span></span>
           <span></span>
@@ -489,16 +786,23 @@
           <span></span>
         </div>
 
+        <div class="success-ring success-ring-one"></div>
+        <div class="success-ring success-ring-two"></div>
+        <div class="success-ring success-ring-three"></div>
+
         <div class="success-card">
 
-          <div class="success-ring ring-one"></div>
-          <div class="success-ring ring-two"></div>
+          <div class="success-icon-wrap">
 
-          <div class="success-icon">
-            <span>✓</span>
+            <div class="success-icon-ring"></div>
+
+            <div class="success-icon">
+              ✓
+            </div>
+
           </div>
 
-          <div class="success-label">
+          <div class="success-kicker">
             IDENTITY CREATED
           </div>
 
@@ -510,17 +814,19 @@
             Your digital identity has been successfully initialized.
           </p>
 
-          <div class="redirect-loader">
-
+          <div class="success-progress">
             <span></span>
-            <span></span>
-            <span></span>
-
           </div>
 
-          <small>
-            Redirecting to login...
-          </small>
+          <div class="success-redirect">
+            <span>REDIRECTING TO LOGIN</span>
+
+            <div class="redirect-dots">
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+          </div>
 
         </div>
 
@@ -528,7 +834,7 @@
 
     }
 
-  </div>
+  </main>
 
 </div>
 
