@@ -12,6 +12,7 @@ import { AdminDashboardService } from '../../../core/services/admin-dashboard.se
 import { AdminProjectService } from '../../../core/services/admin-project.service';
 import { AdminBlogService } from '../../../core/services/admin-blog.service';
 import { AdminAchievementService } from '../../../core/services/admin-achievement.service';
+import { SiteVisitor } from '../../../core/models/visitor.model';
 interface Particle {
   id: number;
   left: number;
@@ -47,7 +48,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   public totalAchievements = signal<number>(0);
   public isLoading = signal<boolean>(true);
   public totalBlogs = signal<number>(0);
-  public visitorsList = signal<any[]>([]);
+  public visitorsList = signal<SiteVisitor[]>([]);
 
   // ==========================
   // UI Signals
@@ -87,6 +88,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.fetchProjectCount(); 
     this.fetchBlogCount();
     this.fetchVisitorCount();
+    this.fetchVisitorsList();
 
     // UI
     this.generateParticles();
@@ -104,6 +106,22 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       clearInterval(this.timer);
     }
 
+  }
+  fetchVisitorsList(): void {
+    // Note: 'getAllVisitors()' ko apne AdminDashboardService ke actual method name se replace karein
+    this.dashboardService.getAllVisitors().subscribe({
+      next: (res: any) => {
+        // Backend se array of visitors aayegi
+        const visitors = res.data?.content || res.data || [];
+        
+        // 1. Array store karein taaki HTML me loop chala kar naam dikha sakein
+        this.visitorsList.set(visitors);
+        
+        // 2. Total count bhi automatically update kar dein
+        this.totalVisitors.set(visitors.length);
+      },
+      error: (err) => console.error('Failed to fetch visitors list', err)
+    });
   }
 
   // ==========================
@@ -135,6 +153,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     });
 
   }
+  
   fetchProjectCount(): void {
     this.projectService.getAllProjects().subscribe({
       next: (res: any) => {

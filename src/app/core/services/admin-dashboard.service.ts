@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/auth.model'; // Assuming generic ApiResponse<T> is here
+import { SiteVisitor } from '../models/visitor.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminDashboardService {
@@ -16,7 +17,7 @@ export class AdminDashboardService {
   getVisitorCount(): Observable<ApiResponse<number> | number> {
     return this.http.get<any>(`${this.API_URL}/visitors/count`);
   }
-  getAllVisitors(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/visitors`);
+  getAllVisitors(): Observable<ApiResponse<SiteVisitor[]>> {
+    return this.http.get<ApiResponse<SiteVisitor[]>>(`${this.API_URL}/visitors`);
   }
 }
