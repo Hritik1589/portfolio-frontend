@@ -16,4 +16,7 @@ export class AdminDashboardService {
   getVisitorCount(): Observable<ApiResponse<number> | number> {
     return this.http.get<any>(`${this.API_URL}/visitors/count`);
   }
+  getAllVisitors(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/visitors`);
+  }
 }

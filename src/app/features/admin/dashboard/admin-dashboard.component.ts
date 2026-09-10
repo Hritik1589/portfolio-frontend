@@ -35,6 +35,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   private readonly blogService = inject(AdminBlogService); // 🚨 NEW
   private readonly achievementService = inject(AdminAchievementService);
   private readonly router = inject(Router);
+  // Naya signal list store karne ke liye
+
   // ==========================
   // Existing Logic (UNCHANGED)
   // ==========================
@@ -45,6 +47,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   public totalAchievements = signal<number>(0);
   public isLoading = signal<boolean>(true);
   public totalBlogs = signal<number>(0);
+  public visitorsList = signal<any[]>([]);
 
   // ==========================
   // UI Signals
